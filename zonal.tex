@@ -1,0 +1,931 @@
+\documentclass[10pt,oneside,american]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+  \theoremstyle{definition}
+  \newtheorem{defn}{\protect\definitionname}[section]
+  \theoremstyle{remark}
+  \newtheorem{rem}{\protect\remarkname}[section]
+  \theoremstyle{plain}
+  \newtheorem{prop}{\protect\propositionname}[section]
+  \theoremstyle{definition}
+  \newtheorem{example}{\protect\examplename}[section]
+  \theoremstyle{plain}
+  \newtheorem{thm}{\protect\theoremname}[section]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Tr}{tr}
+\newcommand{\SPD}{\operatorname{SPD}}
+
+\makeatother
+
+\usepackage{babel}
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+
+\begin{document}
+
+\title{Definition and Calculation of Zonal Polynomials}
+
+\author{Lin Jiu and Christoph Koutschan}
+\begin{abstract}
+In this report, we summarize different definitions of zonal polynomials
+involving statistics, differential geometry, representation theory
+and combinatorics. A manual of a package for calculating zonal polynomials
+is also introduced.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+In the project proposal \cite[pp.~8]{Proposal}, G.(goal)~2 aims
+at hypergeometric function with matrix argument, defined as follows.
+\begin{defn}
+Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
+hypergeometric function with matrix argument is defined as 
+\begin{equation}
+_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\bigg|Y\right):=\sum_{n=0}^{\infty}\sum_{\lambda\in\mathcal{P}_{n}}\frac{\left(a_{1}\right)_{\lambda}\cdots\left(a_{p}\right)_{\lambda}}{\left(b_{1}\right)_{\lambda}\cdots\left(b_{q}\right)_{\lambda}}\cdot\frac{\mathcal{C}_{\lambda}\left(Y\right)}{n!},\label{eq:MatrixpFq}
+\end{equation}
+where 
+\begin{itemize}
+\item $\mathcal{P}_{n}$ is the set of all integer partitions of $n$, where
+every partition $\lambda\in\mathcal{P}_{n}$ is defined to be a tuple
+$\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)$ such that 
+\[
+\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}>0
+\]
+and 
+\[
+\lambda_{1}+\cdots+\lambda_{k}=n;
+\]
+\item the Pochhammer symbol, for positive integer $m$, $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$
+is applied to define
+\[
+\left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\lambda_{i}};
+\]
+\item and finally $\mathcal{C}_{\lambda}(Y)$ denotes the zonal polynomial
+of $Y$, indexed by a partition $\lambda$, which is a symmetric polynomial
+of degree $n$, in the eigenvalues $y_{1},\ldots,y_{m}$ of $Y$,
+satisfying 
+\begin{equation}
+\sum_{\lambda\in\mathcal{P}_{n}}\mathcal{C}_{\lambda}\left(Y\right)=\left(\Tr Y\right)^{n}=\left(y_{1}+\cdots+y_{m}\right)^{n}.\label{eq:TrZonal}
+\end{equation}
+\end{itemize}
+\end{defn}
+Hashiguchi et.~al \cite{1F1} study the case $p=q=1$, using the holonomic
+gradient method \cite[pp.~4--6]{Proposal}. Comparing to the usual
+hypergeometric function
+\[
+_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\bigg|z\right):=\sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!},
+\]
+we see that the key is the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
+which inspires this report. Definitions will be presented in Section
+\ref{sec:DEFS} and a short manual on a \texttt{Sage} package we implemented
+for calculation of $\mathcal{C}_{\lambda}(Y)$ follows
+in Section \ref{sec:Package}.
+
+\section{\label{sec:DEFS}Definitions of zonal polynomials}
+
+We shall summarize four different definitions of zonal polynomials
+involving statistics, differential geometry, representation theory
+and combinatorics. Namely each subsection will present one aspect. 
+
+First of all, we need an important linear space.
+\begin{defn}
+Let $V_{n}$ be the space of symmetric homogeneous polynomials of
+degree $n$ in the variables $y_{1},\ldots,y_{m}$ including the zero polynomial.
+Namely, if $f\in V_{n}$, we have 
+\begin{itemize}
+\item $\deg f=n$ or $f\equiv0$;
+\item if $\deg f=n$, then $f$ is symmetric and homogeneous in $y_{1},\ldots,y_{m}$.
+\end{itemize}
+Moreover, any polynomial $f\in V_{n}$ can also be viewed as a polynomial
+in the eigenvalues of $m\times m$ symmetric, positive-definite matrices.
+Denote the space of $m\times m$ symmetric, positive-definite matrices
+as $\SPD(m)$. 
+\end{defn}
+
+\subsection{Definition involving the Wishart distribution}
+\begin{defn}
+Define the elementary symmetric polynomial \cite[pp.~12, eq.~9]{Takemura}
+\[
+u_{r}(x_{1},\ldots,x_{m}):=\underset{i_{1}<\cdots<i_{r}}{\sum}x_{i_{1}}\cdots x_{i_{r}}.
+\]
+Then, for $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+the polynomials \cite[pp.~12, eq.~10]{Takemura}
+\[
+\mathcal{U}_{\lambda}:=u_{1}^{\lambda_{1}-\lambda_{2}}u_{2}^{\lambda_{2}-\lambda_{3}}\cdots u_{l-1}^{\lambda_{l-1}-\lambda_{l}}u_{l}^{\lambda_{l}}
+\]
+\cite[pp.~13]{Takemura} form a basis for $V_{n}$.
+\end{defn}
+\begin{rem}
+Obviously, 
+\[
+\deg\mathcal{U}_{\lambda}=\left(\lambda_{1}-\lambda_{2}\right)+2\left(\lambda_{2}-\lambda_{3}\right)+\cdots+l\lambda_{l}=\lambda_{1}+\cdots+\lambda_{l}=n.
+\]
+Further associate a lexicographical order to $\mathcal{P}_{n}$ \cite[pp.~9, eq.~7]{Takemura}:
+for $p=\left(p_{1},\ldots,p_{j}\right),q=\left(q_{1},\ldots,q_{l}\right)\in\mathcal{P}_{n}$,
+\[
+p>q\Leftrightarrow p_{1}=q_{1},\cdots p_{k-1}=q_{k-1},p_{k}>q_{k}\text{ for some }k.
+\]
+Then, we could write the basis formed by the $\mathcal{U}_{\lambda}$
+as a column vector:
+\[
+\mathcal{U}:=\left(\mathcal{U}_{\left(n\right)},\mathcal{U}_{\left(n-1,1\right)},\ldots,\mathcal{U}_{\left(1,\ldots,1\right)}\right)^{T}.
+\]
+\end{rem}
+Since this section presents a definition of $\mathcal{C}_{\lambda}(Y)$
+related to the Wishart distribution, we shall first define it, as follows.
+\begin{defn}
+Let $X_{\nu\times m}$ be such that each row is independently drawn
+from an $m$-variate normal distribution of mean $0$ and covariance
+matrix $V$, namely, 
+\[
+  \left(x_{i}^{1},\ldots,x_{i}^{m}\right)\sim\mathcal{N}_{m}(0,V)
+  \qquad (1\leq i\leq\nu).
+\]
+Then, we say $S:=X^{T}X$ has the Wishart distribution, denoted by
+\[
+S=X^{T}X\sim W_{m}(V,\nu),
+\]
+where $\nu$ is called the degree of freedom.
+\end{defn}
+\begin{rem}
+Recall that in the $1$-dimensional case if $Z_{1},\ldots,Z_{k}\sim\mathcal{N}(0,1)$
+are independent Gaussian distributed, then $Q:=Z_{1}+\cdots+Z_{k}\sim\chi_{k}^{2}$.
+In other words, the sum of independent Gaussian distributions is chi-square
+distributed. The Wishart distribution can be viewed as a multi-dimensional
+generalization of the chi-square distribution.
+\end{rem}
+Define the linear transform \cite[Lem.~2, pp.~19]{Takemura} $\tau_{\nu}\colon V_{n}\longrightarrow V_{n}$,
+for $Y\in \SPD(m)$, 
+\[
+  \left(\tau_{\nu}(\mathcal{U}_{\lambda})\right)\left(Y\right) :=
+  \mathbb{E}_{W}\left[\mathcal{U}_{\lambda}(YW)\right]\text{ for }W\sim W(I_m,\nu).
+\]
+As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{\left(n\right)}),\tau_{\nu}(\mathcal{U}_{\left(n-1,1\right)}),\ldots,\tau_{\nu}(\mathcal{U}_{\left(1,\ldots,1\right)})\right)^{T}$
+must be a linear combination of $\mathcal{U}$ \cite[eq.~19, pp.~22]{Takemura},
+denoted by 
+\[
+\tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}.
+\]
+Properties of $T_{\nu}$ guarantee that \cite[Lem.~4, pp.~22]{Takemura}
+\[
+T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi,
+\]
+for some nonsingular upper triangular matrix $\Xi$, which is uniquely
+determined up to a (possibly different) multiplicative constant for
+each row, and 
+\[
+\Lambda_{\nu}=\diag\left(2^{n}\overset{k}{\underset{i=1}{\prod}}\left(\frac{\nu+1-i}{2}\right)_{\lambda_{i}},\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)\in\mathcal{P}_{n}\right).
+\]
+Now, we can define zonal polynomials.
+\begin{defn}
+The zonal polynomial $\mathcal{Y}_{\lambda}$, for a partition $\lambda\in\mathcal{P}_{n}$,
+is defined by a vector form
+\[
+\mathcal{Y}=\left(\begin{matrix}\mathcal{Y}_{\left(n\right)}\\
+\mathcal{Y}_{\left(n-1,1\right)}\\
+\vdots\\
+\mathcal{Y}_{\left(1,\ldots,1\right)}
+\end{matrix}\right)=\Xi\,\mathcal{U}=\Xi\left(\begin{matrix}\mathcal{U}_{\left(n\right)}\\
+\mathcal{U}_{\left(n-1,1\right)}\\
+\vdots\\
+\mathcal{U}_{\left(1,\ldots,1\right)}
+\end{matrix}\right),
+\]
+and $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$,
+where the constants $d_\lambda$ are given by
+\[
+  d_{\lambda}=\frac{\underset{i<j}{\prod}\left(2\lambda_{i}-2\lambda_{j}-i+j\right)}{\overset{k}{\underset{i=1}{\prod}}\left(2\lambda_{i}+k-i\right)!}
+  \cdot\frac{2^{n}n!}{\left(2n\right)!}.
+\]
+\end{defn}
+
+\subsection{Definition in differential geometry}
+
+We first recall the Laplace-Beltrami operator on Riemannian manifolds.
+\begin{defn}
+On a Riemannian manifold $\left(M,g\right)$, the Laplace-Beltrami
+operator on $f\in C^{\infty}(M)$ is given by 
+\[
+\Delta f:=\left(\mathrm{div}\bullet\mathrm{grad}\right)f=\sum_{i=1}^{n}\frac{1}{\sqrt{G}}\partial_{k}\left(g^{ik}\sqrt{G}\partial_{i}f\right),
+\]
+where $n=\dim M$, $\left(g_{ij}\right)_{n\times n}$ is the metric
+matrix and $G:=\det\left(g_{ij}\right)$. 
+\end{defn}
+\begin{rem}
+When $M=\mathbb{R}^{n}$ and $\left(g_{ij}\right)=I_{n}$, the identity
+matrix, then 
+\[
+\Delta f=\sum_{i=1}^{n}\frac{\partial^{2}f}{\partial x_{i}^{2}}.
+\]
+Namely, the Laplace-Beltrami operator is the generalization of the Laplace
+operator on $\mathbb{R}^{n}$. 
+\end{rem}
+\begin{prop}
+Given $X\in \SPD(m)$, James \cite[eq.~3.12, pp.~1712]{James1} derived
+that the Laplace-Beltrami operator is given by
+\[
+\Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\frac{\partial}{\partial y_{i}}\right),
+\]
+where $X=HYH^{T}$, for $H\in O(n)$ and $Y=\diag(y_{1},\ldots,y_{n})$. 
+\end{prop}
+\begin{rem}
+The second term in the parentheses is, up to the constant $\frac{m-3}{2}$,
+the Euler's operator $\overset{m}{\underset{i=1}{\sum}}y_{i}\frac{\partial}{\partial y_{i}}$,
+which has all symmetric, homogeneous polynomials as its eigenfunctions.
+Thus, when considering any eigenfunction of the Laplace-Beltrami operator~$\Delta$,
+this term can be eliminated.
+\end{rem}
+\begin{defn}
+The zonal polynomials $\mathcal{C}_{\lambda}(y_{1},\ldots,y_{m})$
+are eigenfunctions of $\Delta_{Y}$, defined by
+\[
+  \Delta_{Y}:=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\frac{\partial}{\partial y_{i}}\right).
+\]
+In particular
+\[
+  \Delta_{Y}\mathcal{C}_{\lambda}(Y)=\left(\rho_{\lambda}+(m-1)n\right)\mathcal{C}_{\lambda}(Y)
+  \qquad (n=\lambda_1+\dots+\lambda_k),
+\]
+where
+\begin{equation}
+  \rho_{\lambda}:=\sum_{i=1}^{k}\lambda_{i}\left(\lambda_{i}-i\right).\label{eq:RHO}
+\end{equation}
+\end{defn}
+
+\subsection{Definition through representation theory}
+
+Consider the general linear group $G=\mathrm{GL}(m)$ on
+$V_{n}$. Define a representation 
+\begin{eqnarray*}
+g\in\mathrm{GL}(m):V_{n} & \rightarrow & V_{n}\\
+\varphi\left(Y\right) & \mapsto & \varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right)
+\end{eqnarray*}
+As a representation, the linear space can be decomposed into invariant
+subspaces \cite[pp.~611]{Representation}
+\[
+V_{n}=\bigoplus_{\lambda\in\mathcal{P}_{n}}V_{\lambda}.
+\]
+
+\begin{defn}
+For given $Y\in \SPD(m)$ and a partition $\lambda\in\mathcal{P}_{n}$,
+the projection
+\begin{equation}
+\left(\Tr Y\right)^{n}\bigg|_{V_{\lambda}}=\mathcal{C}_{\lambda}(Y)\label{eq:projection}
+\end{equation}
+defines the zonal polynomials.
+\end{defn}
+\begin{rem}
+\eqref{eq:projection} confirms \eqref{eq:TrZonal}. 
+\end{rem}
+
+\subsection{A short remark on Macdonald, Jack and zonal polynomials}
+
+Special case of Macdonald polynomial gives Jack polynomials $J_{\lambda}^{\left(\alpha\right)}$,
+which when $\alpha=2$ gives zonal polynomials. 
+
+\section{\label{sec:Package}Sage package for the calculation of zonal polynomials}
+
+Although there are more than one ways to define the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
+in practice, none of these definition gives an algorithm or formula
+to directly compute $\mathcal{C}_{\lambda}(Y)$. Now, we
+follow the steps by Muirhead \cite{Muirhead} to build up a package for the
+calculation of $\mathcal{C}_{\lambda}(Y)$.
+\begin{defn}
+For $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+define the \emph{monomial symmetric function} as 
+\begin{equation}
+\mathcal{M}_{\lambda}(y_{1},\ldots,y_{m})=\sum_{\genfrac{}{}{0pt}{}{i_{1},\ldots,i_{l}}{\text{distinct terms}}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{l}}^{\lambda_{l}}=y_{1}^{\lambda_{1}}\cdots y_{l}^{\lambda_{l}}+\text{symmetric terms}.\label{eq:MZonal}
+\end{equation}
+\end{defn}
+\begin{example}
+Let $Y$ be an $m\times m$ symmetric matrix with eigenvalues $y_{1},\ldots,y_{m}$:
+\begin{enumerate}
+\item 
+\[
+\mathcal{M}_{\left(1\right)}(Y)=y_{1}+\cdots+y_{m};
+\]
+\item 
+\[
+\mathcal{M}_{\left(2\right)}(Y)=y_{1}^{2}+\cdots+y_{m}^{2};
+\]
+\item \label{enu:ILessThanJ}
+\[
+\mathcal{M}_{\left(1,1\right)}(Y)=\underset{i<j}{\sum}y_{i}y_{j};
+\]
+\item \label{enu:IANDJ}
+\[
+\mathcal{M}_{\left(2,1\right)}(Y)=\underset{i,j}{\sum}y_{i}^{2}y_{j}.
+\]
+\end{enumerate}
+Here we see the last two functions have the same length of partitions
+but different sum ranges, due to the fact that $y_{1}y_{2}$ and $y_{2}y_{1}$
+are the same while $y_{1}^{2}y_{2}$ and $y_{2}^{2}y_{1}$ are different. 
+\end{example}
+\begin{rem}
+An explicit expression of $M_{\lambda}(Y)$ is given by
+\cite[pp.~11, eq.~6]{Takemura}:
+\begin{equation}
+\mathcal{M}_{\left(1^{m_{1}}2^{m_{2}}\cdots\right)}\left(Y\right)=\left(\prod_{i=1}^{h}\frac{1}{m_{i}!}\right)\sum_{i_{1},\ldots,i_{l}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{l}}^{\lambda_{l}}.\label{eq:MZonalComputation}
+\end{equation}
+\end{rem}
+\begin{thm}
+A general result by James \cite{James1} shows that
+\begin{equation}
+C_{\kappa}(Y)=\sum_{\lambda\leq\kappa}c_{\kappa,\lambda}M_{\lambda}(Y),\label{eq:CInTermsOfM}
+\end{equation}
+ for some constants $c_{\kappa,\lambda}$. (see also \cite[pp.~234, eq.~13]{Muirhead}).
+\end{thm}
+\begin{example}
+\label{Tables}The following tables \cite[pp.~238]{Muirhead} show
+constants $c_{\kappa,\lambda}$, in the case $n=\left|\kappa\right|=\left|\lambda\right|=2,\ldots5$. 
+\begin{itemize}
+\item $n=2$
+\[
+\def\arraystretch{1.3}
+\begin{array}{c|cc}
+\kappa\backslash\lambda & \left(2\right) & \left(1,1\right)\\ \hline
+\left(2\right) & 1 & \frac{2}{3}\\
+\left(1,1\right) & 0 & \frac{4}{3}
+\end{array}
+\]
+\item $n=3$
+\[
+\def\arraystretch{1.3}
+\begin{array}{c|ccc}
+\kappa\backslash\lambda & \left(3\right) & \left(2,1\right) & \left(1,1,1\right)\\ \hline
+\left(3\right) & 1 & \frac{3}{5} & \frac{2}{5}\\
+\left(2,1\right) & 0 & \frac{12}{5} & \frac{18}{5}\\
+\left(1,1,1\right) & 0 & 0 & 2
+\end{array}
+\]
+\item $n=4$
+\[
+\def\arraystretch{1.3}
+\begin{array}{c|ccccc}
+\kappa\backslash\lambda & \left(4\right) & \left(3,1\right) & \left(2,2\right) & \left(2,1,1\right) & \left(1,1,1,1\right)\\ \hline
+\left(4\right) & 1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35}\\
+\left(3,1\right) & 0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7}\\
+\left(2,2\right) & 0 & 0 & \frac{16}{5} & \frac{32}{15} & \frac{16}{5}\\
+\left(2,1,1\right) & 0 & 0 & 0 & \frac{16}{3} & \frac{64}{5}\\
+\left(1,1,1,1\right) & 0 & 0 & 0 & 0 & \frac{16}{5}
+\end{array}
+\]
+\item $n=5$
+\[
+\def\arraystretch{1.3}
+\begin{array}{c|ccccccc}
+\kappa\backslash\lambda & \left(5\right) & \left(4,1\right) & \left(3,2\right) & \left(3,1,1\right) & \left(2,2,1\right) & \left(2,1,1,1\right) & \left(1,1,1,1,1\right)\\ \hline
+\left(5\right) & 1 & \frac{5}{9} & \frac{10}{21} & \frac{20}{63} & \frac{2}{7} & \frac{4}{21} & \frac{8}{63}\\
+\left(4,1\right) & 0 & \frac{40}{9} & \frac{8}{3} & \frac{46}{9} & 4 & \frac{14}{3} & \frac{40}{9}\\
+\left(3,2\right) & 0 & 0 & \frac{48}{7} & \frac{32}{7} & \frac{176}{21} & \frac{64}{7} & \frac{80}{7}\\
+\left(3,1,1\right) & 0 & 0 & 0 & 10 & \frac{20}{3} & \frac{130}{7} & \frac{200}{7}\\
+\left(2,2,1\right) & 0 & 0 & 0 & 0 & \frac{32}{3} & 16 & 32\\
+\left(2,1,1,1\right) & 0 & 0 & 0 & 0 & 0 & \frac{80}{7} & \frac{800}{21}\\
+\left(1,1,1,1,1\right) & 0 & 0 & 0 & 0 & 0 & 0 & \frac{16}{3}
+\end{array}
+\]
+\end{itemize}
+\end{example}
+\begin{thm}
+The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[pp.~234, eq.~14]{Muirhead}
+\begin{equation}
+c_{\kappa,\lambda}=\sum_{\lambda<\mu\leq\kappa}\frac{\left(\lambda_{i}+t\right)-\left(\lambda_{j}-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu},\label{eq:CRec}
+\end{equation}
+where for $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)$,
+the sum is over all $\mu=\left(\lambda_{1},\ldots,\lambda_{i}+t,\ldots,\lambda_{j}-t,\ldots,\lambda_{l}\right)$
+for $t=1,\ldots,\lambda_{j}$ such that by rearranging the tuple~$\mu$
+in a descending order, it lies as $\lambda<\mu\leq\kappa$.
+\end{thm}
+\begin{rem}
+Observing \eqref{eq:CRec}, once given initial $c_{\kappa,\kappa}$,
+$\forall\lambda<\kappa$, it could compute $c_{\kappa,\lambda}$.
+Now, observing tables in Example \ref{Tables} and recall \eqref{eq:TrZonal},
+it is easy to see that for each column, the sum is given by a multinomial
+coefficient. More concretely, let $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+\begin{equation}
+  \sum_{\kappa=\lambda}^{\left(n\right)}c_{\kappa,\lambda}=\binom{n}{\lambda_{1},\ldots,\lambda_{l}}.\label{eq:CInitial}
+\end{equation}
+In particular, $c_{\left(n\right),\left(n\right)}=\binom{n}{n}=1$.
+Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $C_{\lambda}(Y)$. 
+\end{rem}
+
+\subsection{Functions}
+
+~\\
+~
+\noindent \begin{flushleft}
+\textbf{Calmi}(\emph{partition)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+calculate the product of factorials in front of the sum on the right-hand
+side of \eqref{eq:MZonalComputation}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{MZonal}(\emph{partition},\emph{variables)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the monomial symmetric function using \eqref{eq:MZonalComputation}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{SumVariable}\emph{($\kappa$,$\lambda$)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the list of $\mu$ appearing in the summation of \eqref{eq:CRec},
+according to the paragraph under.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{RHO}(\emph{partition)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes $\rho_{\lambda}$ from \eqref{eq:RHO}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{Coeffi}\emph{(kappa,lambda)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the constants $c_{\kappa,\lambda}$ through \eqref{eq:CRec}
+and \eqref{eq:CInitial}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{CZonal}\emph{(partition},\emph{variables)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the zonal polynomial $C_{\lambda}\left(y_{1},\ldots,y_{m}\right)$
+through linear combination \eqref{eq:CInTermsOfM}.
+\par\end{flushleft}
+
+\subsection{Examples}
+\noindent \begin{flushleft}
+In{[}1{]}= \textbf{Coeffi({[}2, 1{]}, {[}1, 1, 1{]})}\\
+~\\
+Out{[}1{]}=$18/5$\\
+~\\
+In{[}2{]}= \textbf{MZonal({[}2, 1{]}, {[}a, b, c{]})}\\
+~\\
+Out{[}2{]}=$a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}$\\
+~\\
+In{[}2{]}= \textbf{CZonal{[}{[}2, 1{]}, {[}a, b, c{]})}\\
+~\\
+Out{[}2{]}=$\frac{12}{5}\left(a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}\right)+\frac{18}{5}abc$
+\par\end{flushleft}
+
+\includegraphics[scale=0.3]{ScreenShot}
+
+
+\section{Infinite Families of Coefficients $c_{\kappa,\lambda}$}
+
+In this section, we study some infinite families among the coefficients
+$c_{\kappa,\lambda}$ of the zonal polynomials~$C_{\kappa}(Y)$. Since we have
+seen that $c_{(n),(n)}=1$ for all~$n$ (that corresponds to the upper left
+corner of the $c_{\kappa,\lambda}$-matrix), one can ask whether the
+``neighboring'' entries also admit a closed form for general~$n$.  The
+following theorem gives an explicit answer for the first few cases.
+
+\begin{thm}
+\label{thm:fam1}
+We have
+\begin{alignat*}{2}
+  c_{(n),(n-1,1)} &= \frac{n}{2n-1}, &
+  c_{(n),(n-2,2)} &= \frac{3n(n-1)}{2(2n-1)(2n-3)}, \\
+  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &
+  c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, \\
+  &&\qquad
+  c_{(n-2,2),(n-2,2)} &= \frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)},
+\end{alignat*}
+provided that $n\geq2$ (left column) resp. $n\geq4$ (right column) holds.
+\end{thm}
+\begin{proof}
+Obviously, $\rho_{\left(n\right)}=n\cdot\left(n-1\right)$ and
+$\rho_{\left(n-1,1\right)}=\left(n-1\right)\left(n-1-1\right)+1\cdot\left(1-2\right)=\left(n-1\right)n-2n+1$,
+so that 
+\[
+  \rho_{\left(n\right)}-\rho_{\left(n-1,1\right)}=2n-1.
+\]
+Moreover, the only possible $\mu$ satisfying $\left(n-1,1\right)<\mu\leq\left(n\right)$
+is $\mu=\left(n\right)$ with $t=1$. Therefore,  by applying \eqref{eq:CRec}, we obtain
+\[
+  c_{\left(n\right),\left(n-1,1\right)}=\frac{\left(n-1+1\right)-\left(1-1\right)}{2n-1}\cdot1=\frac{n}{2n-1}.
+\]
+Using \eqref{eq:CInitial},
+\[
+  c_{\left(n\right),\left(n-1,1\right)}+c_{\left(n-1,1\right),\left(n-1,1\right)}=\binom{n}{n-1,1}=n,
+\]
+we get the next coefficient:
+\[
+  c_{\left(n-1,1\right),\left(n-1,1\right)}=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
+\]
+A direct calculation gives 
+\[
+  \rho_{\left(n\right)}-\rho_{\left(n-2,2\right)} =
+  n\left(n-1\right)-\left(n-2\right)\left(n-3\right) =
+  2\left(2n-3\right).
+\]
+Also, if $\left(n-2,2\right)<\mu\leq\left(n\right)$, then either
+$\mu=\left(n-1,1\right)$ or $\mu=\left(n\right)$. Thus, the coefficients
+$c_{\kappa,(n-2,2)}$ are obtained by applying \eqref{eq:CRec} and~\eqref{eq:CInitial}
+in the same, symbolic, fashion:
+\begin{align*}
+  c_{\left(n\right),\left(n-2,2\right)} 
+  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{2\left(2n-3\right)}\cdot\frac{n}{2n-1}+\frac{\left(n-2+2\right)-\left(2-2\right)}{2\left(2n-3\right)}\cdot1\\
+  &= \frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)},\\
+  c_{\left(n-1,1\right),\left(n-2,2\right)}
+  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\rho_{\left(n-1,1\right)}-\rho_{\left(n-2,2\right)}}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
+  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\left(n-1\right)n-2n+1-\left(n-2\right)\left(n-3\right)}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
+  &= \frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)},\\
+  c_{\left(n-2,2\right),\left(n-2,2\right)}
+  &= \binom{n}{n-2,2}-c_{\left(n\right),\left(n-2,2\right)}-c_{\left(n-1,1\right),\left(n-2,2\right)}\\
+  &= \frac{n\left(n-1\right)}{2}-\frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)}-\frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)}\\
+  &= \frac{2n\left(n-1\right)\left(n-2\right)\left(n-3\right)}{\left(2n-3\right)\left(2n-5\right)}.
+\end{align*}
+\end{proof}
+
+% TODO: not clear whether we need this.
+%% Now, consider $\kappa=\left(n-n',\lambda'\right)$ and $\lambda=\left(n-n'',\lambda''\right)$.
+%% To guarantee $\kappa\geq\lambda$, we have either $n'<n''$, or $n'=n''$
+%% and $\lambda'\geq\lambda''$. In addition, we assume that 
+%% \[
+%% \lambda'=\left(\lambda'_{1},\ldots,\lambda'_{k}\right)\ \ \ \text{and}\ \ \ \lambda''=\left(\lambda''_{1},\ldots,\lambda''_{l}\right).
+%% \]
+%% Recall that 
+%% \[
+%% \rho_{\lambda'}=\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i\right),
+%% \]
+%% we see
+%% \begin{align*}
+%% \rho_{\kappa} & =\left(n-n'\right)\left(n-n'-1\right)+\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i-1\right)\\
+%%  & =\left(n-n'\right)^{2}-\left(n-n'\right)+\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i\right)-\sum_{i=1}^{k}\lambda'_{i}\\
+%%  & =\left(n-n'\right)^{2}-\left(n-n'\right)+\rho_{\lambda'}-n'\\
+%%  & =\left(n-n'\right)^{2}-n+\rho_{\lambda'}.
+%% \end{align*}
+%% Similarly, 
+%% \[
+%% \rho_{\lambda}=\left(n-n''\right)^{2}-n+\rho_{\lambda''},
+%% \]
+%% which implies
+%% \[
+%% \rho_{\kappa}-\rho_{\lambda}=\rho_{\lambda'}-\rho_{\lambda''}+2n\left(n''-n'\right)+\left(n'^{2}-n''^{2}\right).
+%% \]
+
+
+When $n$ is sufficiently large, the lexicographically largest elements of
+$\mathcal{P}_n$ are (in descending order): $(n)$, $(n-1,1)$, $(n-2,2)$,
+$(n-2,1,1)$, $(n-3,3)$, etc. In Table~\ref{tab:cn1} we give closed forms for
+the coefficients $c_{\kappa,\lambda}$ when $\kappa$ and $\lambda$ are taken
+from these lexicographically largest partitions, i.e., when both $\kappa$ and
+$\lambda$ are of the form $(n-n',\lambda')$, where $\lambda'$ is a partition
+of~$n'$. Pictorially speaking, this table represents the upper left submatrix
+of the $c_{\kappa,\lambda}$-matrix for large~$n$; more precisely, for $n\geq6$
+since we consider only partitions $(n),\dots,(n-3,1,1,1)$. We remark that all
+these formulas can be rigorously proven by applying \eqref{eq:CRec}
+and~\eqref{eq:CInitial} for symbolic~$n$, as it was done in the proof of
+Theorem~\ref{thm:fam1}.  Since these manipulations are too tedious to be done
+by hand, we have implemented the corresponding procedure in our Mathematica
+package. % TODO: reference
+
+\begin{table}
+\[
+  \def\arraystretch{1.3}
+  \begin{array}{c|ccccc}
+    \kappa\backslash\lambda &
+    (n) & (n-1,1) & (n-2,2) & (n-2,1,1) & (n-3,3) \\ \hline
+    \rule{0pt}{14pt} (n) &
+    1 & \frac{n}{2 n-1} & \frac{3 (n-1) n}{2 (2 n-3) (2 n-1)} & \frac{(n-1)
+      n}{(2 n-3) (2 n-1)} & \frac{5 (n-2) (n-1) n}{2 (2 n-5) (2 n-3) (2 n-1)}
+    \\[1ex]
+    (n-1,1) &
+    0 & \frac{2 (n-1) n}{2 n-1} & \frac{2 (n-2) (n-1) n}{(2 n-5) (2 n-1)} &
+    \frac{2 n (2 n^2-6 n+3)}{(2 n-5) (2 n-1)} & \frac{3 (n-3) (n-2)
+      (n-1) n}{(2 n-7) (2 n-5) (2 n-1)} \\[1ex]
+    (n-2,2) &
+    0 & 0 & \frac{2 (n-3) (n-2) (n-1) n}{(2 n-5) (2 n-3)} & \frac{4 (n-3)
+      (n-2) (n-1) n}{3 (2 n-5) (2 n-3)} & \frac{2 (n-4) (n-3) (n-2) (n-1)
+      n}{(2 n-9) (2 n-5) (2 n-3)} \\[1ex]
+    (n-2,1,1) &
+    0 & 0 & 0 & \frac{2}{3} (n-2) n & 0 \\[1ex]
+    (n-3,3) &
+    0 & 0 & 0 & 0 & \frac{4 (n-5) (n-4) (n-3) (n-2) (n-1) n}{3 (2 n-9) (2 n-7) (2 n-5)}
+  \end{array}
+\]
+\[
+  \def\arraystretch{1.3}
+  \begin{array}{c|ccccc}
+    \kappa\backslash\lambda &
+    (n-3,2,1) & (n-3,1,1,1) % & (n-4,4) & (n-4,3,1) & (n-4,2,2)
+    \\ \hline
+    \rule{0pt}{14pt} (n) &
+    \frac{3 (n-2) (n-1) n}{2 (2 n-5) (2 n-3) (2 n-1)}
+    & \frac{(n-2) (n-1) n}{(2 n-5) (2 n-3) (2 n-1)} 
+    % & \frac{35 (n-3) (n-2) (n-1) n}{8 (2 n-7) (2 n-5) (2 n-3) (2 n-1)}
+    % & \frac{5 (n-3) (n-2) (n-1) n}{2 (2 n-7) (2 n-5) (2 n-3) (2 n-1)}
+    % & \frac{9 (n-3) (n-2) (n-1) n}{4 (2 n-7) (2 n-5) (2 n-3) (2 n-1)}
+    \\[1ex]
+    (n-1,1) &
+    \frac{(n-2) n (5 n^2-20 n+11)}{(2 n-7) (2 n-5) (2 n-1)}
+    & \frac{6 (n-2) n (n^2-4 n+2)}{(2 n-7) (2 n-5) (2 n-1)}
+    % & \frac{5 (n-4) (n-3) (n-2) (n-1) n}{(2 n-9) (2 n-7) (2 n-5) (2 n-1)}
+    % & \frac{(n-3) (n-2) n (8 n^2-40 n+23)}{(2 n-9) (2 n-7) (2 n-5) (2 n-1)}
+    % & \frac{6 (n-3) (n-2) n (n^2-5 n+3)}{(2 n-9) (2 n-7) (2 n-5) (2 n-1)}
+    \\[1ex]
+    (n-2,2) &
+    \frac{2 (n-3) (n-1) n (5 n^2-30 n+36)}{3 (2 n-9) (2 n-5) (2 n-3)}
+    & \frac{4 (n-3) (n-1) n (n^2-6 n+7)}{(2 n-9) (2 n-5) (2 n-3)}
+    % & \frac{3 (n-5) (n-4) (n-3) (n-2) (n-1) n}{(2 n-11) (2 n-9) (2 n-5) (2 n-3)}
+    % & \frac{4 (n-4) (n-3) (n-1) n (n^2-7 n+9)}{(2 n-11) (2 n-9) (2 n-5) (2 n-3)}
+    % & \frac{2 (n-1) n (11 n^4-154 n^3+761 n^2-1554 n+1098)}{3 (2 n-11) (2 n-9) (2 n-5) (2 n-3)}
+    \\[1ex]
+    (n-2,1,1) &
+    \frac{2 (n-3) (n-2) n}{3 (2 n-7)}
+    & \frac{2 (n-2) n (2 n^2-9 n+8)}{(2 n-7) (2 n-3)}
+    % & 0
+    % & \frac{(n-4) (n-3) (n-2) n}{(2 n-9) (2 n-7)}
+    % & \frac{2 (n-4) (n-3) (n-2) n}{3 (2 n-9) (2 n-7)}
+    \\[1ex]
+    (n-3,3) &
+    \frac{4 (n-5) (n-4) (n-3) (n-2) (n-1) n}{5 (2 n-9) (2 n-7) (2 n-5)}
+    & \frac{8 (n-5) (n-4) (n-3) (n-2) (n-1) n}{15 (2 n-9) (2 n-7) (2 n-5)}
+    % & \frac{4 (n-6) (n-5) (n-4) (n-3) (n-2) (n-1) n}{3 (2 n-13) (2 n-9) (2 n-7) (2 n-5)}
+    % & \frac{4 (n-5) (n-4) (n-2) (n-1) n (8 n^2-72 n+135)}{15 (2 n-13) (2 n-9) (2 n-7) (2 n-5)}
+    % & \frac{8 (n-5) (n-4) (n-2) (n-1) n (n^2-9 n+17)}{5 (2 n-13) (2 n-9) (2 n-7) (2 n-5)}
+    \\[1ex]
+    (n-3,2,1) &
+    \frac{4 (n-4) (n-3) (n-1) n}{5 (2 n-7)}
+    & \frac{6 (n-4) (n-3) (n-1) n}{5 (2 n-7)}
+    % & 0
+    % & \frac{4 (n-5) (n-4) (n-3) (n-1) n}{5 (2 n-11) (2 n-7)}
+    % & \frac{4 (n-3) (n-1) n (2 n^2-18 n+39)}{5 (2 n-11) (2 n-7)}
+    \\[1ex]
+    (n-3,1,1,1) &
+    0 & \frac{2 (n-3) (n-2) (n-1) n}{3 (2 n-3)}
+    % & 0 & 0 & 0
+    \\[1ex]
+    (n-4,4) &
+    0 & 0
+    % & \frac{2 (n-7) (n-6) (n-5) (n-4) (n-3) (n-2) (n-1) n}{3 (2 n-13) (2 n-11) (2 n-9) (2 n-7)}
+    % & \frac{8 (n-7) (n-6) (n-5) (n-4) (n-3) (n-2) (n-1) n}{21 (2 n-13) (2 n-11) (2 n-9) (2 n-7)}
+    % & \frac{12 (n-7) (n-6) (n-5) (n-4) (n-3) (n-2) (n-1) n}{35 (2 n-13) (2 n-11) (2 n-9) (2 n-7)}
+    %% \\[1ex]
+    %% (n-4,3,1) &
+    %% 0 & 0
+    %% % & 0
+    %% % & \frac{4 (n-6) (n-5) (n-4) (n-2) (n-1) n}{7 (2 n-11) (2 n-9)}
+    %% % & \frac{8 (n-6) (n-5) (n-4) (n-2) (n-1) n}{21 (2 n-11) (2 n-9)}
+    %% \\[1ex]
+    %% (n-4,2,2) &
+    %% 0 & 0
+    %% % & 0 & 0 & \frac{2}{15} (n-5) (n-2) (n-1) n
+  \end{array}
+\]
+\caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
+  largest partitions of~$n$; the lower table continues the upper one to the
+  right.}
+\label{tab:cn1}
+\end{table}
+\begin{example}
+For example, for $n=23$ we obtain the coefficient $c_{(21,2),(21,1,1)}$ by
+looking at the entry in Table~\ref{tab:cn1} in row $(n-2,2)$ and column
+$(n-2,1,1)$:
+\[
+  c_{(21,2),(21,1,1)} = \frac{4 (n-3) (n-2) (n-1) n}{3 (2 n-5) (2 n-3)} \Big|_{n\to23}
+  = \frac{4 \cdot 20 \cdot 21 \cdot 22 \cdot 23}{3 \cdot 41 \cdot 43}
+  = \frac{283360}{1763}.
+\]
+\end{example}
+
+The next families we study are located in the ``lower right corner'' of
+$c_{\kappa,\lambda}$-matrix. In this case both $\kappa$ and $\lambda$ are of
+the form $(2^m,1^{n-2m})$, i.e., a sequence of $m$ times the part~$2$ and
+$n-2m$ times the part~$1$. Note that for $m=0,1,2,\dots$ we obtain the
+lexicographically smallest partitions of~$n$ (in increasing order).  In
+contrast to Theorem~\ref{thm:fam1} it is not straightforward to derive
+formulas for general~$n$ by means of Equations \eqref{eq:CRec}
+and~\eqref{eq:CInitial}. Instead, we compute the first few values of these
+sequences, say up to $n=30$, and then guess a closed form expression. The
+first few results are displayed in Table~\ref{tab:cn2}.
+
+More precisely, we first applied the \texttt{Guess} package~\cite{Guess} to
+find a plausible candidate for a linear recurrence with polynomial
+coefficients (in all considered instances this recurrence was of first order,
+which easily allowed for a closed form solution). Then, after observing that
+all expressions obtained this way were of the form $2^n\cdot r(n)$ where
+$r(n)$ is some rational function in~$n$, we refined our ansatz to only search
+for expressions of this form: divide the $n$-th sequence entry by $2^n$ and
+then perform polynomial interpolation and rational reconstruction.
+
+\begin{table}
+\[
+  \def\arraystretch{1.3}
+  \begin{array}{c|ccc}
+    \kappa\backslash\lambda
+    % & (2^6,1^{n-12}) & (2^5,1^{n-10})
+    & (2^4,1^{n-8}) & (2^3,1^{n-6}) & (2^2,1^{n-4})
+    % & (2,1^{n-2}) & (1^n)
+    \\ \hline
+    %% (2^6,1^{n-12})
+    %% & \frac{1}{315} 2^{n-4} (n-10) (n-9) (n-2) (n-1) n
+    %% & \frac{1}{315} 2^{n-4} (n-11) (n-10)^2 (n-2) (n-1) n
+    %% & \frac{1}{315} 2^{n-5} (n-11) (n-10)^2 (n-9) (n-2) (n-1) n
+    %% & \frac{1}{945} 2^{n-5} (n-11) (n-10)^2 (n-9) (n-6) (n-2) (n-1) n
+    %% & \frac{1}{945} 2^{n-7} (n-11) (n-10)^2 (n-9) (n-5) (n-4) (n-2) (n-1) n
+    %% & ?
+    %% & ?
+    %% \\[1ex]
+    %% (2^5,1^{n-10})
+    %% & 0
+    %% & \frac{1}{45} 2^{n-4} (n-8) (n-7) (n-1) n
+    %% & \frac{1}{45} 2^{n-4} (n-9) (n-8)^2 (n-1) n
+    %% & \frac{1}{45} 2^{n-5} (n-9) (n-8)^2 (n-7) (n-1) n
+    %% & \frac{1}{135} 2^{n-5} (n-9) (n-8)^2 (n-7) (n-4) (n-1) n
+    %% & \frac{1}{135} 2^{n-7} (n-9) (n-8)^2 (n-7) (n-3) (n-2) (n-1) n
+    %% & \frac{1}{675} 2^{n-7} (n-9) (n-8)^2 (n-7) (n-2) (n-1)^2 n^2
+    %% \\[1ex]
+    \rule{0pt}{14pt}
+    (2^4,1^{n-8})
+    % & 0 & 0
+    & \frac{2^{n-3} (n-6) (n-5) n}{15}
+    & \frac{2^{n-3} (n-7) (n-6)^2 n}{15}
+    & \frac{2^{n-4} (n-7) (n-6)^2 (n-5) n}{15}
+    % & \frac{2^{n-4} (n-7) (n-6)^2 (n-5) (n-2) n}{45}
+    % & \frac{2^{n-6} (n-7) (n-6)^2 (n-5) (n-1) n^2}{45}
+    \\[1ex]
+    (2^3,1^{n-6})
+    % & 0 & 0
+    & 0
+    & \frac{2^{n-3} (n-4) (n-3)}{3}
+    & \frac{2^{n-3} (n-5) (n-4)^2}{3}
+    % & \frac{2^{n-4} (n-5) (n-4)^2 (n-3)}{3}
+    % & \frac{2^{n-4} (n-5) (n-4)^2 (n-3) n}{9}
+    \\[1ex]
+    (2^2,1^{n-4})
+    % & 0 & 0
+    & 0 & 0
+    & \frac{2^{n-1} (n-2) (n-1)}{3 (n+1)}
+    % & \frac{2^{n-1} (n-3) (n-2)^2}{3 (n+1)}
+    % & \frac{2^{n-2} (n-3) (n-2)^2 (n-1)}{3 (n+1)}
+    \\[1ex]
+    (2,1^{n-2})
+    % & 0 & 0
+    & 0 & 0 & 0
+    % & \frac{2^{n-1} n}{n+2}
+    % & \frac{2^{n-1} (n-1) n^2}{(n+1) (n+2)}
+    \\[1ex]
+    (1^n)
+    % & 0 & 0
+    & 0 & 0 & 0
+    % & 0 & \frac{2^n}{n+1}
+\end{array}
+\]
+\[
+  \def\arraystretch{1.3}
+  \begin{array}{c|cc}
+    \kappa\backslash\lambda
+    & (2,1^{n-2}) & (1^n) \\ \hline
+    \rule{0pt}{14pt}
+    (2^4,1^{n-8})
+    & \frac{2^{n-4} (n-7) (n-6)^2 (n-5) (n-2) n}{45}
+    & \frac{2^{n-6} (n-7) (n-6)^2 (n-5) (n-1) n^2}{45}
+    \\[1ex]
+    (2^3,1^{n-6})
+    & \frac{2^{n-4} (n-5) (n-4)^2 (n-3)}{3}
+    & \frac{2^{n-4} (n-5) (n-4)^2 (n-3) n}{9}
+    \\[1ex]
+    (2^2,1^{n-4})
+    & \frac{2^{n-1} (n-3) (n-2)^2}{3 (n+1)}
+    & \frac{2^{n-2} (n-3) (n-2)^2 (n-1)}{3 (n+1)}
+    \\[1ex]
+    (2,1^{n-2})
+    & \frac{2^{n-1} n}{n+2}
+    & \frac{2^{n-1} (n-1) n^2}{(n+1) (n+2)}
+    \\[1ex]
+    (1^n)
+    & 0 & \frac{2^n}{n+1}
+\end{array}
+\]
+\caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
+  smallest partitions of~$n$; the lower table continues the upper one to the
+  right.}
+\label{tab:cn2}
+\end{table}
+
+\newpage
+Here are some conjectures about the coefficients $c_{\kappa,\lambda}$ when
+both $\kappa$ and $\lambda$ have only two parts. For each formula $n$ is
+restricted to values for which $\kappa$ and $\lambda$ are actually partitions,
+i.e., for which the parts in the subscript of $c$ are positive integers.
+\begin{align*}
+c_{\left(n/2,n/2\right),\left(n/2,n/2\right)} &= \frac{2^n}{n+1}, \\
+c_{\left((n+1)/2,(n-1)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{3\ 2^{n-1}}{n+2}, \\
+c_{\left((n+2)/2,(n-2)/2\right),\left(n/2,n/2\right)} &= \frac{5\ 2^{n-2} n}{(n+1) (n+3)}, \\
+c_{\left((n+3)/2,(n-3)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{21\ 2^{n-4} (n-1)}{(n+2) (n+4)}, \\
+c_{\left((n+2)/2,(n-2)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{15\ 2^{n-3} n}{(n+1) (n+3)}, \\
+c_{\left((n+3)/2,(n-3)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{35\ 2^{n-4} (n-1)}{(n+2) (n+4)}, \\
+c_{\left((n+4)/2,(n-4)/2\right),\left(n/2,n/2\right)} &= \frac{81\ 2^{n-6} (n-2) n}{(n+1) (n+3) (n+5)}, \\
+c_{\left((n+5)/2,(n-5)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{165\ 2^{n-7} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
+c_{\left((n+4)/2,(n-4)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{45\ 2^{n-5} (n-2) n}{(n+1) (n+3) (n+5)}, \\
+c_{\left((n+5)/2,(n-5)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{385\ 2^{n-8} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
+c_{\left((n+4)/2,(n-4)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{315\ 2^{n-7} (n-2) n}{(n+1) (n+3) (n+5)}, \\
+c_{\left((n+5)/2,(n-5)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{693\ 2^{n-8} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
+c_{\left((n+6)/2,(n-6)/2\right),\left(n/2,n/2\right)} &= \frac{325\ 2^{n-8} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
+c_{\left((n+7)/2,(n-7)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{2625\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
+c_{\left((n+6)/2,(n-6)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{1365\ 2^{n-10} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
+c_{\left((n+7)/2,(n-7)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{2835\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
+c_{\left((n+6)/2,(n-6)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{819\ 2^{n-9} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
+c_{\left((n+7)/2,(n-7)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{3465\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
+c_{\left((n+6)/2,(n-6)/2\right),\left((n+6)/2,(n-6)/2\right)} &= \frac{3003\ 2^{n-10} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
+c_{\left((n+7)/2,(n-7)/2\right),\left((n+7)/2,(n-7)/2\right)} &= \frac{6435\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
+c_{\left((n+8)/2,(n-8)/2\right),\left(n/2,n/2\right)} &= \frac{20825\ 2^{n-14} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
+c_{\left((n+9)/2,(n-9)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{41895\ 2^{n-15} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
+c_{\left((n+8)/2,(n-8)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{5355\ 2^{n-12} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
+c_{\left((n+9)/2,(n-9)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{21945\ 2^{n-14} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
+c_{\left((n+8)/2,(n-8)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{11781\ 2^{n-13} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
+c_{\left((n+9)/2,(n-9)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{24453\ 2^{n-14} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
+c_{\left((n+8)/2,(n-8)/2\right),\left((n+6)/2,(n-6)/2\right)} &= \frac{7293\ 2^{n-12} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
+c_{\left((n+9)/2,(n-9)/2\right),\left((n+7)/2,(n-7)/2\right)} &= \frac{122265\ 2^{n-16} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
+c_{\left((n+8)/2,(n-8)/2\right),\left((n+8)/2,(n-8)/2\right)} &= \frac{109395\ 2^{n-15} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
+c_{\left((n+9)/2,(n-9)/2\right),\left((n+9)/2,(n-9)/2\right)} &= \frac{230945\ 2^{n-16} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}
+\end{align*}
+
+
+
+\begin{thebibliography}{1}
+\bibitem{1F1}H.~Hashiguchi, Y.~Numata, N.~Takayama, and A.~Takemura.
+The holonomic gradient method for the distribution function of the
+largest root of a Wishart matrix. \emph{J.~Multivariate Anal.}~\textbf{117}
+(2013), 296\textendash 312.
+
+\bibitem{Helgason}S.~Helgason, \emph{Differential Geometry and Symmetric
+Spaces}, Academic Press, 1962.
+
+\bibitem{Representation}R.~Guti\'{e}rrez J\'{a}imez and J.~A.~Mermoso
+Guti\'{e}rrez, An application of zonal polynomials to the generalization
+of probability distributions, \emph{Linear Algebra Appl.}~\textbf{121}
+(1989), 610\textendash 616.
+
+\bibitem{James1}A.~James, Calculation of zonal polynomial coefficients
+by use of the Laplace-Beltrami operator, \emph{The Annals of Mathematical
+Statistics} \textbf{39} (1968), 1711\textendash 1718.
+
+\bibitem{Proposal}C.~Koutschan, \emph{Algebraic Statistics and Symbolic
+Computation}, Project Proposal. 
+
+\bibitem{Moakher}M.~Moakher, A differential geometric approach to
+the geometric mean of symmetric positive-definite matrices, \emph{Siam
+J.~Matrix Anal.~Appl.}~\textbf{26} (2005), 735\textendash 747.
+
+\bibitem{Muirhead}R.~Muirhead, \emph{Aspects of Multivariate Statistical
+Theory}. John Wiley \& Sons Inc., 1982.
+
+\bibitem{Takemura}A.~Takemura, \emph{Zonal Polynomials}, Inst.~Math.~Stat.~Monogr.,
+1984.
+\end{thebibliography}
+
+\end{document}
