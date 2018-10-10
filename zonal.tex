@@ -22,6 +22,8 @@
   \newtheorem{example}{\protect\examplename}[section]
   \theoremstyle{plain}
   \newtheorem{thm}{\protect\theoremname}[section]
+  \theoremstyle{plain}
+  \newtheorem{conj}{Conjecture}[section]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \DeclareMathOperator{\sech}{sech}
@@ -856,43 +858,36 @@ then perform polynomial interpolation and rational reconstruction.
 \label{tab:cn2}
 \end{table}
 
-\newpage
-Here are some conjectures about the coefficients $c_{\kappa,\lambda}$ when
-both $\kappa$ and $\lambda$ have only two parts. For each formula $n$ is
-restricted to values for which $\kappa$ and $\lambda$ are actually partitions,
-i.e., for which the parts in the subscript of $c$ are positive integers.
-\begin{align*}
-c_{\left(n/2,n/2\right),\left(n/2,n/2\right)} &= \frac{2^n}{n+1}, \\
-c_{\left((n+1)/2,(n-1)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{3\ 2^{n-1}}{n+2}, \\
-c_{\left((n+2)/2,(n-2)/2\right),\left(n/2,n/2\right)} &= \frac{5\ 2^{n-2} n}{(n+1) (n+3)}, \\
-c_{\left((n+3)/2,(n-3)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{21\ 2^{n-4} (n-1)}{(n+2) (n+4)}, \\
-c_{\left((n+2)/2,(n-2)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{15\ 2^{n-3} n}{(n+1) (n+3)}, \\
-c_{\left((n+3)/2,(n-3)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{35\ 2^{n-4} (n-1)}{(n+2) (n+4)}, \\
-c_{\left((n+4)/2,(n-4)/2\right),\left(n/2,n/2\right)} &= \frac{81\ 2^{n-6} (n-2) n}{(n+1) (n+3) (n+5)}, \\
-c_{\left((n+5)/2,(n-5)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{165\ 2^{n-7} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
-c_{\left((n+4)/2,(n-4)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{45\ 2^{n-5} (n-2) n}{(n+1) (n+3) (n+5)}, \\
-c_{\left((n+5)/2,(n-5)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{385\ 2^{n-8} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
-c_{\left((n+4)/2,(n-4)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{315\ 2^{n-7} (n-2) n}{(n+1) (n+3) (n+5)}, \\
-c_{\left((n+5)/2,(n-5)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{693\ 2^{n-8} (n-3) (n-1)}{(n+2) (n+4) (n+6)}, \\
-c_{\left((n+6)/2,(n-6)/2\right),\left(n/2,n/2\right)} &= \frac{325\ 2^{n-8} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
-c_{\left((n+7)/2,(n-7)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{2625\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
-c_{\left((n+6)/2,(n-6)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{1365\ 2^{n-10} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
-c_{\left((n+7)/2,(n-7)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{2835\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
-c_{\left((n+6)/2,(n-6)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{819\ 2^{n-9} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
-c_{\left((n+7)/2,(n-7)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{3465\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
-c_{\left((n+6)/2,(n-6)/2\right),\left((n+6)/2,(n-6)/2\right)} &= \frac{3003\ 2^{n-10} (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7)}, \\
-c_{\left((n+7)/2,(n-7)/2\right),\left((n+7)/2,(n-7)/2\right)} &= \frac{6435\ 2^{n-11} (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8)}, \\
-c_{\left((n+8)/2,(n-8)/2\right),\left(n/2,n/2\right)} &= \frac{20825\ 2^{n-14} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
-c_{\left((n+9)/2,(n-9)/2\right),\left((n+1)/2,(n-1)/2\right)} &= \frac{41895\ 2^{n-15} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
-c_{\left((n+8)/2,(n-8)/2\right),\left((n+2)/2,(n-2)/2\right)} &= \frac{5355\ 2^{n-12} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
-c_{\left((n+9)/2,(n-9)/2\right),\left((n+3)/2,(n-3)/2\right)} &= \frac{21945\ 2^{n-14} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
-c_{\left((n+8)/2,(n-8)/2\right),\left((n+4)/2,(n-4)/2\right)} &= \frac{11781\ 2^{n-13} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
-c_{\left((n+9)/2,(n-9)/2\right),\left((n+5)/2,(n-5)/2\right)} &= \frac{24453\ 2^{n-14} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
-c_{\left((n+8)/2,(n-8)/2\right),\left((n+6)/2,(n-6)/2\right)} &= \frac{7293\ 2^{n-12} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
-c_{\left((n+9)/2,(n-9)/2\right),\left((n+7)/2,(n-7)/2\right)} &= \frac{122265\ 2^{n-16} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}, \\
-c_{\left((n+8)/2,(n-8)/2\right),\left((n+8)/2,(n-8)/2\right)} &= \frac{109395\ 2^{n-15} (n-6) (n-4) (n-2) n}{(n+1) (n+3) (n+5) (n+7) (n+9)}, \\
-c_{\left((n+9)/2,(n-9)/2\right),\left((n+9)/2,(n-9)/2\right)} &= \frac{230945\ 2^{n-16} (n-7) (n-5) (n-3) (n-1)}{(n+2) (n+4) (n+6) (n+8) (n+10)}
-\end{align*}
+We now present a conjecture about the coefficients $c_{\kappa,\lambda}$ when
+both $\kappa$ and $\lambda$ have exactly two parts.
+\begin{conj}
+  If $n=2m$ is an even integer with $n\geq2$, then for $0\leq j\leq i<m$ we
+  have
+  \[
+    %% c_{(n/2+i,n/2-i),(n/2+j,n/2-j)} = \alpha_{i,j}\cdot
+    %% \frac{2^n \, (n/2 - i + 1)_i}{((n+1)/2)_{i+1}}
+    c_{(m+i,m-i),(m+j,m-j)} = \alpha_{i,j}\cdot 2^{2m}\cdot
+    \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac12\bigr)_{\!i+1}}
+  \]
+  where $\alpha_{0,0}=\frac12$ and
+  \[
+    \alpha_{i,j} = \frac{(-1)^{i+j} \, (4i+1) \, \bigl(i-j+1\bigr)_{\!j-1} \,
+      \bigl(\frac12-i+j\bigr)_{\!2i}}{2 \, (i-1)! \, (i+j)!}
+    \qquad (i\geq1,\,0\leq j\leq i).
+  \]
+  If $n=2m+1$ is an odd integer with $n\geq3$, then for $0\leq j\leq i<m$ we
+  have
+  \[
+    c_{(m+1+i,m-i),(m+1+j,m-j)} = \beta_{i,j}\cdot 2^{2m+1}\cdot
+    \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac32\bigr)_{\!i+1}}
+  \]
+  where $\beta_{0,0}=\frac34$ and
+  \[
+    \beta_{i,j} = \frac{(-1)^{i+j} \, (4i+3) \, \bigl(i-j+1\bigr)_{\!j-1} \,
+      \bigl(\frac12-i+j\bigr)_{\!2i+1}}{2 \, (i-1)! \, (i+j+1)!}
+    \qquad (i\geq1,\,0\leq j\leq i).
+  \]
+\end{conj}
 
 
 
