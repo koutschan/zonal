@@ -887,7 +887,7 @@ While Lemma~\ref{lem:zero1} only gives a necessary condition under which
 $c_{\kappa,\lambda}$ is zero, we want to obtain a full characterization, i.e.,
 a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For example,
 we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
-\begin{conj}
+\begin{lemma}\label{lem:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
   with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
   if and only if there exists $j\in\mathbb{N}$ such that
@@ -895,7 +895,10 @@ we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
     \sum_{i=1}^j (\kappa_i - \lambda_i) < 0,
   \]
   where the partitions are filled with zeros as necessary.
-\end{conj}
+\end{lemma}
+\begin{proof}
+  TODO
+\end{proof}
 
 \begin{example}
   For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
@@ -904,37 +907,100 @@ we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
 \end{example}
 
 
-We now present a conjecture about the coefficients $c_{\kappa,\lambda}$ when
-both $\kappa$ and $\lambda$ have exactly two parts.
-\begin{conj}
-  If $n=2m$ is an even integer with $n\geq2$, then for $0\leq j\leq i<m$ we
-  have
-  \[
+We now present a closed form of the coefficients $c_{\kappa,\lambda}$ when
+both $\kappa$ and $\lambda$ have at most two parts.
+\begin{thm}
+  If $n=2m$ is an even integer with $n\geq2$, then for $0\leq j\leq i\leq m$
+  we have
+  \begin{equation}\label{eq:cf2even}
     %% c_{(n/2+i,n/2-i),(n/2+j,n/2-j)} = \alpha_{i,j}\cdot
     %% \frac{2^n \, (n/2 - i + 1)_i}{((n+1)/2)_{i+1}}
     c_{(m+i,m-i),(m+j,m-j)} = \alpha_{i,j}\cdot 2^{2m}\cdot
     \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac12\bigr)_{\!i+1}}
-  \]
+  \end{equation}
   where $\alpha_{0,0}=\frac12$ and
   \[
     \alpha_{i,j} = \frac{(-1)^{i+j} \, (4i+1) \, \bigl(i-j+1\bigr)_{\!j-1} \,
       \bigl(\frac12-i+j\bigr)_{\!2i}}{2 \, (i-1)! \, (i+j)!}
     \qquad (i\geq1,\,0\leq j\leq i).
   \]
-  If $n=2m+1$ is an odd integer with $n\geq3$, then for $0\leq j\leq i<m$ we
-  have
-  \[
+  If $n=2m+1$ is an odd integer with $n\geq3$, then for $0\leq j\leq i\leq m$
+  we have
+  \begin{equation}\label{eq:cf2odd}
     c_{(m+1+i,m-i),(m+1+j,m-j)} = \beta_{i,j}\cdot 2^{2m+1}\cdot
     \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac32\bigr)_{\!i+1}}
-  \]
+  \end{equation}
   where $\beta_{0,0}=\frac34$ and
   \[
     \beta_{i,j} = \frac{(-1)^{i+j} \, (4i+3) \, \bigl(i-j+1\bigr)_{\!j-1} \,
       \bigl(\frac12-i+j\bigr)_{\!2i+1}}{2 \, (i-1)! \, (i+j+1)!}
     \qquad (i\geq1,\,0\leq j\leq i).
   \]
-\end{conj}
+  In the case $i=m$ the notation $(m+i,m-i)$ is understood to denote the
+  partition~$(2m)$.
+\end{thm}
+\begin{proof}
+  The proof is based on the recursions \eqref{eq:CRec}
+  and~\eqref{eq:CInitial}.  We are interested in the coefficients
+  $c_{\kappa,\lambda}$ where both partitions $\kappa$ and $\lambda$ have at
+  most two parts. Then, on the one hand, the partitions~$\mu$ that appear in
+  the recursive formula~\eqref{eq:CRec} have also at most two parts, by the
+  way how they are constructed from~$\lambda$. On the other hand, when we use
+  Equation~\eqref{eq:CInitial} to compute $c_{\lambda,\lambda}$, only those
+  coefficients $c_{\kappa,\lambda}$ contribute for which $\kappa$ has at most
+  two parts; this is a direct consequence of Lemma~\ref{lem:zero1}.  We
+  conclude that for the computation of $c_{\kappa,\lambda}$ we do not need any
+  $c_{\kappa',\lambda'}$ with $\kappa'$ or $\lambda'$ having more than two
+  parts.
 
+  Specializing Equation~\eqref{eq:CRec} to partitions with at most two parts,
+  we obtain the following recursion:
+  \begin{equation}\label{eq:CRec2}
+    c_{(m+i,m-i),(m+j,m-j)} = \sum_{k=0}^{i-j-1}
+    \frac{(i - k) c_{(m+i,m-i),(m+i-k,m-i+k)}}{(i - j)\bigl(i + j + \frac12\bigr)}.
+  \end{equation}
+  Similarly, Equation~\eqref{eq:CInitial} turns into
+  \begin{equation}\label{eq:CInitial2}
+    \sum_{k=i}^m c_{(m+k,m-k),(m+i,m-i)} = \binom{2m}{m+i}.
+  \end{equation}
+  In the rest of the proof we will show that the asserted closed-form
+  expression is the unique solution to the recursive equations
+  \eqref{eq:CRec2} and~\eqref{eq:CInitial2}.
+
+  Equation~\eqref{eq:CRec2} is used to calculate $c_{(m+i,m-i),(m+j,m-j)}$
+  when $i>j$, the case $i=j$ is covered by~\eqref{eq:CInitial}. After
+  plugging the closed form~\eqref{eq:cf2even} into \eqref{eq:CRec2}, the
+  right-hand side turns into
+  \begin{equation}\label{eq:rhs}
+    \frac{2^{2m} (4i+1) \bigl(m-i+1\bigr)_{\!i}}{(i-1)! \, (i-j) (2i+2j+1) \bigl(m+\frac12\bigr)_{\!i+1}}
+    \sum_{k=0}^{i-j-1} \frac{(-1)^k (i-k) \bigl(\frac12-k\bigr)_{\!2i} \bigl(k+1\bigr)_{\!i-k-1}}{(2i-k)!}.
+  \end{equation}
+  Using special-purpose computer algebra packages, such as the
+  HolonomicFunctions package~\cite{HolonomicFunctions}, we find that the
+  expression in the sum, denote it by $f(k,i)$, is Gosper-summable. More
+  precisely, we find a function
+  \[
+    g(k,i) = \frac{(4i-2k+1) \, k}{2 \, (i-k)} \cdot f(k,i) =
+    \frac{(-1)^k k \, (4i-2k+1) \, \bigl(\frac12-k\bigr)_{\!2i} \bigl(k+1\bigr)_{\!i-k-1}}{2 \, (2i-k)!}
+  \]
+  with the property $g(k+1,i)-g(k,i)=f(k,i)$ (the latter can be easily
+  verified). By telescoping, and by noting that $g(0,i)=0$, we obtain
+  the value of the sum in~\eqref{eq:rhs}:
+  \[
+    g(i-j,i) = \frac{(-1)^{i-j} (i-j) \, (2i+2j+1) \, \bigl(i-j+1\bigr)_{\!j-1}
+      \bigl(\frac12-i+j\bigr)_{\!2i}}{2 \, (i+j)!}.
+  \]
+  Hence a closed form for \eqref{eq:rhs} is given by
+  \[
+    \frac{(-1)^{i-j} \, 2^{2m-1} (4i+1) \, \bigl(m-i+1\bigr)_{\!i} \, \bigl(i-j+1\bigr)_{\!j-1}
+      \, \bigl(\frac12-i+j\bigr)_{\!2i}}{(i-1)! \, (i+j)! \, \bigl(m+\frac12\bigr)_{\!i+1}}
+  \]
+  which is exactly the asserted closed form of $c_{(m+i,m-i),(m+j,m-j)}$.
+  Thus \eqref{eq:cf2even} satisfies \eqref{eq:CRec2}; it remains to show that
+  it also satisfies~\eqref{eq:CInitial2}. TODO...
+
+  TODO: odd case \eqref{eq:cf2odd} is analogous.
+\end{proof}
 
 
 \begin{thebibliography}{1}
