@@ -1003,6 +1003,103 @@ both $\kappa$ and $\lambda$ have at most two parts.
 \end{proof}
 
 
+\section{Partitions with two parts}
+We concentrate on the coefficients $c_{\kappa,\lambda}$ with $\lambda=\left(n',m'\right)\leq\left(n,m\right)=\kappa$. 
+\begin{enumerate}
+\item First of all, it is easy to compute that 
+\[
+\rho_{\kappa}=n\left(n-1\right)+m\left(m-2\right)\ \ \ \text{and}\ \ \ \rho_{\lambda}=n'\left(n'-1\right)+m'\left(m'-2\right),
+\]
+so that, noting $N=n+m=n'+m'$, 
+\[
+\rho_{\kappa}-\rho_{\lambda}=n^{2}+m^{2}-m-n'^{2}-m'^{2}+m'.
+\]
+Or, equivalently, by letting $d=n-n'$, we have 
+\begin{align*}
+\rho_{\kappa}-\rho_{\lambda} & =n^{2}+m^{2}-m-\left(n-d\right)^{2}-\left(m+d\right)^{2}+m+d\\
+ & =2d\left(n-m\right)-2d^{2}+d.
+\end{align*}
+For simplicity, let $s=n-m$, so that $n'-m'=s-2d$ and $\rho_{\kappa}-\rho_{\lambda}=2ds-2d^{2}+d=d\left(2s-2d+1\right)$. 
+\item By \textbackslash{}eqref\{eq:CRec\}, noting that $\lambda=\left(n',m'\right)$
+only has two parts,
+\[
+c_{\kappa,\lambda}=\sum_{\lambda<\mu\leq\kappa}\frac{\left(n'+t\right)-\left(m'-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu}=\sum_{t=1}^{d}\frac{s-2d+2t}{d\left(2s-2d+1\right)}c_{\kappa,\mu}.
+\]
+\item We begin with some concrete examples. For simplicity, let $M=n-m$. 
+\begin{itemize}
+\item For $\lambda=\left(n-1,m+1\right)$, 
+\[
+c_{\left(n,m\right),\left(n-1,m-1\right)}=\frac{s}{2s-1}c_{\left(n,m\right),\left(n,m\right)}.
+\]
+\item For $\lambda=\left(n-2,m+2\right)$, 
+\begin{align*}
+c_{\left(n,m\right),\left(n-2,m-2\right)} & =\frac{1}{4s-6}\left[\left(s-2\right)c_{\left(n,m\right),\left(n-1,m-1\right)}+sc_{\left(n,m\right),\left(n,m\right)}\right]\\
+ & =\frac{c_{\left(n,m\right),\left(n,m\right)}}{4s-6}\left[\frac{\left(s-2\right)s}{2s-1}+s\right]\\
+ & =\frac{3s\left(s-1\right)}{2\left(2s-1\right)\left(2s-3\right)}c_{\left(n,m\right),\left(n,m\right)}.
+\end{align*}
+\item For $\lambda=\left(n-3,m+3\right)$, 
+\begin{align*}
+c_{\left(n,m\right),\left(n-3,m+3\right)} & =\frac{1}{3\left(2s-5\right)}\left[\left(s-4\right)c_{\left(n,m\right),\left(n-2,m-2\right)}+\left(s-2\right)c_{\left(n,m\right),\left(n-1,m-1\right)}+sc_{\left(n,m\right),\left(n,m\right)}\right]\\
+ & =\frac{c_{\left(n,m\right),\left(n,m\right)}}{3\left(2s-5\right)}\left[\left(s-4\right)\frac{3s\left(s-1\right)}{2\left(2s-1\right)\left(2s-3\right)}+\frac{3s\left(s-1\right)}{2s-1}\right]\\
+ & =\frac{5s\left(s-1\right)\left(s-2\right)}{2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)}c_{\left(n,m\right),\left(n,m\right)}.
+\end{align*}
+\item For $\lambda=\left(n-4,m+4\right)$, 
+\begin{align*}
+c_{\left(n,m\right),\left(n-4,m+4\right)} & =\frac{1}{4\left(2s-7\right)}\left[\left(s-6\right)c_{\left(n,m\right),\left(n-3,m+3\right)}+c_{\left(n,m\right),\left(n-3,m+3\right)}\cdot3\left(2s-5\right)\right]\\
+ & =\frac{7\left(s-3\right)}{4\left(2s-7\right)}c_{\left(n,m\right),\left(n-3,m+3\right)}\\
+ & =\frac{7\cdot5s\left(s-1\right)\left(s-2\right)\left(s-3\right)}{4\cdot2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)\left(2s-7\right)}c_{\left(n,m\right),\left(n,m\right)}\\
+ & =\frac{7\cdot5\cdot3s\left(s-1\right)\left(s-2\right)\left(s-3\right)}{4\cdot3\cdot2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)\left(2s-7\right)}c_{\left(n,m\right),\left(n,m\right)}
+\end{align*}
+\end{itemize}
+\end{enumerate}
+\begin{conjecture}
+Given two partitions $\kappa=\left(n,m\right)$ and $\lambda=\left(n-d,m+d\right)$
+of positive integer $N$, by denoting $s=n-m\geq0$, we have 
+\begin{equation}
+c_{\kappa,\lambda}=c_{\left(n,m\right),\left(n-d,m+d\right)}=\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)},\label{eq:2PartRec}
+\end{equation}
+where for an odd positive integer $a$, $a!!=a\left(a-2\right)\left(a-4\right)\cdots1$. 
+\end{conjecture}
+
+\begin{proof}
+By induction. When $d=1$, (\ref{eq:2PartRec}) holds by the computation
+above. Suppose (\ref{eq:2PartRec}) holds for $d$. Then, 
+\begin{align*}
+ & c_{\left(n,m\right),\left(n-d-1,m+d+1\right)}\\
+ & =\sum_{t=1}^{d+1}\frac{s-2\left(d+1\right)+2t}{\left(d+1\right)\left(2s-2d-1\right)}c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\\
+ & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\sum_{t=1}^{d+1}\left(s-2\left(d+1\right)+2t\right)c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\\
+ & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+\sum_{t=2}^{d+1}\left(s-2\left(d+1\right)+2t\right)c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\right]\\
+ & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+\sum_{t'=1}^{d}\left(s-2d+t'\right)c_{\left(n,m\right),\left(n-d+t',m+d-t'\right)}\right]\\
+ & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+d\left(2s-2d+1\right)c_{\left(n,m\right),\left(n-d,m+d\right)}\right]\\
+ & =\frac{\left(2d+1\right)\left(s-d\right)}{\left(d+1\right)\left(2s-2d-1\right)}c_{\left(n,m\right),\left(n-d,m+d\right)}\\
+ & =\frac{\left(2d+1\right)\left(s-d\right)}{\left(d+1\right)\left(2s-2d-1\right)}\cdot\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)}\\
+ & =\frac{\left(2\left(d+1\right)-1\right)!!s\left(s-1\right)\cdots\left(s-\left(d+1\right)+1\right)}{\left(d+1\right)!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2\left(d+1\right)+1\right)}c_{\left(n,m\right),\left(n,m\right)}.
+\end{align*}
+\end{proof}
+Now, from \cite[eq.~18, p.~237]{Muirhead} we see when $y_{1}=y_{2}=1$,
+\[
+\mathcal{C}_{\kappa}\left(1,1\right)=2^{2N}N!\left(2\right)_{n}\left(0\right)_{m}\frac{2\left(n-m\right)-1+2}{\left(2n+1\right)!\left(2m\right)!}=2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}.
+\]
+\begin{itemize}
+\item When $n$ and $m$ have different parities, i.e., for all $\lambda=\left(n-d,m+d\right)\leq\kappa$,
+$M_{\lambda}\left(1,1\right)=2$. Therefore, we have 
+\[
+2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}=2c_{\left(n,m\right),\left(n,m\right)}\sum_{d=1}^{\frac{s-1}{2}}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)},
+\]
+i.e, 
+\[
+c_{\left(n,m\right),\left(n,m\right)}=\frac{\left(2n+1\right)!\left(2m\right)!}{2^{2n-1}N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}\sum_{d=1}^{\frac{s-1}{2}}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}.
+\]
+\item When $n$ and $m$ have the same parity, i.e., $s=n-m$ is even, for
+all $\lambda=\left(n-d,m+d\right)\leq\kappa$, $M_{\lambda}\left(1,1\right)=2$,
+except that $M_{\left(n-\frac{s}{2},m+\frac{s}{2}\right)}\left(1,1\right)=1$.
+Thus, we have 
+\[
+2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}=c_{\left(n,m\right),\left(n,m\right)}\left[2\sum_{d=1}^{\frac{s}{2}-1}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}+\frac{\left(s-1\right)!!s\left(s-1\right)\cdots\left(\frac{s}{2}+1\right)}{\left(\frac{s}{2}\right)!\left(2s-1\right)\left(2s-3\right)\cdots\left(s+1\right)}\right],
+\]
+which also gives $c_{(n,m),(n,m)}$. 
+
+
 \begin{thebibliography}{1}
 \bibitem{1F1}H.~Hashiguchi, Y.~Numata, N.~Takayama, and A.~Takemura.
 The holonomic gradient method for the distribution function of the
