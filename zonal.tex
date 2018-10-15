@@ -892,16 +892,64 @@ a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For example,
 we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
 \begin{lemma}\label{lem:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
-  with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
-  if and only if there exists $j\in\mathbb{N}$ such that
-  \[
-    \sum_{i=1}^j (\kappa_i - \lambda_i) < 0,
-  \]
-  where the partitions are filled with zeros as necessary.
+  with $\kappa\geq\lambda$ in lexicographic order. If there exists
+  $p\in\mathbb{N}$ such that
+  \begin{equation}\label{eq:prop}
+    \sum_{i=1}^p (\kappa_i - \lambda_i) < 0
+  \end{equation}
+  (where the partitions are filled with zeros as necessary), then
+  $c_{\kappa,\lambda}=0$.
 \end{lemma}
 \begin{proof}
-  TODO
+  We first want to show that, under the assumption~\eqref{eq:prop},
+  $\sum_{i=1}^p(\kappa_i-\mu_i)<0$ holds for all $\mu$ of the form
+  $\mu=(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$, $1\leq t\leq \lambda_s$,
+  after reordering the parts. Assume that this reordering requires us
+  to move the part $\lambda_r+t$ to the $k$-th position ($k\leq r$) and
+  the part $\lambda_s-t$ to the $\ell$-th position ($\ell\geq s$). Then
+  the partition~$\mu$ has the following form:
+  \[
+    (\lambda_1,\dots,\lambda_{k-1},\lambda_r+t,\lambda_k,\dots,
+    \lambda_{r-1},\lambda_{r+1},\dots,\lambda_{s-1},\lambda_{s+1},\dots,
+    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots).
+  \]
+  Then we have
+  \[
+    \sum_{i=1}^p \mu_i =
+    \begin{cases}
+      \sum_{i=1}^p \lambda_i & \text{if } p<k \\
+      \sum_{i=1}^{p-1} \lambda_i + \lambda_r+t & \text{if } k\leq p<r \\
+      \sum_{i=1}^p \lambda_i + t & \text{if } r\leq p<s \\
+      \sum_{i=1}^{s-1} \lambda_i + t + \sum_{i=s+1}^{p+1}\lambda_i & \text{if } s\leq p<\ell \\
+      \sum_{i=1}^p \lambda_i & \text{if } p\geq\ell.
+    \end{cases}
+  \]
+  In each of these cases, we have $\sum_{i=1}^p \mu_i \geq \sum_{i=1}^p
+  \lambda_i$.  For the first, third, and fifth case, this is immediately
+  obvious. For the second and fourth case, it is true because
+  $\lambda_r+t\geq\lambda_p$ and $\lambda_{p+1}\geq\lambda_s-t$, respectively.
+
+  Note that the $\mu$'s in~\eqref{eq:CRec} are exactly of the above form.
+  Hence, if $\kappa$ and $\lambda$ satisfy~\eqref{eq:prop}, then
+  $c_{\kappa,\lambda}$ is a linear combination of $c_{\kappa,\mu}$'s with the
+  same property. In order to conclude the proof by induction, we have to
+  investigate the two possible base cases:
+  \begin{enumerate}
+  \item We arrive at a $c_{\kappa,\lambda}$ for which $\lambda$ has fewer
+    parts than~$\kappa$ (note that the operation
+    $(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$ weakly decreases the number
+    of parts). Then by Lemma~\ref{lem:zero1} we have $c_{\kappa,\lambda}=0$.
+  \item We arrive at a $c_{\kappa,\lambda}$ such that no suitable $\mu$
+    between $\lambda$ and $\kappa$ exists.  Also in this case we get
+    $c_{\kappa,\lambda}=0$ since the sum in~\eqref{eq:CRec} is empty.
+  \end{enumerate}
 \end{proof}
+
+\begin{conj}
+  The converse of Lemma~\eqref{lem:zero2} holds, i.e., $c_{\kappa,\lambda}=0$
+  only if \eqref{eq:prop} holds. (We have tested this conjecture up to
+  $n=22$.)
+\end{conj}
 
 \begin{example}
   For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
