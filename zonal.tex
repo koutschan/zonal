@@ -535,12 +535,49 @@ corner of the $c_{\kappa,\lambda}$-matrix), one can ask whether the
 ``neighboring'' entries also admit a closed form for general~$n$.  The
 following theorem gives an explicit answer for the first few cases.
 
+
+\begin{thm}
+Let $\left(n-m,m\right)$ be a partition of $n$, then, 
+\begin{equation}
+c_{\left(n\right),\left(n-m,m\right)}=\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{m!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)} \label{eq:1to2},
+\end{equation}
+where for an odd positive integer $a$, $a!!:=a\left(a-2\right)\left(a-4\right)\cdots1$. 
+\end{thm}
+
+\begin{proof}
+It is obvious that $\rho_{\left(n\right)}=n\left(n-1\right)$ and $\rho_{\left(n-m,m\right)}=\left(n-m\right)\left(n-m-1\right)+m\left(m-2\right)$,
+so that 
+\begin{equation}
+\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}=m\left(2n-2m+1\right). \label{eq:coeff1to2}
+\end{equation}
+By \eqref{eq:CRec} ,
+\begin{align*}
+c_{\left(n\right)\left(n-m,m\right)}&=\sum_{\left(n-m,m\right)<\mu\leq\left(n\right)}\frac{\left(n-m+t\right)-\left(m-t\right)}{\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}}c_{\left(n\right),\mu}\\&=\frac{1}{m\left(2n-2m+1\right)}\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}.
+\end{align*}
+Now, we proceed by induction. Obviously, $ \rho_{\left(n\right)}-\rho_{\left(n-1,1\right)}=2n-1$. 
+Moreover, the only possible $\mu$ satisfying $\left(n-1,1\right)<\mu\leq\left(n\right)$
+is $\mu=\left(n\right)$ with $t=1$. Therefore, 
+\[
+  c_{\left(n\right),\left(n-1,1\right)}=\frac{\left(n-1+1\right)-\left(1-1\right)}{2n-1}\cdot1=\frac{n}{2n-1}.
+\]
+Now, assume \eqref{eq:1to2} holds. We have
+\begin{align*}
+ & c_{\left(n\right),\left(n-m-1,m+1\right)}\\
+ =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\\
+ =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\right]\\
+= & \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}\right]\\
+ =& \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\right]\\
+ =& \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)}\\
+= & \frac{\left(2m+1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)\left(n-m\right)}{\left(m+1\right)!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m+1\right)\right)}.
+\end{align*}
+\end{proof}
+
 \begin{thm}
 \label{thm:fam1}
 We have
 \begin{alignat*}{2}
-  c_{(n),(n-1,1)} &= \frac{n}{2n-1}, &
-  c_{(n),(n-2,2)} &= \frac{3n(n-1)}{2(2n-1)(2n-3)}, \\
+%  c_{(n),(n-1,1)} &= \frac{n}{2n-1}, &
+%  c_{(n),(n-2,2)} &= \frac{3n(n-1)}{2(2n-1)(2n-3)}, \\
   c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &
   c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, \\
   &&\qquad
@@ -549,39 +586,24 @@ We have
 provided that $n\geq2$ (left column) resp. $n\geq4$ (right column) holds.
 \end{thm}
 \begin{proof}
-Obviously, $\rho_{\left(n\right)}=n\cdot\left(n-1\right)$ and
-$\rho_{\left(n-1,1\right)}=\left(n-1\right)\left(n-1-1\right)+1\cdot\left(1-2\right)=\left(n-1\right)n-2n+1$,
-so that 
-\[
-  \rho_{\left(n\right)}-\rho_{\left(n-1,1\right)}=2n-1.
-\]
-Moreover, the only possible $\mu$ satisfying $\left(n-1,1\right)<\mu\leq\left(n\right)$
-is $\mu=\left(n\right)$ with $t=1$. Therefore,  by applying \eqref{eq:CRec}, we obtain
-\[
-  c_{\left(n\right),\left(n-1,1\right)}=\frac{\left(n-1+1\right)-\left(1-1\right)}{2n-1}\cdot1=\frac{n}{2n-1}.
-\]
 Using \eqref{eq:CInitial},
 \[
   c_{\left(n\right),\left(n-1,1\right)}+c_{\left(n-1,1\right),\left(n-1,1\right)}=\binom{n}{n-1,1}=n,
 \]
-we get the next coefficient:
+we get
 \[
   c_{\left(n-1,1\right),\left(n-1,1\right)}=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
 \]
-A direct calculation gives 
+From \eqref{eq:1to2} 
 \[
-  \rho_{\left(n\right)}-\rho_{\left(n-2,2\right)} =
-  n\left(n-1\right)-\left(n-2\right)\left(n-3\right) =
-  2\left(2n-3\right).
+  \rho_{\left(n\right)}-\rho_{\left(n-2,2\right)} =2\left(2n-3\right);
 \]
-Also, if $\left(n-2,2\right)<\mu\leq\left(n\right)$, then either
-$\mu=\left(n-1,1\right)$ or $\mu=\left(n\right)$. Thus, the coefficients
-$c_{\kappa,(n-2,2)}$ are obtained by applying \eqref{eq:CRec} and~\eqref{eq:CInitial}
-in the same, symbolic, fashion:
+and by \eqref{eq:1to2}, 
+\[
+ c_{\left(n\right),\left(n-2,2\right)} =\frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)}.\\
+\]
+By applying \eqref{eq:CRec} and~\eqref{eq:CInitial} recurrsively, we have
 \begin{align*}
-  c_{\left(n\right),\left(n-2,2\right)} 
-  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{2\left(2n-3\right)}\cdot\frac{n}{2n-1}+\frac{\left(n-2+2\right)-\left(2-2\right)}{2\left(2n-3\right)}\cdot1\\
-  &= \frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)},\\
   c_{\left(n-1,1\right),\left(n-2,2\right)}
   &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\rho_{\left(n-1,1\right)}-\rho_{\left(n-2,2\right)}}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
   &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\left(n-1\right)n-2n+1-\left(n-2\right)\left(n-3\right)}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
@@ -1056,9 +1078,8 @@ c_{\left(n,m\right),\left(n-4,m+4\right)} & =\frac{1}{4\left(2s-7\right)}\left[\
 Given two partitions $\kappa=\left(n,m\right)$ and $\lambda=\left(n-d,m+d\right)$
 of positive integer $N$, by denoting $s=n-m\geq0$, we have 
 \begin{equation}
-c_{\kappa,\lambda}=c_{\left(n,m\right),\left(n-d,m+d\right)}=\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)},\label{eq:2PartRec}
+c_{\kappa,\lambda}=c_{\left(n,m\right),\left(n-d,m+d\right)}=\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)}.\label{eq:2PartRec}
 \end{equation}
-where for an odd positive integer $a$, $a!!=a\left(a-2\right)\left(a-4\right)\cdots1$. 
 \end{thm}
 
 \begin{proof}
