@@ -12,20 +12,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
-  \theoremstyle{definition}
-  \newtheorem{defn}{\protect\definitionname}[section]
-  \theoremstyle{remark}
-  \newtheorem{rem}{\protect\remarkname}[section]
-  \theoremstyle{plain}
-  \newtheorem{prop}{\protect\propositionname}[section]
-  \theoremstyle{definition}
-  \newtheorem{example}{\protect\examplename}[section]
   \theoremstyle{plain}
   \newtheorem{thm}{\protect\theoremname}[section]
+  \theoremstyle{definition}
+  \newtheorem{defn}[thm]{\protect\definitionname}
+  \theoremstyle{remark}
+  \newtheorem{rem}[thm]{\protect\remarkname}
   \theoremstyle{plain}
-  \newtheorem{lemma}{Lemma}[section]
+  \newtheorem{prop}[thm]{\protect\propositionname}
+  \theoremstyle{definition}
+  \newtheorem{example}[thm]{\protect\examplename}
   \theoremstyle{plain}
-  \newtheorem{conj}{Conjecture}[section]
+  \newtheorem{lemma}[thm]{Lemma}
+  \theoremstyle{plain}
+  \newtheorem{conj}[thm]{Conjecture}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \DeclareMathOperator{\sech}{sech}
@@ -535,44 +535,49 @@ In this section, we study some infinite families among the coefficients
 $c_{\kappa,\lambda}$ of the zonal polynomials~$C_{\kappa}(Y)$. Since we have
 seen that $c_{(n),(n)}=1$ for all~$n$ (that corresponds to the upper left
 corner of the $c_{\kappa,\lambda}$-matrix), one can ask whether the
-``neighboring'' entries also admit a closed form for general~$n$.  The
-following theorem gives an explicit answer for the first few cases.
+``neighboring'' entries also admit a closed form for general~$n$.
+Theorem~\ref{thm:fam1} will give an explicit answer for the first few cases.
+Before that, we focus on the first row of the $c_{\kappa,\lambda}$-matrix,
+i.e., on the coefficients $c_{\kappa,\lambda}$ for which
+$\kappa=\left(n\right)$ and $\lambda\leq\kappa$ has two parts.
 
-First of all, we consider the case that $\kappa=\left(n\right)$ and $\lambda\leq\kappa$ has two parts.
-
-\begin{thm}
-Let $\left(n-m,m\right)$ be a partition of $n$, then, 
-\begin{equation}
-c_{\left(n\right),\left(n-m,m\right)}=\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{m!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)} \label{eq:1to2},
+\begin{thm}\label{thm:row1}
+Let $\left(n-m,m\right)$ be a partition of $n$, then
+\begin{equation}\label{eq:1to2}
+  c_{\left(n\right),\left(n-m,m\right)} =
+  %\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{m!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)}
+  \binom{n}{m}\cdot\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}.
 \end{equation}
-where for an odd positive integer $a$, $a!!:=a\left(a-2\right)\left(a-4\right)\cdots1$. 
+%where for an odd positive integer $a$, $a!!:=a\left(a-2\right)\left(a-4\right)\cdots1$. 
 \end{thm}
-
 \begin{proof}
 It is obvious that $\rho_{\left(n\right)}=n\left(n-1\right)$ and $\rho_{\left(n-m,m\right)}=\left(n-m\right)\left(n-m-1\right)+m\left(m-2\right)$,
 so that 
-\begin{equation}
-\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}=m\left(2n-2m+1\right). \label{eq:coeff1to2}
-\end{equation}
-By \eqref{eq:CRec} ,
+\[%begin{equation}
+  \rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}=m\left(2n-2m+1\right). \label{eq:coeff1to2}
+\]%end{equation}
+By \eqref{eq:CRec},
 \begin{align*}
-c_{\left(n\right)\left(n-m,m\right)}&=\sum_{\left(n-m,m\right)<\mu\leq\left(n\right)}\frac{\left(n-m+t\right)-\left(m-t\right)}{\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}}c_{\left(n\right),\mu}\\&=\frac{1}{m\left(2n-2m+1\right)}\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}.
+  c_{\left(n\right),\left(n-m,m\right)}
+  &= \sum_{\left(n-m,m\right)<\mu\leq\left(n\right)}\frac{\left(n-m+t\right)-\left(m-t\right)}
+    {\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}}\cdot c_{\left(n\right),\mu} \\
+  &= \frac{1}{m\left(2n-2m+1\right)}\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}.
 \end{align*}
-Now, we proceed by induction. Obviously, $ \rho_{\left(n\right)}-\rho_{\left(n-1,1\right)}=2n-1$. 
+Now, we proceed by induction on~$m$. Obviously, $ \rho_{\left(n\right)}-\rho_{\left(n-1,1\right)}=2n-1$. 
 Moreover, the only possible $\mu$ satisfying $\left(n-1,1\right)<\mu\leq\left(n\right)$
 is $\mu=\left(n\right)$ with $t=1$. Therefore, 
-\[
+\begin{equation}\label{eq:cnton1}
   c_{\left(n\right),\left(n-1,1\right)}=\frac{\left(n-1+1\right)-\left(1-1\right)}{2n-1}\cdot1=\frac{n}{2n-1}.
-\]
+\end{equation}
 Now, assume \eqref{eq:1to2} holds. We have
 \begin{align*}
- & c_{\left(n\right),\left(n-m-1,m+1\right)}\\
- =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\\
- =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\right]\\
-= & \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}\right]\\
- =& \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\left[\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\right]\\
- =& \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)}\\
-= & \frac{\left(2m+1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)\left(n-m\right)}{\left(m+1\right)!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m+1\right)\right)}.
+ & c_{\left(n\right),\left(n-m-1,m+1\right)} = \\
+ &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\\
+ &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\biggr)\\
+ &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}\biggr)\\
+ &= \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\Bigl(\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\Bigr) \\
+ &= \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
+ = \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
 \end{align*}
 \end{proof}
 
@@ -580,38 +585,30 @@ Now, assume \eqref{eq:1to2} holds. We have
 \label{thm:fam1}
 We have
 \begin{alignat*}{2}
-%  c_{(n),(n-1,1)} &= \frac{n}{2n-1}, &
-%  c_{(n),(n-2,2)} &= \frac{3n(n-1)}{2(2n-1)(2n-3)}, \\
-  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &
-  c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, \\
-  &&\qquad
-  c_{(n-2,2),(n-2,2)} &= \frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)},
+  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &\qquad& (n\geq2) \\
+  c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, && (n\geq4) \\
+  c_{(n-2,2),(n-2,2)} &= \frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}, &&(n\geq4).
 \end{alignat*}
-provided that $n\geq2$ (left column) resp. $n\geq4$ (right column) holds.
 \end{thm}
 \begin{proof}
-Using \eqref{eq:CInitial},
+Using \eqref{eq:CInitial} with $\lambda=(n-1,1)$,
 \[
   c_{\left(n\right),\left(n-1,1\right)}+c_{\left(n-1,1\right),\left(n-1,1\right)}=\binom{n}{n-1,1}=n,
 \]
-we get
+and \eqref{eq:cnton1} we get
 \[
   c_{\left(n-1,1\right),\left(n-1,1\right)}=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
 \]
-From \eqref{eq:1to2} 
-\[
-  \rho_{\left(n\right)}-\rho_{\left(n-2,2\right)} =2\left(2n-3\right);
-\]
-and by \eqref{eq:1to2}, 
-\[
- c_{\left(n\right),\left(n-2,2\right)} =\frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)}.\\
-\]
-By applying \eqref{eq:CRec} and~\eqref{eq:CInitial} recurrsively, we have
+By applying \eqref{eq:CRec}, we obtain
 \begin{align*}
   c_{\left(n-1,1\right),\left(n-2,2\right)}
-  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\rho_{\left(n-1,1\right)}-\rho_{\left(n-2,2\right)}}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
+  &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\rho_{\left(n-1,1\right)}-\rho_{\left(n-2,2\right)}}\cdot c_{(n-1,1),(n-1,1)}\\
   &= \frac{\left(n-2+1\right)-\left(2-1\right)}{\left(n-1\right)n-2n+1-\left(n-2\right)\left(n-3\right)}\cdot\frac{2n\left(n-1\right)}{2n-1}\\
-  &= \frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)},\\
+  &= \frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)}.
+\end{align*}
+Finally, using~\eqref{eq:CInitial} with $\lambda=(n-2,2)$ and
+Theorem~\ref{thm:row1}, we get the last coefficient:
+\begin{align*}
   c_{\left(n-2,2\right),\left(n-2,2\right)}
   &= \binom{n}{n-2,2}-c_{\left(n\right),\left(n-2,2\right)}-c_{\left(n-1,1\right),\left(n-2,2\right)}\\
   &= \frac{n\left(n-1\right)}{2}-\frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)}-\frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)}\\
@@ -619,48 +616,28 @@ By applying \eqref{eq:CRec} and~\eqref{eq:CInitial} recurrsively, we have
 \end{align*}
 \end{proof}
 
-% TODO: not clear whether we need this.
-%% Now, consider $\kappa=\left(n-n',\lambda'\right)$ and $\lambda=\left(n-n'',\lambda''\right)$.
-%% To guarantee $\kappa\geq\lambda$, we have either $n'<n''$, or $n'=n''$
-%% and $\lambda'\geq\lambda''$. In addition, we assume that 
-%% \[
-%% \lambda'=\left(\lambda'_{1},\ldots,\lambda'_{k}\right)\ \ \ \text{and}\ \ \ \lambda''=\left(\lambda''_{1},\ldots,\lambda''_{l}\right).
-%% \]
-%% Recall that 
-%% \[
-%% \rho_{\lambda'}=\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i\right),
-%% \]
-%% we see
-%% \begin{align*}
-%% \rho_{\kappa} & =\left(n-n'\right)\left(n-n'-1\right)+\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i-1\right)\\
-%%  & =\left(n-n'\right)^{2}-\left(n-n'\right)+\sum_{i=1}^{k}\lambda'_{i}\left(\lambda'_{i}-i\right)-\sum_{i=1}^{k}\lambda'_{i}\\
-%%  & =\left(n-n'\right)^{2}-\left(n-n'\right)+\rho_{\lambda'}-n'\\
-%%  & =\left(n-n'\right)^{2}-n+\rho_{\lambda'}.
-%% \end{align*}
-%% Similarly, 
-%% \[
-%% \rho_{\lambda}=\left(n-n''\right)^{2}-n+\rho_{\lambda''},
-%% \]
-%% which implies
-%% \[
-%% \rho_{\kappa}-\rho_{\lambda}=\rho_{\lambda'}-\rho_{\lambda''}+2n\left(n''-n'\right)+\left(n'^{2}-n''^{2}\right).
-%% \]
-
-
-When $n$ is sufficiently large, the lexicographically largest elements of
-$\mathcal{P}_n$ are (in descending order): $(n)$, $(n-1,1)$, $(n-2,2)$,
-$(n-2,1,1)$, $(n-3,3)$, etc. In Table~\ref{tab:cn1} we give closed forms for
-the coefficients $c_{\kappa,\lambda}$ when $\kappa$ and $\lambda$ are taken
-from these lexicographically largest partitions, i.e., when both $\kappa$ and
-$\lambda$ are of the form $(n-n',\lambda')$, where $\lambda'$ is a partition
-of~$n'$. Pictorially speaking, this table represents the upper left submatrix
-of the $c_{\kappa,\lambda}$-matrix for large~$n$; more precisely, for $n\geq6$
-since we consider only partitions $(n),\dots,(n-3,1,1,1)$. We remark that all
-these formulas can be rigorously proven by applying \eqref{eq:CRec}
-and~\eqref{eq:CInitial} for symbolic~$n$, as it was done in the proof of
-Theorem~\ref{thm:fam1}.  Since these manipulations are too tedious to be done
-by hand, we have implemented the corresponding procedure in our Mathematica
-package. % TODO: reference
+It is clear that we could proceed in this manner and compute more coefficients
+$c_{\kappa,\lambda}$ in the upper left corner of the matrix for symbolic~$n$.
+Since the corresponding calculations get too tedious to be done by hand, we
+employ computer algebra to determine the rational function expressions for a
+few more coefficients.  Note that, when $n$ is sufficiently large, the
+lexicographically largest elements of $\mathcal{P}_n$ are (in descending
+order): %$(n)$, $(n-1,1)$, $(n-2,2)$, $(n-2,1,1)$, $(n-3,3)$, etc.
+\[
+  (n), \; (n-1,1), \; (n-2,2), \; (n-2,1,1), \; (n-3,3), \; (n-3,2,1), \; \text{etc.}
+\]
+In Table~\ref{tab:cn1} we give closed forms for the coefficients
+$c_{\kappa,\lambda}$ when $\kappa$ and $\lambda$ are taken from these
+lexicographically largest partitions, i.e., when both $\kappa$ and $\lambda$
+are of the form $(n-m,\pi)$, where $\pi$ is a partition of~$m\in\mathbb{N}$,
+but where $n$ is symbolic.  Pictorially speaking, this table represents the
+upper left submatrix of the $c_{\kappa,\lambda}$-matrix for large~$n$; more
+precisely, for $n\geq6$ since we consider only partitions
+$(n),\dots,(n-3,1,1,1)$. We remark that all these formulas have been
+rigorously proven by applying \eqref{eq:CRec} and~\eqref{eq:CInitial} for
+symbolic~$n$, as it was done in the proof of Theorem~\ref{thm:fam1}. This
+symbolic proof strategy is implemented in our Mathematica package.
+% TODO: add reference and name of the procedure
 
 \begin{table}
 \[
@@ -910,9 +887,10 @@ result here and give a simple proof of it.
 \end{proof}
 
 While Lemma~\ref{lem:zero1} only gives a necessary condition under which
-$c_{\kappa,\lambda}$ is zero, we want to obtain a full characterization, i.e.,
-a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For example,
-we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
+$c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
+i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
+example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
+same length.
 \begin{lemma}\label{lem:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
   with $\kappa\geq\lambda$ in lexicographic order. If there exists
@@ -981,174 +959,201 @@ we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the same length.
 \end{example}
 
 
-We now present a closed form of the coefficients $c_{\kappa,\lambda}$ when
-both $\kappa$ and $\lambda$ have at most two parts.
-\begin{thm}
-  If $n=2m$ is an even integer with $n\geq2$, then for $0\leq j\leq i\leq m$
-  we have
-  \begin{equation}\label{eq:cf2even}
-    %% c_{(n/2+i,n/2-i),(n/2+j,n/2-j)} = \alpha_{i,j}\cdot
-    %% \frac{2^n \, (n/2 - i + 1)_i}{((n+1)/2)_{i+1}}
-    c_{(m+i,m-i),(m+j,m-j)} = \alpha_{i,j}\cdot 2^{2m}\cdot
-    \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac12\bigr)_{\!i+1}}
+\section{Partitions with two parts}
+
+Now we concentrate on the coefficients $c_{\kappa,\lambda}$ when both $\kappa$
+and $\lambda$ have at most two parts. Then, on the one hand, the
+partitions~$\mu$ that appear in the recursive formula~\eqref{eq:CRec} have
+also at most two parts, by the way how they are constructed from~$\lambda$. On
+the other hand, when we use Equation~\eqref{eq:CInitial} to compute
+$c_{\lambda,\lambda}$, only those coefficients $c_{\kappa,\lambda}$ contribute
+for which $\kappa$ has at most two parts; this is a direct consequence of
+Lemma~\ref{lem:zero1}.  We conclude that for the computation of
+$c_{\kappa,\lambda}$ we do not need any $c_{\kappa',\lambda'}$ with $\kappa'$
+or $\lambda'$ having more than two parts.
+
+\noindent
+Throughout this section we write
+\[
+  \kappa=(a,a-b) \quad\text{and}\quad \lambda=(a-d,a-b+d)
+\]
+for nonnegative integers $a,b,d$.  The condition $b<a$ ensures that $\kappa$
+is a proper partition and the condition $d\leq\frac{b}{2}$ ensures that the
+parts of $\lambda$ are in the correct order. In Theorem~\ref{thm:cf2} we
+present a closed form of the coefficients $c_{\kappa,\lambda}$ under these
+assumptions. We start our investigation by specializing
+Equations~\eqref{eq:CRec} and~\eqref{eq:CInitial} to partitions with two
+parts.
+
+First of all, it is easy to compute that 
+\begin{align*}
+  \rho_{\kappa} &= a(a-1) + (a-b)(a-b-2), \\
+  \rho_{\lambda} &= (a-d)(a-d-1) + (a-b+d)(a-b+d-2),
+\end{align*}
+so that
+\[
+  \rho_{\kappa}-\rho_{\lambda} = d\cdot(2b-2d+1).
+\]
+Then, the recurrence~\eqref{eq:CRec} can be written as follows, by noting that
+$\lambda$ has only two parts,
+\begin{align}\label{eq:rec2}
+  c_{\kappa,\lambda} = c_{(a,a-b),(a-d,a-b+d)} &=
+  \sum_{\lambda<\mu\leq\kappa}\frac{(a-d+t)-(a-b+d-t)}{\rho_{\kappa}-\rho_{\lambda}} c_{\kappa,\mu} \notag \\
+  &= \sum_{t=1}^d\frac{b-2d+2t}{d\,(2b-2d+1)}c_{(a,a-b),(a-d+t,a-b+d-t)} \\
+  &= \sum_{j=0}^{d-1} \frac{b-2j}{d\,(2b-2d+1)}c_{(a,a-b),(a-j,a-b+j)}. \notag
+\end{align}
+
+\begin{example}\label{ex:twoparts}
+We begin with some concrete examples.  For $\kappa=(a,a-b)$ and
+$\lambda=\left(a-d,a-b+d\right)$ for $d=1,2,3$, we obtain
+\begin{align*}
+  c_{\left(a,a-b\right),\left(a-1,a-b+1\right)} &= \frac{b}{2b-1}\,c_{\left(a,a-b\right),\left(a,a-b\right)}, \\
+  c_{\left(a,a-b\right),\left(a-2,a-b+2\right)} &=
+    \frac{1}{4b-6}\Bigl((b-2)\,c_{(a,a-b),(a-1,a-b-1)}+b\,c_{(a,a-b),(a,a-b)}\Bigr) \\
+  &= \frac{c_{\left(a,a-b\right),\left(a,a-b\right)}}{4b-6}\left(\frac{\left(b-2\right)b}{2b-1}+b\right) \\
+  &= \frac{3b\left(b-1\right)}{2\left(2b-1\right)\left(2b-3\right)}\,c_{(a,a-b),(a,a-b)}, \\
+  c_{\left(a,a-b\right),\left(a-3,a-b+3\right)} &=
+    \frac{1}{3\left(2b-5\right)}\Bigl(\left(b-4\right)c_{(a,a-b),(a-2,a-b+2)} \\
+    &\qquad +\left(b-2\right)c_{(a,a-b),(a-1,a-b+1)}+b\, c_{(a,a-b),(a,a-b)}\Bigr)\\
+  &= \frac{c_{\left(a,a-b\right),\left(a,a-b\right)}}{3\left(2b-5\right)}
+    \left(\left(b-4\right)\frac{3b\left(b-1\right)}{2\left(2b-1\right)\left(2b-3\right)}+\frac{3b\left(b-1\right)}{2b-1}\right)\\
+  &= \frac{5b\left(b-1\right)\left(b-2\right)}{2\left(2b-1\right)\left(2b-3\right)\left(2b-5\right)}\,c_{(a,a-b),(a,a-b)}.
+\end{align*}
+%% \item For $\lambda=\left(a-4,a-b+4\right)$, 
+%% \begin{align*}
+%% c_{\left(a,a-b\right),\left(a-4,a-b+4\right)} & =\frac{1}{4\left(2b-7\right)}\left[\left(b-6\right)c_{\left(a,a-b\right),\left(a-3,a-b+3\right)}+c_{\left(a,a-b\right),\left(a-3,a-b+3\right)}\cdot3\left(2b-5\right)\right]\\
+%%  & =\frac{7\left(b-3\right)}{4\left(2b-7\right)}c_{\left(a,a-b\right),\left(a-3,a-b+3\right)}\\
+%%  & =\frac{7\cdot5b\left(b-1\right)\left(b-2\right)\left(b-3\right)}{4\cdot2\left(2b-1\right)\left(2b-3\right)\left(2b-5\right)\left(2b-7\right)}c_{\left(a,a-b\right),\left(a,a-b\right)}\\
+%%  & =\frac{7\cdot5\cdot3b\left(b-1\right)\left(b-2\right)\left(b-3\right)}{4\cdot3\cdot2\left(2b-1\right)\left(2b-3\right)\left(2b-5\right)\left(2b-7\right)}c_{\left(a,a-b\right),\left(a,a-b\right)}
+%% \end{align*}
+\end{example}
+
+\begin{prop}\label{prop:p2row}
+  Given two partitions $\kappa=(a,a-b)$ and $\lambda=(a-d,a-b+d)$ of the positive integer $n=2a-b$,
+  with $0\leq b<a$ and $0\leq d\leq\frac{b}{2}$, then
+  \begin{equation}\label{eq:2PartRec}
+    c_{\kappa,\lambda} = c_{(a,a-b),(a-d,a-b+d)} =
+    \binom{b}{d}\,\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}} \cdot c_{(a,a-b),(a,a-b)}.
   \end{equation}
-  where $\alpha_{0,0}=\frac12$ and
-  \[
-    \alpha_{i,j} = \frac{(-1)^{i+j} \, (4i+1) \, \bigl(i-j+1\bigr)_{\!j-1} \,
-      \bigl(\frac12-i+j\bigr)_{\!2i}}{2 \, (i-1)! \, (i+j)!}
-    \qquad (i\geq1,\,0\leq j\leq i).
-  \]
-  If $n=2m+1$ is an odd integer with $n\geq3$, then for $0\leq j\leq i\leq m$
-  we have
-  \begin{equation}\label{eq:cf2odd}
-    c_{(m+1+i,m-i),(m+1+j,m-j)} = \beta_{i,j}\cdot 2^{2m+1}\cdot
-    \frac{\bigl(m-i+1\bigr)_{\!i}}{\bigl(m+\frac32\bigr)_{\!i+1}}
-  \end{equation}
-  where $\beta_{0,0}=\frac34$ and
-  \[
-    \beta_{i,j} = \frac{(-1)^{i+j} \, (4i+3) \, \bigl(i-j+1\bigr)_{\!j-1} \,
-      \bigl(\frac12-i+j\bigr)_{\!2i+1}}{2 \, (i-1)! \, (i+j+1)!}
-    \qquad (i\geq1,\,0\leq j\leq i).
-  \]
-  In the case $i=m$ the notation $(m+i,m-i)$ is understood to denote the
-  partition~$(2m)$.
-\end{thm}
+\end{prop}
 \begin{proof}
-  The proof is based on the recursions \eqref{eq:CRec}
-  and~\eqref{eq:CInitial}.  We are interested in the coefficients
-  $c_{\kappa,\lambda}$ where both partitions $\kappa$ and $\lambda$ have at
-  most two parts. Then, on the one hand, the partitions~$\mu$ that appear in
-  the recursive formula~\eqref{eq:CRec} have also at most two parts, by the
-  way how they are constructed from~$\lambda$. On the other hand, when we use
-  Equation~\eqref{eq:CInitial} to compute $c_{\lambda,\lambda}$, only those
-  coefficients $c_{\kappa,\lambda}$ contribute for which $\kappa$ has at most
-  two parts; this is a direct consequence of Lemma~\ref{lem:zero1}.  We
-  conclude that for the computation of $c_{\kappa,\lambda}$ we do not need any
-  $c_{\kappa',\lambda'}$ with $\kappa'$ or $\lambda'$ having more than two
-  parts.
-
-  Specializing Equation~\eqref{eq:CRec} to partitions with at most two parts,
-  we obtain the following recursion:
-  \begin{equation}\label{eq:CRec2}
-    c_{(m+i,m-i),(m+j,m-j)} = \sum_{k=0}^{i-j-1}
-    \frac{(i - k) c_{(m+i,m-i),(m+i-k,m-i+k)}}{(i - j)\bigl(i + j + \frac12\bigr)}.
-  \end{equation}
-  Similarly, Equation~\eqref{eq:CInitial} turns into
-  \begin{equation}\label{eq:CInitial2}
-    \sum_{k=i}^m c_{(m+k,m-k),(m+i,m-i)} = \binom{2m}{m+i}.
-  \end{equation}
-  In the rest of the proof we will show that the asserted closed-form
-  expression is the unique solution to the recursive equations
-  \eqref{eq:CRec2} and~\eqref{eq:CInitial2}.
-
-  Equation~\eqref{eq:CRec2} is used to calculate $c_{(m+i,m-i),(m+j,m-j)}$
-  when $i>j$, the case $i=j$ is covered by~\eqref{eq:CInitial}. After
-  plugging the closed form~\eqref{eq:cf2even} into \eqref{eq:CRec2}, the
-  right-hand side turns into
-  \begin{equation}\label{eq:rhs}
-    \frac{2^{2m} (4i+1) \bigl(m-i+1\bigr)_{\!i}}{(i-1)! \, (i-j) (2i+2j+1) \bigl(m+\frac12\bigr)_{\!i+1}}
-    \sum_{k=0}^{i-j-1} \frac{(-1)^k (i-k) \bigl(\frac12-k\bigr)_{\!2i} \bigl(k+1\bigr)_{\!i-k-1}}{(2i-k)!}.
+  Note that this result is a direct generalization of Theorem~\ref{thm:row1},
+  and hence the same inductive argument could be applied. Instead, we
+  illustrate a different proof strategy, using symbolic summation. Because of
+  the recursive definition of the coefficients $c_{\kappa,\lambda}$,
+  demonstrated in Example~\ref{ex:twoparts}, it suffices to show that the
+  asserted expression satisfies the recurrence~\eqref{eq:rec2}. This means, we
+  have to prove the following identity:
+  \begin{equation}\label{eq:sumid}
+    \binom{b}{d}\,\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}} =
+    \sum_{j=0}^{d-1} \binom{b}{j}\,\frac{(b-2j)\,\bigl(\frac12\bigr)_{\!j}}{d\,(2b-2d+1)\,\bigl(b-j+\frac12\bigr)_{\!j}}.
   \end{equation}
   Using special-purpose computer algebra packages, such as the
   HolonomicFunctions package~\cite{HolonomicFunctions}, we find that the
-  expression in the sum, denote it by $f(k,i)$, is Gosper-summable. More
+  expression in the sum, denote it by $f(j)$, is Gosper-summable. More
   precisely, we find a function
   \[
-    g(k,i) = \frac{(4i-2k+1) \, k}{2 \, (i-k)} \cdot f(k,i) =
-    \frac{(-1)^k k \, (4i-2k+1) \, \bigl(\frac12-k\bigr)_{\!2i} \bigl(k+1\bigr)_{\!i-k-1}}{2 \, (2i-k)!}
+    g(j) = \frac{j\,(2b-2j+1)}{b-2j} \cdot f(j) =
+    \binom{b}{j}\frac{j\,(2b-2j+1) \bigl(\frac12\bigr)_{\!j}}{d\,(2b-2d+1)\,\bigl(b-j+\frac12\bigr)_{\!j}}
   \]
-  with the property $g(k+1,i)-g(k,i)=f(k,i)$ (the latter can be easily
-  verified). By telescoping, and by noting that $g(0,i)=0$, we obtain
-  the value of the sum in~\eqref{eq:rhs}:
+  with the property $g(j+1)-g(j)=f(j)$ (the latter can be easily
+  verified). By telescoping, and by noting that $g(0)=0$, we obtain
+  the value of the right-hand side of~\eqref{eq:sumid}:
   \[
-    g(i-j,i) = \frac{(-1)^{i-j} (i-j) \, (2i+2j+1) \, \bigl(i-j+1\bigr)_{\!j-1}
-      \bigl(\frac12-i+j\bigr)_{\!2i}}{2 \, (i+j)!}.
+    g(d) = \binom{b}{d}\cdot\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}}
   \]
-  Hence a closed form for \eqref{eq:rhs} is given by
-  \[
-    \frac{(-1)^{i-j} \, 2^{2m-1} (4i+1) \, \bigl(m-i+1\bigr)_{\!i} \, \bigl(i-j+1\bigr)_{\!j-1}
-      \, \bigl(\frac12-i+j\bigr)_{\!2i}}{(i-1)! \, (i+j)! \, \bigl(m+\frac12\bigr)_{\!i+1}}
-  \]
-  which is exactly the asserted closed form of $c_{(m+i,m-i),(m+j,m-j)}$.
-  Thus \eqref{eq:cf2even} satisfies \eqref{eq:CRec2}; it remains to show that
-  it also satisfies~\eqref{eq:CInitial2}. TODO...
-
-  TODO: odd case \eqref{eq:cf2odd} is analogous.
+  which matches exactly the left-hand side of~\eqref{eq:sumid}.
 \end{proof}
 
 
-\section{Partitions with two parts}
-We concentrate on the coefficients $c_{\kappa,\lambda}$ with $\lambda=\left(n',m'\right)\leq\left(n,m\right)=\kappa$. 
-\begin{enumerate}
-\item First of all, it is easy to compute that 
-\[
-\rho_{\kappa}=n\left(n-1\right)+m\left(m-2\right)\ \ \ \text{and}\ \ \ \rho_{\lambda}=n'\left(n'-1\right)+m'\left(m'-2\right),
-\]
-so that, noting $N=n+m=n'+m'$, 
-\[
-\rho_{\kappa}-\rho_{\lambda}=n^{2}+m^{2}-m-n'^{2}-m'^{2}+m'.
-\]
-Or, equivalently, by letting $d=n-n'$, we have 
-\begin{align*}
-\rho_{\kappa}-\rho_{\lambda} & =n^{2}+m^{2}-m-\left(n-d\right)^{2}-\left(m+d\right)^{2}+m+d\\
- & =2d\left(n-m\right)-2d^{2}+d.
-\end{align*}
-For simplicity, let $s=n-m$, so that $n'-m'=s-2d$ and $\rho_{\kappa}-\rho_{\lambda}=2ds-2d^{2}+d=d\left(2s-2d+1\right)$. 
-\item By \textbackslash{}eqref\{eq:CRec\}, noting that $\lambda=\left(n',m'\right)$
-only has two parts,
-\[
-c_{\kappa,\lambda}=\sum_{\lambda<\mu\leq\kappa}\frac{\left(n'+t\right)-\left(m'-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu}=\sum_{t=1}^{d}\frac{s-2d+2t}{d\left(2s-2d+1\right)}c_{\kappa,\mu}.
-\]
-\item We begin with some concrete examples. For simplicity, let $M=n-m$. 
-\begin{itemize}
-\item For $\lambda=\left(n-1,m+1\right)$, 
-\[
-c_{\left(n,m\right),\left(n-1,m-1\right)}=\frac{s}{2s-1}c_{\left(n,m\right),\left(n,m\right)}.
-\]
-\item For $\lambda=\left(n-2,m+2\right)$, 
-\begin{align*}
-c_{\left(n,m\right),\left(n-2,m-2\right)} & =\frac{1}{4s-6}\left[\left(s-2\right)c_{\left(n,m\right),\left(n-1,m-1\right)}+sc_{\left(n,m\right),\left(n,m\right)}\right]\\
- & =\frac{c_{\left(n,m\right),\left(n,m\right)}}{4s-6}\left[\frac{\left(s-2\right)s}{2s-1}+s\right]\\
- & =\frac{3s\left(s-1\right)}{2\left(2s-1\right)\left(2s-3\right)}c_{\left(n,m\right),\left(n,m\right)}.
-\end{align*}
-\item For $\lambda=\left(n-3,m+3\right)$, 
-\begin{align*}
-c_{\left(n,m\right),\left(n-3,m+3\right)} & =\frac{1}{3\left(2s-5\right)}\left[\left(s-4\right)c_{\left(n,m\right),\left(n-2,m-2\right)}+\left(s-2\right)c_{\left(n,m\right),\left(n-1,m-1\right)}+sc_{\left(n,m\right),\left(n,m\right)}\right]\\
- & =\frac{c_{\left(n,m\right),\left(n,m\right)}}{3\left(2s-5\right)}\left[\left(s-4\right)\frac{3s\left(s-1\right)}{2\left(2s-1\right)\left(2s-3\right)}+\frac{3s\left(s-1\right)}{2s-1}\right]\\
- & =\frac{5s\left(s-1\right)\left(s-2\right)}{2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)}c_{\left(n,m\right),\left(n,m\right)}.
-\end{align*}
-\item For $\lambda=\left(n-4,m+4\right)$, 
-\begin{align*}
-c_{\left(n,m\right),\left(n-4,m+4\right)} & =\frac{1}{4\left(2s-7\right)}\left[\left(s-6\right)c_{\left(n,m\right),\left(n-3,m+3\right)}+c_{\left(n,m\right),\left(n-3,m+3\right)}\cdot3\left(2s-5\right)\right]\\
- & =\frac{7\left(s-3\right)}{4\left(2s-7\right)}c_{\left(n,m\right),\left(n-3,m+3\right)}\\
- & =\frac{7\cdot5s\left(s-1\right)\left(s-2\right)\left(s-3\right)}{4\cdot2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)\left(2s-7\right)}c_{\left(n,m\right),\left(n,m\right)}\\
- & =\frac{7\cdot5\cdot3s\left(s-1\right)\left(s-2\right)\left(s-3\right)}{4\cdot3\cdot2\left(2s-1\right)\left(2s-3\right)\left(2s-5\right)\left(2s-7\right)}c_{\left(n,m\right),\left(n,m\right)}
-\end{align*}
-\end{itemize}
-\end{enumerate}
-\begin{thm}
-Given two partitions $\kappa=\left(n,m\right)$ and $\lambda=\left(n-d,m+d\right)$
-of positive integer $N$, by denoting $s=n-m\geq0$, we have 
-\begin{equation}
-c_{\kappa,\lambda}=c_{\left(n,m\right),\left(n-d,m+d\right)}=\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)}.\label{eq:2PartRec}
-\end{equation}
+
+\begin{thm}\label{thm:cf2}
+  Let $a,b,d\in\mathbb{N}$ with $0\leq b<a$ and $0\leq d\leq\frac{b}{2}$.
+  Then we have
+  \[
+    c_{(a,a-b),(a-d,a-b+d)} = 
+    \frac{(2a-b)! \, \bigl(b+\frac12\bigr) \, \bigl(\frac12\bigr)_{\!d}}
+         {d! \, (a-b)! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1}}.
+  \]
 \end{thm}
-
 \begin{proof}
-By induction. When $d=1$, (\ref{eq:2PartRec}) holds by the computation
-above. Suppose (\ref{eq:2PartRec}) holds for $d$. Then, 
-\begin{align*}
- & c_{\left(n,m\right),\left(n-d-1,m+d+1\right)}\\
- & =\sum_{t=1}^{d+1}\frac{s-2\left(d+1\right)+2t}{\left(d+1\right)\left(2s-2d-1\right)}c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\\
- & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\sum_{t=1}^{d+1}\left(s-2\left(d+1\right)+2t\right)c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\\
- & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+\sum_{t=2}^{d+1}\left(s-2\left(d+1\right)+2t\right)c_{\left(n,m\right),\left(n-d-1+t,m+d+1-t\right)}\right]\\
- & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+\sum_{t'=1}^{d}\left(s-2d+t'\right)c_{\left(n,m\right),\left(n-d+t',m+d-t'\right)}\right]\\
- & =\frac{1}{\left(d+1\right)\left(2s-2d-1\right)}\left[\left(s-2d\right)c_{\left(n,m\right),\left(n-d,m+d\right)}+d\left(2s-2d+1\right)c_{\left(n,m\right),\left(n-d,m+d\right)}\right]\\
- & =\frac{\left(2d+1\right)\left(s-d\right)}{\left(d+1\right)\left(2s-2d-1\right)}c_{\left(n,m\right),\left(n-d,m+d\right)}\\
- & =\frac{\left(2d+1\right)\left(s-d\right)}{\left(d+1\right)\left(2s-2d-1\right)}\cdot\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}c_{\left(n,m\right),\left(n,m\right)}\\
- & =\frac{\left(2\left(d+1\right)-1\right)!!s\left(s-1\right)\cdots\left(s-\left(d+1\right)+1\right)}{\left(d+1\right)!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2\left(d+1\right)+1\right)}c_{\left(n,m\right),\left(n,m\right)}.
-\end{align*}
+  We first show that the asserted expression is compatible with the result of
+  Proposition~\ref{prop:p2row}: indeed, computing the quotient
+  \begin{align*}
+    \frac{c_{(a,a-b),(a-d,a-b+d)}}{c_{(a,a-b),(a,a-b)}} &=
+    \frac{(2a-b)! \, \bigl(b+\frac12\bigr) \, \bigl(\frac12\bigr)_{\!d} \cdot
+      (a-b)! \, b! \, \bigl(b+\frac12\bigr)_{\!a-b+1}}
+      {d! \, (a-b)! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1} \cdot
+        (2a-b)! \, \bigl(b+\frac12\bigr)} \\
+    &= \frac{b! \, \bigl(\frac12\bigr)_{\!d} \, \bigl(b+\frac12\bigr)_{\!a-b+1}}
+      {d! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1}}
+    = \binom{b}{d}\,\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}},
+  \end{align*}
+  we see that this is the case. It remains to prove that the asserted
+  expression is correct in the case $d=0$, i.e., for $\kappa=\lambda$.  For
+  this purpose, we employ the recursion~\eqref{eq:CInitial}, specialized to
+  partitions with two parts:
+  \begin{equation}\label{eq:CInitial2}
+    \sum_{d=0}^{a-b} c_{(a+d,a-b-d),(a,a-b)} = \binom{2a-b}{a}.
+  \end{equation}
+  By dividing both sides with the binomial coefficient of the right-hand side,
+  and by inserting the asserted closed form (after the change of variables
+  $a\to a+d$ and $b\to b+2d$), we are left with the summation identity
+  \begin{equation}\label{eq:sumid2}
+    \sum_{d=0}^{a-b}
+    \frac{a! \, (a-b)! \, \bigl(b+2d+\frac{1}{2}\bigr) \, \bigl(\frac{1}{2}\bigr)_{\!d}}
+         {d! \, (a-b-d)! \, (b+d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}} = 1.
+  \end{equation}
+  Taking into account the recursive definition of the coefficients
+  $c_{\kappa,\lambda}$, the (inductive) proof is completed by
+  verifying~\eqref{eq:sumid2}.
+
+  For this purpose, we denote by $f(a,b,d)$ the expression inside the
+  sum~\eqref{eq:sumid2} and construct two WZ pairs, i.e., two functions
+  \begin{align*}
+    g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
+    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
+    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d) \\
+    &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
+  \end{align*}
+  such that the following identities hold (they can be verified by routine
+  calculations):
+  \begin{align}
+    f(a+1,b,d)-f(a,b,d) &= g_1(d+1) - g_1(d), \label{eq:WZ1} \\
+    f(a,b+1,d)-f(a,b,d) &= g_2(d+1) - g_2(d). \label{eq:WZ2}
+  \end{align}
+  Now we sum \eqref{eq:WZ1} for $d=0,\dots,a-b$ and obtain
+  \[
+    \sum_{d=0}^{a-b}\bigl(f(a+1,b,d)-f(a,b,d)\bigr) = g_1(a-b+1) - g_1(a,0)
+  \]
+  or, equivalently:
+  \[
+    \sum_{d=0}^{a-b+1}f(a+1,b,d) - \sum_{d=0}^{a-b}f(a,b,d) = g_1(a-b+1) - g_1(a,0) + f(a+1,b,a-b+1).
+  \]
+  A straightforward calculation shows that the left-hand side equals~$0$,
+  thereby showing that the sum $\sum_{d=0}^{a-b}f(a,b,d)$ is independent
+  of~$a$. Summing over \eqref{eq:WZ2}, followed by a similar calculation,
+  shows that the sum does not depend on~$b$ as well. Therefore, the sum
+  in~\eqref{eq:sumid2} is constant, and by setting $a=b=0$ one immediately
+  sees that this constant is~$1$.
 \end{proof}
+
+% TODO remark case b=a
+\begin{rem}
+  By setting $b=a$ in Theorem~\ref{thm:cf2} and by interpreting $(a,0)$ as the
+  partition~$(a)$, we recover Theorem~\ref{thm:row1}:
+  \[
+    c_{(a),(a-d,d)} = 
+    \frac{(a)! \, \bigl(a+\frac12\bigr) \, \bigl(\frac12\bigr)_{\!d}}
+         {d! \, (a-d)! \, \bigl(a-d+\frac12\bigr)_{\!d+1}} =
+    \binom{a}{d} \, \frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(a-d+\frac12\bigr)_{\!d}}.
+  \]
+\end{rem}
+
+
+
+\subsection{Not sure where this should go}
+
 Now, from \cite[eq.~18, p.~237]{Muirhead} we see when $y_{1}=y_{2}=1$,
 \[
 \mathcal{C}_{\kappa}\left(1,1\right)=2^{2N}N!\left(2\right)_{n}\left(0\right)_{m}\frac{2\left(n-m\right)-1+2}{\left(2n+1\right)!\left(2m\right)!}=2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}.
@@ -1173,6 +1178,9 @@ Thus, we have
 \end{align*}
 which also gives $c_{(n,m),(n,m)}$. 
 \end{itemize}
+
+
+
 
 
 \begin{thebibliography}{1}
