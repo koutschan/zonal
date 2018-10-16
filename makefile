@@ -2,14 +2,14 @@ FILENAME=zonal
 
 all: 
 	pdflatex -halt-on-error ${FILENAME}.tex
-#	bibtex ${FILENAME}
-#	pdflatex ${FILENAME}.tex
+	bibtex ${FILENAME}
+	pdflatex ${FILENAME}.tex
 # From here the relevant information starts
 	@echo '****************************************************************************************************'
 	@pdflatex ${FILENAME}.tex
 # if grep does not find a single line matching the pattern it exits with status 1, causing make to stop.
 #   The following workaround using cat avoids this behaviour.
-#	@grep Warning ${FILENAME}.blg | cat
+	@grep Warning ${FILENAME}.blg | cat
 	@make clean
 
 clean:
