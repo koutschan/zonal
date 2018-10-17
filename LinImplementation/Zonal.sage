@@ -103,3 +103,79 @@ def CZonal(part,vari):                                    #Compute C-polynomials
     temp=table[position:];                                #Delete all partitions that >= part#
     re=sum(coeffi(part,i)*MZonal(i,vari) for i in temp);  #(3.3)#
     return re;
+
+
+
+
+#Based on the recurrence, strategy and properties of c_{\kappa,\lambda}, it is obvious that to compute c_{\kappa,\lambda}, all coefficients c_{\eta,\kappa} for all \eta>=\kappa need to be computed, which is an upper triangle#
+
+def TriangleCoeffi(k):             #Given parition, k=\kappa, it computes all coefficients c_{\eta,\kappa} with \eta>=\kappa#
+    n=sum(k);                      #k is a partition of n#
+    whole=Partitions(n).list();    #Whole list of partitions of n#
+    count=0;                       #count will run from 0 to the position of k in whole#
+    while whole[count]>k:          
+       count=count+1;
+    partiallist=[[RHO(list(x)),list(x)] for x in whole[:count+1]];     #partiallist has the partitions of n from (n) to k#
+    m=len(partiallist);         #Size of the matrix$
+    re=Matrix(QQ,m);               #re=m by m matrix with rational entries#
+    for i in range(m):
+        for j in range(i,m):       
+            if j==i and i==0:      #When i=j=0, c_{(n),(n)}=1#
+                re[i,j]=1;
+            if j==i and i>0:
+                re[i,j]=multinomial(partiallist[i][1])-sum(re[x,j] for x in range(j));        #(3.5)#
+            if j>i:
+                rho=partiallist[i][0]-partiallist[j][0];                                      #Instead of recursively computing #
+                if rho==0:
+                    re[i,j]=0;
+                else:
+                    table=SumVariable(partiallist[i][1],partiallist[j][1]);
+                    x=len(table);
+                    y=positionlist(whole,partiallist[i][1]);
+                    temp=[1/2 for t in range(x)];
+                    for t in range(x):
+                        temp[t]=positionlist(whole,table[t][1]);
+                    re[i,j]=sum(table[t][0]*re[y,temp[t]] for t in range(x))/rho;
+    return re;
+
+#Now, we compute, for two partitions k and l, the coefficient c_{k,l}#
+
+def fcoeffi(k,l):                      #"f" is short of fast#
+    n=sum(k);                          #k is a partition of n# 
+    whole=Partitions(n).list();        #Whole list of partitions of n#
+    p1=positionlist(whole,k);          #p1=position of k#
+    p2=positionlist(whole,l);          #p2=position of l#  
+    partiallist=whole[p1:p2+1];        #list of partitions from k to l#
+    m=len(partiallist);                #length of this partial list#
+    re=[1/2 for x in range(m)];        #list of c_{k,\mu} for all \mu between k and l, which will be returned#
+    re[0]=TriangleCoeffi(k)[-1,-1];    #c_{k,k} is the right bottom entry of the trianglar matrix in the previous function#
+    for x in range(1,m):
+        mu=partiallist[x];
+        rho=RHO(k)-RHO(mu);
+        if rho==0:
+            re[x]=0;
+        else:
+            table=SumVariable(k,mu);
+            y=len(table);
+            temp1=[1/2 for t in range(y)];
+            for t in range(y):
+                temp1[t]=positionlist(partiallist,table[t][1]);
+            re[x]=sum(table[t][0]*re[temp1[t]] for t in range(y))/rho;
+    return re;
+
+#To compute the C-polynomia, for given partition k, it requires to use all c_{k,l} for l<=k #
+
+def fCZonal(k,v):
+    n=sum(k);
+    whole=Partitions(n).list();
+    position=positionlist(whole,k);
+    partiallist=whole[position:];
+    coefftable=fcoeffi(k,[1 for t in range(n)]);
+    Mtable=[MZonal(list(t),v) for t in partiallist];
+    re=sum(coefftable[t]*Mtable[t] for t in range(len(partiallist)));
+    return re;
+    
+
+        
+        
+   
