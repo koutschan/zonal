@@ -1,3 +1,5 @@
+#First of all, we define some useful functions that help in the computation#
+
 def Calmi(partition):                 #For a paritition with m_1 1's, m_2 2's and etc, return (m_1)!(m_2)!...(m_l)!. This is the reciprocal of the leading coefficient of M-polynomial.#
     temp=uniq(partition);             #Delete the repeted parts and re-order the distinct parts in ascending order.#
     count=1;                          #set count=1, i.e., empty product.$
@@ -72,51 +74,26 @@ def SumVariable(k,l):                             #Given two partitions k and l,
                     re=re+[[l[i]-l[j]+2*t,tem]];
     return re;
 
-#Now, we can apply (3.4) to compute coefficient c_{\kappa,\lambda}#
-
-def coeffi(k,l):                                #Compute c_{k,l}#
-    re=0;
-    n=sum(k);
-    wholelist=Partitions(n).list();             #The whole list of partitions of n#
-    if k==l and len(k)==1:                      #c_{(n),(n)}=1#
-        re=1;
-    else:
-        if k==l:                                #If to compute c_{\kappa,\kappa} when \kappa is not (n), one needs (3.5)#
-            t=positionlist(wholelist,k);        #The position of k=l in the whole partition list#
-            re=multinomial(k)-sum(coeffi(list(xx),l) for xx in wholelist[:t]);               #(3.5)#
-        else:                                   #When k and l are different, we use recurrence (3.4)#
-            rho=RHO(k)-RHO(l);                  #There are cases that different partitions k and l share the same \rho value. If so, we set the coefficient 0#
-            if rho==0:
-                re=0;
-            else:
-                table=SumVariable(k,l);         #list of all \mu's and the corresponding \lambda_i-\lambda_j+2t#
-                re=sum(yy[0]*coeffi(k,yy[1]) for yy in table); #Recurrence (3.4)#
-                re=re/rho;
-    return re;
-
-
-def CZonal(part,vari):                                    #Compute C-polynomials, by given part(ition) and vari(ables)#
-    n=sum(part);                                          #part(ition) is a partition of n#
-    table1=Partitions(n).list();                          #full list of partitions of n#
-    table=[list(xx) for xx in table1];                    #Converting all elememts from "Partition" to "list"#
-    position=positionlist(table,part);                    #Find the position of part#
-    temp=table[position:];                                #Delete all partitions that >= part#
-    re=sum(coeffi(part,i)*MZonal(i,vari) for i in temp);  #(3.3)#
-    return re;
-
-
-
+#Now, we can apply (3.4) to compute coefficient c_{\kappa,\lambda}
 
 #Based on the recurrence, strategy and properties of c_{\kappa,\lambda}, it is obvious that to compute c_{\kappa,\lambda}, all coefficients c_{\eta,\kappa} for all \eta>=\kappa need to be computed, which is an upper triangle#
 
-def TriangleCoeffi(k):             #Given parition, k=\kappa, it computes all coefficients c_{\eta,\kappa} with \eta>=\kappa#
-    n=sum(k);                      #k is a partition of n#
-    whole=Partitions(n).list();    #Whole list of partitions of n#
-    count=0;                       #count will run from 0 to the position of k in whole#
-    while whole[count]>k:          
-       count=count+1;
-    partiallist=[[RHO(list(x)),list(x)] for x in whole[:count+1]];     #partiallist has the partitions of n from (n) to k#
-    m=len(partiallist);         #Size of the matrix$
+#Modification after Christoph's suggestion. By Lemma 7.2.3 of Muirhead's book, for c_{\kappa,\lambda}=, if \lambda has less part than \kappa.#
+
+def COE(k):                            #Given partition k, return c_{k,k}#
+    n=sum(k);                          #k is a partition of n#
+    whole=Partitions(n).list();        #list of partitions of n#
+    count=0;
+    partiallist=[];                    #list of all partitions l such that l>=k and l does not have more parts than k (otherwise, c_{l,k}=0#
+    partial2=[];
+    while whole[count]>k:
+        if len(whole[count])<=len(k):  #Only count partitions that do not have more parts than k#
+            partiallist=partiallist+[[RHO(whole[count]),list(whole[count])]];        #partiallists has elements of the form [\rho_{k},k]#
+            partial2=partial2+[list(whole[count])];                                  #partial2 only has all the partitions of partiallist#
+        count=count+1;
+    partiallist=partiallist+[[RHO(whole[count]),list(whole[count])]];
+    partial2=partial2+[list(whole[count])];
+    m=len(partiallist);            #Size of the matrix$
     re=Matrix(QQ,m);               #re=m by m matrix with rational entries#
     for i in range(m):
         for j in range(i,m):       
@@ -124,32 +101,60 @@ def TriangleCoeffi(k):             #Given parition, k=\kappa, it computes all co
                 re[i,j]=1;
             if j==i and i>0:
                 re[i,j]=multinomial(partiallist[i][1])-sum(re[x,j] for x in range(j));        #(3.5)#
-            if j>i:
-                rho=partiallist[i][0]-partiallist[j][0];                                      #Instead of recursively computing #
-                if rho==0:
+            if j>i:                                                                           #Instead of recursively computing coeffients, compute them by induction#
+                rho=partiallist[i][0]-partiallist[j][0];                                      
+                if rho==0:                                                                    #Sometimes, two partitions share the same \rho value, if so, we make c_{k,l}=0#
                     re[i,j]=0;
                 else:
-                    table=SumVariable(partiallist[i][1],partiallist[j][1]);
+                    table=SumVariable(partiallist[i][1],partiallist[j][1]);                   #All summable \mu, according the (3.4) #
                     x=len(table);
-                    y=positionlist(whole,partiallist[i][1]);
+                    y=positionlist(partial2,partiallist[i][1]);
                     temp=[1/2 for t in range(x)];
                     for t in range(x):
-                        temp[t]=positionlist(whole,table[t][1]);
-                    re[i,j]=sum(table[t][0]*re[y,temp[t]] for t in range(x))/rho;
-    return re;
+                        temp[t]=positionlist(partial2,table[t][1]);
+                    re[i,j]=sum(table[t][0]*re[y,temp[t]] for t in range(x))/rho;             #(3.4)#
+    return re[-1,-1];
 
-#Now, we compute, for two partitions k and l, the coefficient c_{k,l}#
-
-def fcoeffi(k,l):                      #"f" is short of fast#
+def Lcoeffi(k,l):                      #Given partitions l<k, return all nonzero c_{mu,l} with k>=mu>=l#
     n=sum(k);                          #k is a partition of n# 
     whole=Partitions(n).list();        #Whole list of partitions of n#
     p1=positionlist(whole,k);          #p1=position of k#
-    p2=positionlist(whole,l);          #p2=position of l#  
-    partiallist=whole[p1:p2+1];        #list of partitions from k to l#
+    count=0;
+    partiallist=[];
+    while whole[p1+count]>l:
+        if len(whole[p1+count])<=len(l):
+            partiallist=partiallist+[list(whole[p1+count])];
+        count=count+1;
+    partiallist=partiallist+[list(whole[p1+count])];
     m=len(partiallist);                #length of this partial list#
     re=[1/2 for x in range(m)];        #list of c_{k,\mu} for all \mu between k and l, which will be returned#
-    re[0]=TriangleCoeffi(k)[-1,-1];    #c_{k,k} is the right bottom entry of the trianglar matrix in the previous function#
-    for x in range(1,m):
+    re[0]=COE(k);                      #c_{k,k}#
+    for x in range(1,m):               #Same idea as the COE function above#
+        mu=partiallist[x];
+        rho=RHO(k)-RHO(mu);
+        if rho==0:
+            re[x]=0;
+        else:
+            table=SumVariable(k,mu);
+            y=len(table);
+            temp1=[1/2 for t in range(y)];
+            for t in range(y):
+                temp1[t]=positionlist(partiallist,table[t][1]);
+            re[x]=sum(table[t][0]*re[temp1[t]] for t in range(y))/rho;
+    return re;    
+
+def coeffi(k,l): 
+    return Lcoeffi(k,l)[-1];    
+
+def FLcoeffi(k):                       #Full List of coefficients c_{k,l} for all l<=k#
+    n=sum(k);                          #k is a partition of n# 
+    whole=Partitions(n).list();        #Whole list of partitions of n#
+    p=positionlist(whole,k);           #p=position of k#
+    partiallist=whole[p:]              #list of partitions from k to l#
+    m=len(partiallist);                #length of this partial list#
+    re=[1/2 for x in range(m)];        #list of c_{k,\mu} for all \mu between k and l, which will be returned#
+    re[0]=COE(k);                      #c_{k,k}#
+    for x in range(1,m):               #Same idea as the COE function above#
         mu=partiallist[x];
         rho=RHO(k)-RHO(mu);
         if rho==0:
@@ -163,19 +168,14 @@ def fcoeffi(k,l):                      #"f" is short of fast#
             re[x]=sum(table[t][0]*re[temp1[t]] for t in range(y))/rho;
     return re;
 
-#To compute the C-polynomia, for given partition k, it requires to use all c_{k,l} for l<=k #
-
-def fCZonal(k,v):
-    n=sum(k);
-    whole=Partitions(n).list();
-    position=positionlist(whole,k);
-    partiallist=whole[position:];
-    coefftable=fcoeffi(k,[1 for t in range(n)]);
-    Mtable=[MZonal(list(t),v) for t in partiallist];
-    re=sum(coefftable[t]*Mtable[t] for t in range(len(partiallist)));
-    return re;
-    
-
-        
-        
    
+
+def CZonal(k,v):                                                          #Given partition k and variables v, compute C-polynomial C_{k}(v)#
+    n=sum(k);                                                             #k is a partition of n$
+    whole=Partitions(n).list();                                           #whole list of partitions of n#
+    position=positionlist(whole,k);                                       #position of k in the whole list#
+    partiallist=whole[position:];                                         #only consider partitions <=k#
+    coefftable=FLcoeffi(k);                                               #list of all coefficients c_{k,l} for l<=k#
+    Mtable=[MZonal(list(t),v) for t in partiallist];                      #list of all corresponding M_{l}(v)#
+    re=sum(coefftable[t]*Mtable[t] for t in range(len(partiallist)));     #(3.3)#
+    return re;
