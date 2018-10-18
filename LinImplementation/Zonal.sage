@@ -143,7 +143,7 @@ def Lcoeffi(k,l):                      #Given partitions l<k, return all nonzero
             re[x]=sum(table[t][0]*re[temp1[t]] for t in range(y))/rho;
     return re;    
 
-def coeffi(k,l): 
+def Coeffi(k,l): 
     return Lcoeffi(k,l)[-1];    
 
 def FLcoeffi(k):                       #Full List of coefficients c_{k,l} for all l<=k#
