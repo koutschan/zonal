@@ -44,27 +44,38 @@
 
 \begin{document}
 
-\title{Definition and Calculation of Zonal Polynomials}
+\title{Properties and Calculation of Zonal Polynomials}
 
 \author{Lin Jiu and Christoph Koutschan}
 \begin{abstract}
-In this report, we summarize different definitions of zonal polynomials
-involving statistics, differential geometry, representation theory
-and combinatorics. A manual of a package for calculating zonal polynomials
-is also introduced.
+  We investigate zonal polynomials, a family of symmetric polynomials that
+  appear in many mathematical contexts, for example multivariate statistics,
+  differential geometry, representation theory, and combinatorics.  We present
+  two computer algebra packages, in Sage and in Mathematica, for their
+  computation. Based on them, we carry our an experimental mathematics study
+  of some properties of zonal polynomials. Moreover, we derive and prove
+  closed forms for several infinite families of zonal polynomial coefficients.
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
 
-In the project proposal \cite[pp.~8]{Proposal}, G.(goal)~2 aims
-at hypergeometric function with matrix argument, defined as follows.
+At the beginning of our study, we recall the well-known Gau\ss\ hypergeometric
+function ${}_pF_q$, defined as the infinite series
+\[
+  {}_pF_q\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,z\right) :=
+  \sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!}.
+\]
+What is less well known is the fact that the hypergeometric function can be
+generalized to matrix arguments, as follows:
 \begin{defn}
 Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
 hypergeometric function with matrix argument is defined as 
-\begin{equation}
-_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\bigg|Y\right):=\sum_{n=0}^{\infty}\sum_{\lambda\in\mathcal{P}_{n}}\frac{\left(a_{1}\right)_{\lambda}\cdots\left(a_{p}\right)_{\lambda}}{\left(b_{1}\right)_{\lambda}\cdots\left(b_{q}\right)_{\lambda}}\cdot\frac{\mathcal{C}_{\lambda}\left(Y\right)}{n!},\label{eq:MatrixpFq}
+\begin{equation}\label{eq:MatrixpFq}
+  {}_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,Y\right) :=
+  \sum_{n=0}^{\infty}\sum_{\lambda\in\mathcal{P}_{n}}\frac{\left(a_{1}\right)_{\lambda}\cdots\left(a_{p}\right)_{\lambda}}
+      {\left(b_{1}\right)_{\lambda}\cdots\left(b_{q}\right)_{\lambda}}\cdot\frac{\mathcal{C}_{\lambda}\left(Y\right)}{n!},
 \end{equation}
 where 
 \begin{itemize}
@@ -92,17 +103,17 @@ satisfying
 \end{equation}
 \end{itemize}
 \end{defn}
-Hashiguchi et.~al \cite{Hashiguchi} study the case $p=q=1$, using the holonomic
-gradient method \cite[pp.~4--6]{Proposal}. Comparing to the usual
-hypergeometric function
-\[
-_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\bigg|z\right):=\sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!},
-\]
-we see that the key is the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
-which inspires this report. Definitions will be presented in Section
-\ref{sec:DEFS} and a short manual on a \texttt{Sage} package we implemented
+Hashiguchi et.~al~\cite{Hashiguchi} study the case $p=q=1$, using the
+holonomic gradient method~\cite{NakayamaEtAl11}. We see that the key to
+unterstand the hypergeometric function at matrix argument is the zonal
+polynomial. Interestingly, these polynomials also appear in completely
+different mathematical contexts.  In Section~\ref{sec:DEFS} we give a survey
+of different definitions of zonal polynomials.
+
+A short manual on a \texttt{Sage} package we implemented
 for calculation of $\mathcal{C}_{\lambda}(Y)$ follows
 in Section \ref{sec:Package}.
+
 
 \section{\label{sec:DEFS}Definitions of zonal polynomials}
 
@@ -306,7 +317,8 @@ defines the zonal polynomials.
 Special case of Macdonald polynomial gives Jack polynomials $J_{\lambda}^{\left(\alpha\right)}$,
 which when $\alpha=2$ gives zonal polynomials. 
 
-\section{\label{sec:Package}Sage package for the calculation of zonal polynomials}
+
+\section{Calculation of zonal polynomials}
 
 Although there are more than one ways to define the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
 in practice, none of these definition gives an algorithm or formula
@@ -435,101 +447,106 @@ In particular, $c_{\left(n\right),\left(n\right)}=\binom{n}{n}=1$.
 Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $C_{\lambda}(Y)$. 
 \end{rem}
 
-\subsection{Functions}
 
-~\\
-~
-\noindent \begin{flushleft}
-\textbf{Calmi}(\emph{partition)}
-\par\end{flushleft}
+\section{Characterization of vanishing coefficients}
 
-\noindent \begin{flushleft}
-calculate the product of factorials in front of the sum on the right-hand
-side of \eqref{eq:MZonalComputation}.
-\par\end{flushleft}
+Muirhead~\cite[Lemma~7.2.3]{Muirhead} gives a necessary condition for some
+coefficients $c_{\kappa,\lambda}$ to be zero, but without proof. We recall his
+result here and give a simple proof of it.
+\begin{lemma}\label{lem:zero1}
+  Let $n\in\mathbb{N}$ and $\kappa,\lambda$ be partitions of~$n$ with $p$ and
+  $q$ parts, respectively. If $p>q$, i.e., if $\kappa$ has more parts
+  than~$\lambda$, then $c_{\kappa,\lambda}=0$.
+\end{lemma}
+\begin{proof}
+  From the definition of zonal polynomials it follows
+  \begin{align*}
+    0 = C_{\kappa}(y_1,\dots,y_{p-1}) &=
+    \sum_{\lambda\leq\kappa} c_{\kappa,\lambda} M_{\lambda}(y_1,\dots,y_{p-1}) \\
+    &= \!\!\!\!\!\sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)<p}}\!\!\!\!\!
+      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{\neq0} \quad +
+    \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)\geq p}}\!\!\!\!\!
+      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{=0}
+  \end{align*}
+  from which it becomes apparent that all coefficients $c_{\kappa,\lambda}$
+  for which $\lambda$ has fewer parts than $p=\operatorname{parts}(\kappa)$
+  must be zero.
+\end{proof}
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
+While Lemma~\ref{lem:zero1} only gives a necessary condition under which
+$c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
+i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
+example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
+same length.
+\begin{lemma}\label{lem:zero2}
+  Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
+  with $\kappa\geq\lambda$ in lexicographic order. If there exists
+  $p\in\mathbb{N}$ such that
+  \begin{equation}\label{eq:prop}
+    \sum_{i=1}^p (\kappa_i - \lambda_i) < 0
+  \end{equation}
+  (where the partitions are filled with zeros as necessary), then
+  $c_{\kappa,\lambda}=0$.
+\end{lemma}
+\begin{proof}
+  We first want to show that, under the assumption~\eqref{eq:prop},
+  $\sum_{i=1}^p(\kappa_i-\mu_i)<0$ holds for all $\mu$ of the form
+  $\mu=(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$, $1\leq t\leq \lambda_s$,
+  after reordering the parts. Assume that this reordering requires us
+  to move the part $\lambda_r+t$ to the $k$-th position ($k\leq r$) and
+  the part $\lambda_s-t$ to the $\ell$-th position ($\ell\geq s$). Then
+  the partition~$\mu$ has the following form:
+  \[
+    (\lambda_1,\dots,\lambda_{k-1},\lambda_r+t,\lambda_k,\dots,
+    \lambda_{r-1},\lambda_{r+1},\dots,\lambda_{s-1},\lambda_{s+1},\dots,
+    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots).
+  \]
+  Then we have
+  \[
+    \sum_{i=1}^p \mu_i =
+    \begin{cases}
+      \sum_{i=1}^p \lambda_i & \text{if } p<k \\
+      \sum_{i=1}^{p-1} \lambda_i + \lambda_r+t & \text{if } k\leq p<r \\
+      \sum_{i=1}^p \lambda_i + t & \text{if } r\leq p<s \\
+      \sum_{i=1}^{s-1} \lambda_i + t + \sum_{i=s+1}^{p+1}\lambda_i & \text{if } s\leq p<\ell \\
+      \sum_{i=1}^p \lambda_i & \text{if } p\geq\ell.
+    \end{cases}
+  \]
+  In each of these cases, we have $\sum_{i=1}^p \mu_i \geq \sum_{i=1}^p
+  \lambda_i$.  For the first, third, and fifth case, this is immediately
+  obvious. For the second and fourth case, it is true because
+  $\lambda_r+t\geq\lambda_p$ and $\lambda_{p+1}\geq\lambda_s-t$, respectively.
 
-\noindent \begin{flushleft}
-\textbf{MZonal}(\emph{partition},\emph{variables)}
-\par\end{flushleft}
+  Note that the $\mu$'s in~\eqref{eq:CRec} are exactly of the above form.
+  Hence, if $\kappa$ and $\lambda$ satisfy~\eqref{eq:prop}, then
+  $c_{\kappa,\lambda}$ is a linear combination of $c_{\kappa,\mu}$'s with the
+  same property. In order to conclude the proof by induction, we have to
+  investigate the two possible base cases:
+  \begin{enumerate}
+  \item We arrive at a $c_{\kappa,\lambda}$ for which $\lambda$ has fewer
+    parts than~$\kappa$ (note that the operation
+    $(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$ weakly decreases the number
+    of parts). Then by Lemma~\ref{lem:zero1} we have $c_{\kappa,\lambda}=0$.
+  \item We arrive at a $c_{\kappa,\lambda}$ such that no suitable $\mu$
+    between $\lambda$ and $\kappa$ exists.  Also in this case we get
+    $c_{\kappa,\lambda}=0$ since the sum in~\eqref{eq:CRec} is empty.
+  \end{enumerate}
+\end{proof}
 
-\noindent \begin{flushleft}
-computes the monomial symmetric function using \eqref{eq:MZonalComputation}.
-\par\end{flushleft}
+\begin{conj}
+  The converse of Lemma~\eqref{lem:zero2} holds, i.e., $c_{\kappa,\lambda}=0$
+  only if \eqref{eq:prop} holds. (We have tested this conjecture up to
+  $n=22$.)
+\end{conj}
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\textbf{SumVariable}\emph{($\kappa$,$\lambda$)}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-computes the list of $\mu$ appearing in the summation of \eqref{eq:CRec},
-according to the paragraph under.
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\textbf{RHO}(\emph{partition)}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-computes $\rho_{\lambda}$ from \eqref{eq:RHO}.
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\textbf{Coeffi}\emph{(kappa,lambda)}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-computes the constants $c_{\kappa,\lambda}$ through \eqref{eq:CRec}
-and \eqref{eq:CInitial}.
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\textbf{CZonal}\emph{(partition},\emph{variables)}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-computes the zonal polynomial $C_{\lambda}\left(y_{1},\ldots,y_{m}\right)$
-through linear combination \eqref{eq:CInTermsOfM}.
-\par\end{flushleft}
-
-\subsection{Examples}
-\noindent \begin{flushleft}
-In{[}1{]}= \textbf{Coeffi({[}2, 1{]}, {[}1, 1, 1{]})}\\
-~\\
-Out{[}1{]}=$18/5$\\
-~\\
-In{[}2{]}= \textbf{MZonal({[}2, 1{]}, {[}a, b, c{]})}\\
-~\\
-Out{[}2{]}=$a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}$\\
-~\\
-In{[}2{]}= \textbf{CZonal{[}{[}2, 1{]}, {[}a, b, c{]})}\\
-~\\
-Out{[}2{]}=$\frac{12}{5}\left(a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}\right)+\frac{18}{5}abc$
-\par\end{flushleft}
-
-\includegraphics[scale=0.3]{ScreenShot}
+\begin{example}
+  For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
+  partial sum of their differences, i.e. $j=2$, is negative:
+  $(8-7)+(2-4)=-1$, and hence $c_{\kappa,\lambda}$ must be zero.
+\end{example}
 
 
-\section{Infinite Families of Coefficients $c_{\kappa,\lambda}$}
+\section{Infinite families of coefficients $c_{\kappa,\lambda}$}
 
 In this section, we study some infinite families among the coefficients
 $c_{\kappa,\lambda}$ of the zonal polynomials~$C_{\kappa}(Y)$. Since we have
@@ -863,101 +880,6 @@ then perform polynomial interpolation and rational reconstruction.
 \label{tab:cn2}
 \end{table}
 
-Muirhead~\cite[Lemma~7.2.3]{Muirhead} gives a necessary condition for some
-coefficients $c_{\kappa,\lambda}$ to be zero, but without proof. We recall his
-result here and give a simple proof of it.
-\begin{lemma}\label{lem:zero1}
-  Let $n\in\mathbb{N}$ and $\kappa,\lambda$ be partitions of~$n$ with $p$ and
-  $q$ parts, respectively. If $p>q$, i.e., if $\kappa$ has more parts
-  than~$\lambda$, then $c_{\kappa,\lambda}=0$.
-\end{lemma}
-\begin{proof}
-  From the definition of zonal polynomials it follows
-  \begin{align*}
-    0 = C_{\kappa}(y_1,\dots,y_{p-1}) &=
-    \sum_{\lambda\leq\kappa} c_{\kappa,\lambda} M_{\lambda}(y_1,\dots,y_{p-1}) \\
-    &= \!\!\!\!\!\sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)<p}}\!\!\!\!\!
-      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{\neq0} \quad +
-    \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)\geq p}}\!\!\!\!\!
-      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{=0}
-  \end{align*}
-  from which it becomes apparent that all coefficients $c_{\kappa,\lambda}$
-  for which $\lambda$ has fewer parts than $p=\operatorname{parts}(\kappa)$
-  must be zero.
-\end{proof}
-
-While Lemma~\ref{lem:zero1} only gives a necessary condition under which
-$c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
-i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
-example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
-same length.
-\begin{lemma}\label{lem:zero2}
-  Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
-  with $\kappa\geq\lambda$ in lexicographic order. If there exists
-  $p\in\mathbb{N}$ such that
-  \begin{equation}\label{eq:prop}
-    \sum_{i=1}^p (\kappa_i - \lambda_i) < 0
-  \end{equation}
-  (where the partitions are filled with zeros as necessary), then
-  $c_{\kappa,\lambda}=0$.
-\end{lemma}
-\begin{proof}
-  We first want to show that, under the assumption~\eqref{eq:prop},
-  $\sum_{i=1}^p(\kappa_i-\mu_i)<0$ holds for all $\mu$ of the form
-  $\mu=(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$, $1\leq t\leq \lambda_s$,
-  after reordering the parts. Assume that this reordering requires us
-  to move the part $\lambda_r+t$ to the $k$-th position ($k\leq r$) and
-  the part $\lambda_s-t$ to the $\ell$-th position ($\ell\geq s$). Then
-  the partition~$\mu$ has the following form:
-  \[
-    (\lambda_1,\dots,\lambda_{k-1},\lambda_r+t,\lambda_k,\dots,
-    \lambda_{r-1},\lambda_{r+1},\dots,\lambda_{s-1},\lambda_{s+1},\dots,
-    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots).
-  \]
-  Then we have
-  \[
-    \sum_{i=1}^p \mu_i =
-    \begin{cases}
-      \sum_{i=1}^p \lambda_i & \text{if } p<k \\
-      \sum_{i=1}^{p-1} \lambda_i + \lambda_r+t & \text{if } k\leq p<r \\
-      \sum_{i=1}^p \lambda_i + t & \text{if } r\leq p<s \\
-      \sum_{i=1}^{s-1} \lambda_i + t + \sum_{i=s+1}^{p+1}\lambda_i & \text{if } s\leq p<\ell \\
-      \sum_{i=1}^p \lambda_i & \text{if } p\geq\ell.
-    \end{cases}
-  \]
-  In each of these cases, we have $\sum_{i=1}^p \mu_i \geq \sum_{i=1}^p
-  \lambda_i$.  For the first, third, and fifth case, this is immediately
-  obvious. For the second and fourth case, it is true because
-  $\lambda_r+t\geq\lambda_p$ and $\lambda_{p+1}\geq\lambda_s-t$, respectively.
-
-  Note that the $\mu$'s in~\eqref{eq:CRec} are exactly of the above form.
-  Hence, if $\kappa$ and $\lambda$ satisfy~\eqref{eq:prop}, then
-  $c_{\kappa,\lambda}$ is a linear combination of $c_{\kappa,\mu}$'s with the
-  same property. In order to conclude the proof by induction, we have to
-  investigate the two possible base cases:
-  \begin{enumerate}
-  \item We arrive at a $c_{\kappa,\lambda}$ for which $\lambda$ has fewer
-    parts than~$\kappa$ (note that the operation
-    $(\dots,\lambda_r+t,\dots,\lambda_s-t,\dots)$ weakly decreases the number
-    of parts). Then by Lemma~\ref{lem:zero1} we have $c_{\kappa,\lambda}=0$.
-  \item We arrive at a $c_{\kappa,\lambda}$ such that no suitable $\mu$
-    between $\lambda$ and $\kappa$ exists.  Also in this case we get
-    $c_{\kappa,\lambda}=0$ since the sum in~\eqref{eq:CRec} is empty.
-  \end{enumerate}
-\end{proof}
-
-\begin{conj}
-  The converse of Lemma~\eqref{lem:zero2} holds, i.e., $c_{\kappa,\lambda}=0$
-  only if \eqref{eq:prop} holds. (We have tested this conjecture up to
-  $n=22$.)
-\end{conj}
-
-\begin{example}
-  For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
-  partial sum of their differences, i.e. $j=2$, is negative:
-  $(8-7)+(2-4)=-1$, and hence $c_{\kappa,\lambda}$ must be zero.
-\end{example}
-
 
 \section{Partitions with two parts}
 
@@ -1151,32 +1073,102 @@ $\lambda=\left(a-d,a-b+d\right)$ for $d=1,2,3$, we obtain
 
 TODO: cite \cite{Moakher}
 
-\subsection{Not sure where this should go}
 
-Now, from \cite[eq.~18, p.~237]{Muirhead} we see when $y_{1}=y_{2}=1$,
-\[
-\mathcal{C}_{\kappa}\left(1,1\right)=2^{2N}N!\left(2\right)_{n}\left(0\right)_{m}\frac{2\left(n-m\right)-1+2}{\left(2n+1\right)!\left(2m\right)!}=2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}.
-\]
-\begin{itemize}
-\item When $n$ and $m$ have different parities, i.e., for all $\lambda=\left(n-d,m+d\right)\leq\kappa$,
-$M_{\lambda}\left(1,1\right)=2$. Therefore, we have 
-\[
-2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!}=2c_{\left(n,m\right),\left(n,m\right)}\sum_{d=1}^{\frac{s-1}{2}}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)},
-\]
-i.e, 
-\[
-c_{\left(n,m\right),\left(n,m\right)}=\frac{\left(2n+1\right)!\left(2m\right)!}{2^{2n-1}N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}\sum_{d=1}^{\frac{s-1}{2}}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}.
-\]
-\item When $n$ and $m$ have the same parity, i.e., $s=n-m$ is even, for
-all $\lambda=\left(n-d,m+d\right)\leq\kappa$, $M_{\lambda}\left(1,1\right)=2$,
-except that $M_{\left(n-\frac{s}{2},m+\frac{s}{2}\right)}\left(1,1\right)=1$.
-Thus, we have 
-\begin{align*}
- & 2^{2n}\frac{N!\left(n+1\right)!\left(m-1\right)!\left(2s+1\right)}{\left(2n+1\right)!\left(2m\right)!},\\
- & =c_{\left(n,m\right),\left(n,m\right)}\left[2\sum_{d=1}^{\frac{s}{2}-1}\frac{\left(2d-1\right)!!s\left(s-1\right)\cdots\left(s-d+1\right)}{d!\left(2s-1\right)\left(2s-3\right)\cdots\left(2s-2d+1\right)}+\frac{\left(s-1\right)!!s\left(s-1\right)\cdots\left(\frac{s}{2}+1\right)}{\left(\frac{s}{2}\right)!\left(2s-1\right)\left(2s-3\right)\cdots\left(s+1\right)}\right],
-\end{align*}
-which also gives $c_{(n,m),(n,m)}$. 
-\end{itemize}
+
+\section{\label{sec:Package}Sage package for the calculation of zonal polynomials}
+
+~\\
+~
+\noindent \begin{flushleft}
+\textbf{Calmi}(\emph{partition)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+calculate the product of factorials in front of the sum on the right-hand
+side of \eqref{eq:MZonalComputation}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{MZonal}(\emph{partition},\emph{variables)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the monomial symmetric function using \eqref{eq:MZonalComputation}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{SumVariable}\emph{($\kappa$,$\lambda$)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the list of $\mu$ appearing in the summation of \eqref{eq:CRec},
+according to the paragraph under.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{RHO}(\emph{partition)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes $\rho_{\lambda}$ from \eqref{eq:RHO}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{Coeffi}\emph{(kappa,lambda)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the constants $c_{\kappa,\lambda}$ through \eqref{eq:CRec}
+and \eqref{eq:CInitial}.
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\rule[0.5ex]{1\columnwidth}{1pt}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+\textbf{CZonal}\emph{(partition},\emph{variables)}
+\par\end{flushleft}
+
+\noindent \begin{flushleft}
+computes the zonal polynomial $C_{\lambda}\left(y_{1},\ldots,y_{m}\right)$
+through linear combination \eqref{eq:CInTermsOfM}.
+\par\end{flushleft}
+
+\subsection{Examples}
+\noindent \begin{flushleft}
+In{[}1{]}= \textbf{Coeffi({[}2, 1{]}, {[}1, 1, 1{]})}\\
+~\\
+Out{[}1{]}=$18/5$\\
+~\\
+In{[}2{]}= \textbf{MZonal({[}2, 1{]}, {[}a, b, c{]})}\\
+~\\
+Out{[}2{]}=$a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}$\\
+~\\
+In{[}2{]}= \textbf{CZonal{[}{[}2, 1{]}, {[}a, b, c{]})}\\
+~\\
+Out{[}2{]}=$\frac{12}{5}\left(a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}\right)+\frac{18}{5}abc$
+\par\end{flushleft}
+
+\includegraphics[scale=0.3]{ScreenShot}
+
+
 
 
 \bibliographystyle{plain}
