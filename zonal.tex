@@ -49,7 +49,7 @@
 \author{Lin Jiu and Christoph Koutschan}
 \begin{abstract}
   We investigate zonal polynomials, a family of symmetric polynomials that
-  appear in many mathematical contexts, for example multivariate statistics,
+  appear in many mathematical contexts, such as multivariate statistics,
   differential geometry, representation theory, and combinatorics.  We present
   two computer algebra packages, in Sage and in Mathematica, for their
   computation. Based on them, we carry our an experimental mathematics study
@@ -67,7 +67,7 @@ function ${}_pF_q$, defined as the infinite series
   {}_pF_q\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,z\right) :=
   \sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!}.
 \]
-What is less well known is the fact that the hypergeometric function can be
+What is less well known is the fact that this hypergeometric function can be
 generalized to matrix arguments, as follows:
 \begin{defn}
 Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
@@ -79,7 +79,7 @@ hypergeometric function with matrix argument is defined as
 \end{equation}
 where 
 \begin{itemize}
-\item $\mathcal{P}_{n}$ is the set of all integer partitions of $n$, where
+\item $\mathcal{P}_{n}$ is the set of all integer partitions of $n$, in which,
 every partition $\lambda\in\mathcal{P}_{n}$ is defined to be a tuple
 $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)$ such that 
 \[
@@ -89,8 +89,8 @@ and
 \[
 \lambda_{1}+\cdots+\lambda_{k}=n;
 \]
-\item the Pochhammer symbol, for positive integer $m$, $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$
-is applied to define
+\item the Pochhammer symbol, defined by, for positive integer $m$,  that $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$
+is generalized to define
 \[
 \left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\lambda_{i}};
 \]
@@ -119,7 +119,7 @@ in Section \ref{sec:Package}.
 
 We shall summarize four different definitions of zonal polynomials
 involving statistics, differential geometry, representation theory
-and combinatorics. Namely each subsection will present one aspect. 
+and combinatorics. Namely, each subsection will present one aspect. 
 
 First of all, we need an important linear space.
 \begin{defn}
@@ -137,25 +137,26 @@ as $\SPD(m)$.
 \end{defn}
 
 \subsection{Definition involving the Wishart distribution}
+The following defintion, claims and properties in this subsection can be found, e.g., \cite[pp.~9--22]{Takemura}.
 \begin{defn}
-Define the elementary symmetric polynomial \cite[pp.~12, eq.~9]{Takemura}
+Define the elementary symmetric polynomial
 \[
 u_{r}(x_{1},\ldots,x_{m}):=\underset{i_{1}<\cdots<i_{r}}{\sum}x_{i_{1}}\cdots x_{i_{r}}.
 \]
 Then, for $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
-the polynomials \cite[pp.~12, eq.~10]{Takemura}
+the polynomials
 \[
 \mathcal{U}_{\lambda}:=u_{1}^{\lambda_{1}-\lambda_{2}}u_{2}^{\lambda_{2}-\lambda_{3}}\cdots u_{l-1}^{\lambda_{l-1}-\lambda_{l}}u_{l}^{\lambda_{l}}
 \]
-\cite[pp.~13]{Takemura} form a basis for $V_{n}$.
+form a basis for $V_{n}$.
 \end{defn}
 \begin{rem}
 Obviously, 
 \[
 \deg\mathcal{U}_{\lambda}=\left(\lambda_{1}-\lambda_{2}\right)+2\left(\lambda_{2}-\lambda_{3}\right)+\cdots+l\lambda_{l}=\lambda_{1}+\cdots+\lambda_{l}=n.
 \]
-Further associate a lexicographical order to $\mathcal{P}_{n}$ \cite[pp.~9, eq.~7]{Takemura}:
-for $p=\left(p_{1},\ldots,p_{j}\right),q=\left(q_{1},\ldots,q_{l}\right)\in\mathcal{P}_{n}$,
+Further associate a lexicographical order to $\mathcal{P}_{n}$ as follows. 
+For $p=\left(p_{1},\ldots,p_{j}\right),q=\left(q_{1},\ldots,q_{l}\right)\in\mathcal{P}_{n}$,
 \[
 p>q\Leftrightarrow p_{1}=q_{1},\cdots p_{k-1}=q_{k-1},p_{k}>q_{k}\text{ for some }k.
 \]
@@ -188,19 +189,19 @@ In other words, the sum of independent Gaussian distributions is chi-square
 distributed. The Wishart distribution can be viewed as a multi-dimensional
 generalization of the chi-square distribution.
 \end{rem}
-Define the linear transform \cite[Lem.~2, pp.~19]{Takemura} $\tau_{\nu}\colon V_{n}\longrightarrow V_{n}$,
+Define the linear transform $\tau_{\nu}\colon V_{n}\longrightarrow V_{n}$,
 for $Y\in \SPD(m)$, 
 \[
   \left(\tau_{\nu}(\mathcal{U}_{\lambda})\right)\left(Y\right) :=
   \mathbb{E}_{W}\left[\mathcal{U}_{\lambda}(YW)\right]\text{ for }W\sim W(I_m,\nu).
 \]
 As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{\left(n\right)}),\tau_{\nu}(\mathcal{U}_{\left(n-1,1\right)}),\ldots,\tau_{\nu}(\mathcal{U}_{\left(1,\ldots,1\right)})\right)^{T}$
-must be a linear combination of $\mathcal{U}$ \cite[eq.~19, pp.~22]{Takemura},
+must be a linear combination of $\mathcal{U}$,
 denoted by 
 \[
 \tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}.
 \]
-Properties of $T_{\nu}$ guarantee that \cite[Lem.~4, pp.~22]{Takemura}
+Properties of $T_{\nu}$ guarantee that
 \[
 T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi,
 \]
@@ -235,6 +236,8 @@ where the constants $d_\lambda$ are given by
 
 \subsection{Definition in differential geometry}
 
+For reference in this subsection, one can see, e.g., \cite{James1}
+
 We first recall the Laplace-Beltrami operator on Riemannian manifolds.
 \begin{defn}
 On a Riemannian manifold $\left(M,g\right)$, the Laplace-Beltrami
@@ -255,16 +258,16 @@ Namely, the Laplace-Beltrami operator is the generalization of the Laplace
 operator on $\mathbb{R}^{n}$. 
 \end{rem}
 \begin{prop}
-Given $X\in \SPD(m)$, James \cite[eq.~3.12, pp.~1712]{James1} derived
+Given $X\in \SPD(m)$, James \cite[eq.~3.12, p.~1712]{James1} derived
 that the Laplace-Beltrami operator is given by
 \[
 \Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\frac{\partial}{\partial y_{i}}\right),
 \]
-where $X=HYH^{T}$, for $H\in O(n)$ and $Y=\diag(y_{1},\ldots,y_{n})$. 
+where $X=HYH^{T}$, for $H\in O(n)$, the $n$th orthogonal group, and $Y=\diag(y_{1},\ldots,y_{n})$ is the diagonalization of $X$. 
 \end{prop}
 \begin{rem}
 The second term in the parentheses is, up to the constant $\frac{m-3}{2}$,
-the Euler's operator $\overset{m}{\underset{i=1}{\sum}}y_{i}\frac{\partial}{\partial y_{i}}$,
+the Euler's operator $\sum_{i=1}^{m}y_{i}\frac{\partial}{\partial y_{i}}$,
 which has all symmetric, homogeneous polynomials as its eigenfunctions.
 Thus, when considering any eigenfunction of the Laplace-Beltrami operator~$\Delta$,
 this term can be eliminated.
@@ -295,7 +298,7 @@ g\in\mathrm{GL}(m):V_{n} & \rightarrow & V_{n}\\
 \varphi\left(Y\right) & \mapsto & \varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right)
 \end{eqnarray*}
 As a representation, the linear space can be decomposed into invariant
-subspaces \cite[pp.~611]{Representation}
+subspaces \cite[p.~611]{Representation}
 \[
 V_{n}=\bigoplus_{\lambda\in\mathcal{P}_{n}}V_{\lambda}.
 \]
@@ -358,7 +361,7 @@ are the same while $y_{1}^{2}y_{2}$ and $y_{2}^{2}y_{1}$ are different.
 \end{example}
 \begin{rem}
 An explicit expression of $M_{\lambda}(Y)$ is given by
-\cite[pp.~11, eq.~6]{Takemura}:
+\cite[eq.~6, p.~11]{Takemura}:
 \begin{equation}
 \mathcal{M}_{\left(1^{m_{1}}2^{m_{2}}\cdots\right)}\left(Y\right)=\left(\prod_{i=1}^{h}\frac{1}{m_{i}!}\right)\sum_{i_{1},\ldots,i_{l}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{l}}^{\lambda_{l}}.\label{eq:MZonalComputation}
 \end{equation}
@@ -368,13 +371,13 @@ A general result by James \cite{James1} shows that
 \begin{equation}
 C_{\kappa}(Y)=\sum_{\lambda\leq\kappa}c_{\kappa,\lambda}M_{\lambda}(Y),\label{eq:CInTermsOfM}
 \end{equation}
- for some constants $c_{\kappa,\lambda}$. (see also \cite[pp.~234, eq.~13]{Muirhead}).
+ for some constants $c_{\kappa,\lambda}$. (see also \cite[eq.~13, p.~234]{Muirhead}).
 \end{thm}
 Note that $M_\lambda(Y)$ is defined to be zero whenever there are fewer variables
 than parts in the partition~$\lambda$. It follows that $C_{\kappa}(Y)=0$ if the
 dimension of~$Y$ is smaller than the number of parts of~$\kappa$.
 \begin{example}
-\label{Tables}The following tables \cite[pp.~238]{Muirhead} show
+\label{Tables}The following tables \cite[p.~238]{Muirhead} show
 constants $c_{\kappa,\lambda}$, in the case $n=\left|\kappa\right|=\left|\lambda\right|=2,\ldots5$. 
 \begin{itemize}
 \item $n=2$
@@ -425,7 +428,7 @@ constants $c_{\kappa,\lambda}$, in the case $n=\left|\kappa\right|=\left|\lambda
 \end{itemize}
 \end{example}
 \begin{thm}
-The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[pp.~234, eq.~14]{Muirhead}
+The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[eq.~14,p.~234]{Muirhead}
 \begin{equation}
 c_{\kappa,\lambda}=\sum_{\lambda<\mu\leq\kappa}\frac{\left(\lambda_{i}+t\right)-\left(\lambda_{j}-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu},\label{eq:CRec}
 \end{equation}
@@ -439,7 +442,7 @@ Observing \eqref{eq:CRec}, once given initial $c_{\kappa,\kappa}$,
 $\forall\lambda<\kappa$, it could compute $c_{\kappa,\lambda}$.
 Now, observing tables in Example \ref{Tables} and recall \eqref{eq:TrZonal},
 it is easy to see that for each column, the sum is given by a multinomial
-coefficient. More concretely, let $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+coefficient. More precisely, let $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
 \begin{equation}
   \sum_{\kappa=\lambda}^{\left(n\right)}c_{\kappa,\lambda}=\binom{n}{\lambda_{1},\ldots,\lambda_{l}}.\label{eq:CInitial}
 \end{equation}
@@ -450,7 +453,7 @@ Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $C_{\lambda}(Y)$.
 
 \section{Characterization of vanishing coefficients}
 
-Muirhead~\cite[Lemma~7.2.3]{Muirhead} gives a necessary condition for some
+Muirhead~\cite[Lem.~7.2.3]{Muirhead} gives a necessary condition for some
 coefficients $c_{\kappa,\lambda}$ to be zero, but without proof. We recall his
 result here and give a simple proof of it.
 \begin{lemma}\label{lem:zero1}
@@ -505,11 +508,11 @@ same length.
   \[
     \sum_{i=1}^p \mu_i =
     \begin{cases}
-      \sum_{i=1}^p \lambda_i & \text{if } p<k \\
-      \sum_{i=1}^{p-1} \lambda_i + \lambda_r+t & \text{if } k\leq p<r \\
-      \sum_{i=1}^p \lambda_i + t & \text{if } r\leq p<s \\
-      \sum_{i=1}^{s-1} \lambda_i + t + \sum_{i=s+1}^{p+1}\lambda_i & \text{if } s\leq p<\ell \\
-      \sum_{i=1}^p \lambda_i & \text{if } p\geq\ell.
+      \overset{p}{\underset{i=1}{\sum}}\lambda_i & \text{if } p<k \\
+      \overset{p-1}{\underset{i=1}{\sum}}\lambda_i + \lambda_r+t & \text{if } k\leq p<r \\
+      \overset{p}{\underset{i=1}{\sum}}\lambda_i + t & \text{if } r\leq p<s \\
+      \overset{s-1}{\underset{i=1}{\sum}}\lambda_i + t +\overset{p+1}{\underset{i=s+1}{\sum}}\lambda_i & \text{if } s\leq p<\ell \\
+      \overset{p}{\underset{i=1}{\sum}}  \lambda_i & \text{if } p\geq\ell.
     \end{cases}
   \]
   In each of these cases, we have $\sum_{i=1}^p \mu_i \geq \sum_{i=1}^p
@@ -588,12 +591,12 @@ is $\mu=\left(n\right)$ with $t=1$. Therefore,
 \end{equation}
 Now, assume \eqref{eq:1to2} holds. We have
 \begin{align*}
- & c_{\left(n\right),\left(n-m-1,m+1\right)} = \\
- &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\\
- &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\biggr)\\
- &= \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}\biggr)\\
- &= \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\Bigl(\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\Bigr) \\
- &= \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
+ & c_{\left(n\right),\left(n-m-1,m+1\right)}  \\
+ =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\\
+= & \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{\left(n\right),\mu}\biggr)\\
+ =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{\left(n\right),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}\biggr)\\
+ =& \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\Bigl(\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\Bigr) \\
+ =& \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
  = \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
 \end{align*}
 \end{proof}
