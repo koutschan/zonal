@@ -1044,85 +1044,97 @@ TODO: cite \cite{Moakher}
 %\rule[0.5ex]{1\columnwidth}{1pt}
 %\par\end{flushleft}
 
-\noindent \begin{flushleft}
-\textbf{MZonal}(\emph{partition},\emph{variables)}
-\par\end{flushleft}
+\noindent \textbf{MZonal}($\lambda$, $\vec{Y}$)
 
-\noindent \begin{flushleft}
-computes the monomial symmetric function using \eqref{eq:MZonalComputation}.
-\par\end{flushleft}
+Compute specific expression $M_{\lambda}(\vec{Y})$ for partition
+$\lambda=(\lambda_{1},\ldots,\lambda_{l})$ and variables $\vec{Y}=(y_{1},\ldots,y_{m})$,
+by (\ref{eq:MZonalComputation}).
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
+EXAMPLE. Several computations. Note that when $m<l$, $M_{\lambda}(\vec{Y})=0$. 
 
-\noindent \begin{flushleft}
-\textbf{SumVariable}\emph{($\kappa$,$\lambda$)}
-\par\end{flushleft}
+\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
 
-\noindent \begin{flushleft}
-computes the list of $\mu$ appearing in the summation of \eqref{eq:CRec},
-according to the paragraph under.
-\par\end{flushleft}
+\texttt{\textcolor{orange}{sage:}}\texttt{ var(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{a}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{b}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{c}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
+\texttt{(a,b,c)}
 
-\noindent \begin{flushleft}
-\textbf{RHO}(\emph{partition)}
-\par\end{flushleft}
+\texttt{\textcolor{orange}{sage:}}\texttt{ MZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
 
-\noindent \begin{flushleft}
-computes $\rho_{\lambda}$ from \eqref{eq:RHO}.
-\par\end{flushleft}
+\texttt{a\textasciicircum{}2{*}b\textasciicircum{}2{*}c + a\textasciicircum{}2{*}b{*}c\textasciicircum{}2
++ a{*}b\textasciicircum{}2{*}c\textasciicircum{}2}
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
+\texttt{\textcolor{orange}{sage:}}\texttt{ MZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
 
-\noindent \begin{flushleft}
-\textbf{Coeffi}\emph{(kappa,lambda)}
-\par\end{flushleft}
+\texttt{a\textasciicircum{}2{*}b + a{*}b\textasciicircum{}2 + a\textasciicircum{}2{*}c
++ b\textasciicircum{}2{*}c + a{*}c\textasciicircum{}2 + b{*}c\textasciicircum{}2}
 
-\noindent \begin{flushleft}
-computes the constants $c_{\kappa,\lambda}$ through \eqref{eq:CRec}
-and \eqref{eq:CInitial}.
-\par\end{flushleft}
+\texttt{\textcolor{orange}{sage:}}\texttt{ MZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
 
-\noindent \begin{flushleft}
-\rule[0.5ex]{1\columnwidth}{1pt}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-\textbf{CZonal}\emph{(partition},\emph{variables)}
-\par\end{flushleft}
-
-\noindent \begin{flushleft}
-computes the zonal polynomial $C_{\lambda}\left(y_{1},\ldots,y_{m}\right)$
-through linear combination \eqref{eq:CInTermsOfM}.
-\par\end{flushleft}
-
-\subsection{Examples}
-
-~
-
-
-\noindent\colorbox{tan}{\begin{minipage}[t]{1\columnwidth}
-\noindent \begin{flushleft}
-\textcolor{cyan}{
-sage: Coeffi({[}2, 1{]}, {[}1, 1, 1{]})\\
-$18/5$\\
-~\\
-sage: MZonal({[}2, 1{]}, {[}a, b, c{]})\\
-$a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}$\\
-~\\
-sage: CZonal{[}{[}2, 1{]}, {[}a, b, c{]})\\
-$12/5\left(a^{2}b+ab^{2}+a^{2}c+b^{2}c+ac^{2}+bc^{2}\right)+18/5abc$
-}
-\par\end{flushleft}
-
+\texttt{0}%
 \end{minipage}}
+
+\vspace{20bp}
+
+\noindent \textbf{Coeffi}(kappa,lambda)
+
+Compute specific expression $c_{\kappa,\lambda}$ for partitions $\kappa=\left(\kappa_{1},\ldots,\kappa_{k}\right)\geq\lambda=(\lambda_{1},\ldots,\lambda_{l})$,
+by (\ref{eq:CRec}) and (\ref{eq:CInitial}). 
+
+EXAMPLE. Several computations. Note that if $\lambda>\kappa$, $c_{\kappa,\lambda}=0$. 
+
+\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{{]})}
+
+\texttt{82944/1925}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]})}
+
+\texttt{768/11}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{9}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{9}}\texttt{{]})}
+
+\texttt{1}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]})}
+
+\texttt{0}%
+\end{minipage}}
+
+\vspace{20bp}
+
+\noindent \textbf{CZonal}($\lambda$, $\vec{Y}$)
+
+Compute specific expression $\mathcal{C}_{\lambda}(\vec{Y})$ for
+partition $\lambda=(\lambda_{1},\ldots,\lambda_{l})$ and variables
+$\vec{Y}=(y_{1},\ldots,y_{m})$, by (\ref{eq:CInTermsOfM}).
+
+EXAMPLE. Several computations. Note that when $m<l$, $\mathcal{C}_{\lambda}(\vec{Y})=0$. 
+
+\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ var(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{a}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{b}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{c}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
+
+\texttt{(a,b,c)}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
+
+\texttt{32/3{*}a\textasciicircum{}2{*}b\textasciicircum{}2{*}c + 32/3{*}a\textasciicircum{}2{*}b{*}c\textasciicircum{}2
++ 32/3{*}a{*}b\textasciicircum{}2{*}c\textasciicircum{}2 }
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
+
+\texttt{12/5{*}a\textasciicircum{}2{*}b + 12/5{*}a{*}b\textasciicircum{}2
++ 12/5{*}a\textasciicircum{}2{*}c + 18/5{*}a{*}b{*}c + 12/5{*}b\textasciicircum{}2{*}c
++ 12/5{*}a{*}c\textasciicircum{}2 + 12/5{*}b{*}c\textasciicircum{}2 }
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
+
+\texttt{0}%
+\end{minipage}}\vspace{20bp}
 
 ~
 
