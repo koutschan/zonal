@@ -486,7 +486,7 @@ $c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
 i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
 example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
 same length.
-\begin{lemma}\label{lem:zero2}
+\begin{prop}\label{prop:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
   with $\kappa\geq\lambda$ in lexicographic order. If there exists
   $p\in\mathbb{N}$ such that
@@ -495,7 +495,7 @@ same length.
   \end{equation}
   (where the partitions are filled with zeros as necessary), then
   $c_{\kappa,\lambda}=0$.
-\end{lemma}
+\end{prop}
 \begin{proof}
   We first want to show that, under the assumption~\eqref{eq:prop},
   $\sum_{i=1}^p(\kappa_i-\mu_i)<0$ holds for all $\mu$ of the form
@@ -541,17 +541,32 @@ same length.
   \end{enumerate}
 \end{proof}
 
-\begin{conj}
-  The converse of Lemma~\eqref{lem:zero2} holds, i.e., $c_{\kappa,\lambda}=0$
-  only if \eqref{eq:prop} holds. (We have tested this conjecture up to
-  $n=22$.)
-\end{conj}
-
 \begin{example}
   For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
   partial sum of their differences, i.e. $j=2$, is negative:
   $(8-7)+(2-4)=-1$, and hence $c_{\kappa,\lambda}$ must be zero.
 \end{example}
+
+\begin{conj}\label{conj:}
+  The converse of Proposition~\eqref{prop:zero2} holds, i.e.,
+  $c_{\kappa,\lambda}=0$ only if \eqref{eq:prop} holds. In other words, the
+  condition~\eqref{eq:prop} is not only necessary but also sufficient.
+\end{conj}
+
+We have verified Conjecture~\ref{conj:} for all $n$ up to $n=34$.  A graphical
+presentation of the positions where $c_{\kappa,\lambda}=0$ is shown in
+Figure~\ref{fig:zeros}. We recognize a fractal-like structure which is due to
+Proposition~\ref{prop:zero2} and the lexicographical ordering of partitions.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{zeros.pdf}
+  \end{center}
+  \caption{Location of zeros in the $c_{\kappa,\lambda}$-matrix for $n=16$:
+  each nonzero coefficient is represented by a white square, each zero
+  by a black square.}
+  \label{fig:zeros}
+\end{figure}
 
 
 \section{Infinite families of coefficients $c_{\kappa,\lambda}$}
@@ -1114,7 +1129,7 @@ by (\ref{eq:MZonalComputation}).
 
 EXAMPLE. Several computations. Note that when $m<l$, $M_{\lambda}(\vec{Y})=0$. 
 
-\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
 \texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
 
 \texttt{\textcolor{orange}{sage:}}\texttt{ var(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{a}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{b}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{c}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
@@ -1140,12 +1155,12 @@ EXAMPLE. Several computations. Note that when $m<l$, $M_{\lambda}(\vec{Y})=0$.
 
 \noindent \textbf{Coeffi}(kappa,lambda)
 
-Compute specific expression $c_{\kappa,\lambda}$ for partitions $\kappa=\left(\kappa_{1},\ldots,\kappa_{k}\right)\geq\lambda=(\lambda_{1},\ldots,\lambda_{l})$,
+Compute the coefficient~$c_{\kappa,\lambda}$ for partitions $\kappa=\left(\kappa_{1},\ldots,\kappa_{k}\right)\geq\lambda=(\lambda_{1},\ldots,\lambda_{l})$,
 by (\ref{eq:CRec}) and (\ref{eq:CInitial}). 
 
 EXAMPLE. Several computations. Note that if $\lambda>\kappa$, $c_{\kappa,\lambda}=0$. 
 
-\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
 \texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
 
 \texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{{]})}
@@ -1175,7 +1190,7 @@ $\vec{Y}=(y_{1},\ldots,y_{m})$, by (\ref{eq:CInTermsOfM}).
 
 EXAMPLE. Several computations. Note that when $m<l$, $\mathcal{C}_{\lambda}(\vec{Y})=0$. 
 
-\noindent\fbox{\begin{minipage}[t]{\columnwidth \fboxsep \fboxrule}%
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
 \texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
 
 \texttt{\textcolor{orange}{sage:}}\texttt{ var(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{a}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{b}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{c}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
