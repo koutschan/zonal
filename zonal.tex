@@ -71,7 +71,7 @@ function ${}_pF_q$, defined as the infinite series
   {}_pF_q\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,z\right) :=
   \sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!},
 \]
-where for positive integer $m$,  $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the the Pochhammer symbol.
+where for positive integer $m$,  $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the Pochhammer symbol.
 What is less well known is the fact that this hypergeometric function can be
 generalized to matrix argument, as follows.
 \begin{defn}
@@ -112,9 +112,11 @@ of different definitions of zonal polynomials.
 
 TODO: Write summaries for Sections 3, 4, 5, 6
 
+TODO: cite \cite{Moakher}?
+
 A short manual on a \texttt{Sage} package we implemented
 for calculation of $\mathcal{C}_{\lambda}(Y)$ follows
-in Section \ref{sec:Package}.
+in Section~\ref{sec:Package}.
 
 
 \section{\label{sec:DEFS}Definitions of zonal polynomials}
@@ -266,7 +268,7 @@ that the Laplace-Beltrami operator is given by
 \begin{equation}
 \Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\frac{\partial}{\partial y_{i}}\right), \label{eq:LaplaceBeltrami}
 \end{equation}
-where $X=HYH^{T}$, for some orthogonal matrix $H\in O(n)$, and $Y=\diag(y_{1},\ldots,y_{n})$ is the diagonalization of $X$. 
+where $X=HYH^{T}$ for some orthogonal matrix $H\in O(n)$, and $Y=\diag(y_{1},\ldots,y_{n})$ is the diagonalization of $X$. 
 \end{prop}
 \begin{rem}
 The second term on the right-hand side of \eqref{eq:LaplaceBeltrami} is, up to the constant $(m-3)/2$,
@@ -693,8 +695,7 @@ $(n-2,1,1)$:
 (n-2,1,1) & 0 & \frac{2(n-3)(n-2)n}{3(2n-7)}\\[1ex]
 (n-3,3) & \frac{4(n-5)(n-4)(n-3)(n-2)(n-1)n}{3(2n-9)(2n-7)(2n-5)} & \frac{4(n-5)(n-4)(n-3)(n-2)(n-1)n}{5(2n-9)(2n-7)(2n-5)}\\[1ex]
 (n-3,2,1) & 0 & \frac{4(n-4)(n-3)(n-1)n}{5(2n-7)}\\[1ex]
-(n-3,1,1,1) & 0 & 0\\[1ex]
-(n-4,4) & 0 & 0
+(n-3,1,1,1) & 0 & 0
 \end{array}
 \]
 
@@ -1011,7 +1012,6 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   sees that this constant is~$1$.
 \end{proof}
 
-% TODO remark case b=a
 \begin{rem}
   By setting $b=a$ in Theorem~\ref{thm:cf2} and by interpreting $(a,0)$ as the
   partition~$(a)$, we recover Theorem~\ref{thm:row1}:
@@ -1023,8 +1023,70 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   \]
 \end{rem}
 
-TODO: cite \cite{Moakher}
 
+
+\section{Partitions with three and four parts}
+
+We have seen that the coefficients of the zonal polynomial $C_\kappa(Y)$ are
+given by the row indexed by~$\kappa$ in the $c_{\kappa,\lambda}$-matrix. Using
+\eqref{eq:CRec} we can express all coefficients~$c_{\kappa,\lambda}$ in the
+$\kappa$-th row as constant multiples of the diagonal
+coefficient~$c_{\kappa,\kappa}$.  Unfortunately, the latter one is harder to
+obtain: to apply \eqref{eq:CInitial} we need to know all $c_{\kappa,\lambda}$
+in the $\lambda$-th column, which in turn are obtained by \eqref{eq:CRec} and
+so on. Hence, in the worst case, we need to compute the whole triangle above
+the position $(\kappa,\kappa)$.
+
+Therefore, it would be highly desirable to have a more direct way to compute
+the diagonal coefficients~$c_{\kappa,\kappa}$. We present formulas for the
+special cases that $\kappa$ has three resp.\ four parts.
+
+\begin{conj}\label{conj:diag3}
+  Let $\kappa=(a,a-b,a-c)$ with integers $0\leq b\leq c\leq a$ be a partition
+  of $n=3a-b-c$ into at most three parts. Then the diagonal coefficient
+  $c_{\kappa,\kappa}$ is given by
+  \begin{align*}
+    c_{\kappa,\kappa} &= \frac{(c+1)! \, (3a-b-c)!}
+    {(a+1)! \, b! \, (c-b)! \, (a-c)! \, \bigl(b+\frac32\bigr)_{\!c-b} \, \bigl(c-b+\frac32\bigr)_{\!a-c}} \\
+    &= \frac{(c+1)!}{(a+1)!} \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \,
+      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \, \bigl(\delta_2+\frac32\bigr)_{\!\delta_3}}
+  \end{align*}
+  with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$, and
+  $\delta_3=\kappa_3-\kappa_4=a-c$ being the differences between consecutive
+  parts of~$\kappa$.
+\end{conj}
+
+\begin{conj}\label{conj:diag4}
+  Let $\kappa=(a,a-b,a-c,a-d)$ with integers $0\leq b\leq c\leq d\leq a$ be a
+  partition of $n=4a-b-c-d$ into at most four parts. Then the diagonal
+  coefficient $c_{\kappa,\kappa}$ is given by
+  \begin{align*}
+    c_{\kappa,\kappa} &= \frac{(c+1)! \, (d-b+1)! \, (4a-b-c-d)!}
+    {(a-b+1)! \, (d+1)! \, b! \, (c-b)! \, (d-c)! \, (a-d)!} \\
+    &\qquad\times\frac{1}{
+      \bigl(d+\frac52\bigr)_{\!a-d} \, \bigl(b+\frac32\bigr)_{\!c-b} \, 
+      \bigl(c-b+\frac32\bigr)_{\!d-c} \, \bigl(d-c+\frac32\bigr)_{\!a-d}} \\
+    &= \frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
+    \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \, \delta_4! \,
+      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}}
+  \end{align*}
+  with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$,
+  $\delta_3=\kappa_3-\kappa_4=d-c$, and $\delta_4=\kappa_4-\kappa_5=a-d$ being
+  the differences between consecutive parts of~$\kappa$.
+\end{conj}
+
+We have verified Conjecture~\ref{conj:diag3} for all $0\leq b\leq c\leq a\leq
+14$ and Conjecture~\ref{conj:diag4} for all $0\leq b\leq c\leq d\leq a\leq
+10$.
+
+\begin{rem}
+  Note that by specializing the formula in Conjecture~\ref{conj:diag3} to a
+  partition~$\kappa$ with at most two parts, i.e., by setting $c=a$ and
+  identifying $(a,a-b,0)$ with $(a,a-b)$, we obtain the formula in
+  Theorem~\ref{thm:cf2} with $d=0$. Similarly, the formula in
+  Conjecture~\ref{conj:diag4} specializes to the one in
+  Conjecture~\ref{conj:diag3} after setting $d=a$.
+\end{rem}
 
 
 \section{\label{sec:Package}Sage package for the calculation of zonal polynomials}
@@ -1108,7 +1170,7 @@ through linear combination \eqref{eq:CInTermsOfM}.
 ~
 
 
-\noindent\colorbox{tan}{\begin{minipage}[t]{1\columnwidth}
+\noindent\colorbox{tan}{\begin{minipage}[t]{0.98\columnwidth}
 \noindent \begin{flushleft}
 \textcolor{cyan}{
 sage: Coeffi({[}2, 1{]}, {[}1, 1, 1{]})\\
