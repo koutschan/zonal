@@ -144,7 +144,10 @@ def Lcoeffi(k,l):                      #Given partitions l<k, return all nonzero
     return re;    
 
 def Coeffi(k,l): 
-    return Lcoeffi(k,l)[-1];    
+    if l>k:
+        return 0;
+    else:
+        return Lcoeffi(k,l)[-1];    
 
 def FLcoeffi(k):                       #Full List of coefficients c_{k,l} for all l<=k#
     n=sum(k);                          #k is a partition of n# 
