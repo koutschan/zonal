@@ -97,9 +97,9 @@ $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)$ such that
   \left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\!\!\lambda_{i}};
 \]
 \item and finally $\mathcal{C}_{\lambda}(Y)$ denotes the zonal polynomial
-of~$Y$, indexed by a partition $\lambda$, which is a symmetric polynomial
+of~$Y$, indexed by a partition~$\lambda$, which is a symmetric polynomial
 of degree~$n$ (see Section~\ref{sec:DEFS}), in the eigenvalues
-$y_{1},\ldots,y_{m}$ of $Y$, satisfying 
+$y_{1},\ldots,y_{m}$ of~$Y$, satisfying 
 \begin{equation}\label{eq:TrZonal}
   \sum_{\lambda\in\mathcal{P}_{n}}\mathcal{C}_{\lambda}\left(Y\right)=\left(\Tr Y\right)^{n}=\left(y_{1}+\cdots+y_{m}\right)^{n}.
 \end{equation}
@@ -162,41 +162,48 @@ and combinatorics. Namely, each subsection will present one aspect.
 First of all, we need an important linear space.
 \begin{defn}
 Let $V_{n}$ be the space of symmetric homogeneous polynomials of
-degree $n$ in the variables $y_{1},\ldots,y_{m}$ including the zero polynomial.
+degree $n$ in the variables $y_{1},\ldots,y_{m}$, including the zero polynomial.
 Namely, if $f\in V_{n}$, we have 
 \begin{itemize}
 \item $\deg f=n$ or $f\equiv0$;
 \item if $\deg f=n$, then $f$ is symmetric and homogeneous in $y_{1},\ldots,y_{m}$.
 \end{itemize}
 Moreover, any polynomial $f\in V_{n}$ can also be viewed as a polynomial
-in the eigenvalues of $m\times m$ symmetric, positive-definite matrices.
+in the eigenvalues of an $m\times m$ symmetric, positive-definite matrix~$Y$.
+Then, the notations $f(y_1,\dots,y_m)$ and $f(Y)$ are considered equivalent.
 Denote the space of $m\times m$ symmetric, positive-definite matrices
-as $\SPD(m)$. 
+by $\SPD(m)$. 
 \end{defn}
 
 \subsection{Definition involving the Wishart distribution}\label{sec:Wishart}
-The following defintion, claims and properties in this subsection can be found, e.g., \cite[pp.~9--22]{Takemura}.
+The following definition, and other claims and properties in this section
+can be found, e.g., in \cite[pp.~9--22]{Takemura}.
 \begin{defn}
 Define the elementary symmetric polynomial
 \[
-u_{r}(x_{1},\ldots,x_{m}):=\underset{i_{1}<\cdots<i_{r}}{\sum}x_{i_{1}}\cdots x_{i_{r}}.
+  u_{r}(x_{1},\ldots,x_{m}):=\underset{i_{1}<\cdots<i_{r}}{\sum}x_{i_{1}}\cdots x_{i_{r}}.
 \]
-Then, for $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+Then, for $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)\in\mathcal{P}_{n}$,
 the polynomials
 \[
-\mathcal{U}_{\lambda}:=u_{1}^{\lambda_{1}-\lambda_{2}}u_{2}^{\lambda_{2}-\lambda_{3}}\cdots u_{l-1}^{\lambda_{l-1}-\lambda_{l}}u_{l}^{\lambda_{l}}
+  \mathcal{U}_{\lambda} :=
+  u_{1}^{\lambda_{1}-\lambda_{2}}u_{2}^{\lambda_{2}-\lambda_{3}}\cdots u_{k-1}^{\lambda_{k-1}-\lambda_{k}}u_{k}^{\lambda_{k}}
 \]
 form a basis for $V_{n}$.
 \end{defn}
 \begin{rem}
 Obviously, 
 \[
-\deg\mathcal{U}_{\lambda}=\left(\lambda_{1}-\lambda_{2}\right)+2\left(\lambda_{2}-\lambda_{3}\right)+\cdots+l\lambda_{l}=\lambda_{1}+\cdots+\lambda_{l}=n.
+  \deg\mathcal{U}_{\lambda} =
+  \left(\lambda_{1}-\lambda_{2}\right)+2\left(\lambda_{2}-\lambda_{3}\right)+\cdots+k\lambda_{k} =
+  \lambda_{1}+\cdots+\lambda_{k}=n.
 \]
 Further associate a lexicographical order to $\mathcal{P}_{n}$ as follows. 
-For $p=\left(p_{1},\ldots,p_{j}\right),q=\left(q_{1},\ldots,q_{l}\right)\in\mathcal{P}_{n}$,
+For $\kappa=\left(\kappa_1,\ldots,\kappa_j\right),\lambda=\left(\lambda_1,\ldots,\lambda_k\right)\in\mathcal{P}_{n}$,
 \[
-p>q\Leftrightarrow p_{1}=q_{1},\cdots p_{k-1}=q_{k-1},p_{k}>q_{k}\text{ for some }k.
+  \kappa>\lambda \quad:\Leftrightarrow\quad
+  \kappa_1=\lambda_1\land\cdots\land\kappa_{l-1}=\lambda_{l-1}\land\kappa_{l}>\lambda_{l}
+  \quad\text{for some }l.
 \]
 Then, we could write the basis formed by the $\mathcal{U}_{\lambda}$
 as a column vector:
@@ -221,7 +228,7 @@ S=X^{T}X\sim W_{m}(V,\nu),
 where $\nu$ is called the degree of freedom.
 \end{defn}
 \begin{rem}
-Recall that in the $1$-dimensional case: if $Z_{1},\ldots,Z_{k}\sim\mathcal{N}(0,1)$
+Recall the $1$-dimensional case: if $Z_{1},\ldots,Z_{k}\sim\mathcal{N}(0,1)$
 are independent Gaussian distributed, then $Q:=Z_{1}+\cdots+Z_{k}\sim\chi_{k}^{2}$.
 In other words, the sum of independent Gaussian distributions is chi-square
 distributed. Therefore, the Wishart distribution can be viewed as a multi-dimensional
@@ -247,7 +254,7 @@ for some nonsingular upper triangular matrix $\Xi$, which is uniquely
 determined up to a (possibly different) multiplicative constant for
 each row, and 
 \[
-\Lambda_{\nu}=\diag\left(2^{n}\left(\frac{\nu}{2}\right)_\lambda\right),
+  \Lambda_{\nu}=\diag\left(2^{n}\left(\frac{\nu}{2}\right)_{\!\lambda}\right),
 \]
 for $\lambda\in\mathcal{P}_n$ is the diagonalization of $T_\nu$.
 Now, we can define zonal polynomials.
@@ -273,10 +280,10 @@ where the constants $d_\lambda$ are given by
 \]
 \end{defn}
 
+
 \subsection{Definition in differential geometry}
 
-For reference in this subsection, one can see, e.g., \cite{James1}.
-
+A good reference for the material in this subsection is~\cite{James1}.
 We first recall the Laplace-Beltrami operator on Riemannian manifolds.
 \begin{defn}
 On a Riemannian manifold $\left(M,g\right)$, the Laplace-Beltrami
@@ -319,7 +326,7 @@ are eigenfunctions of $\Delta_{Y}$, defined by
 \]
 In particular
 \[
-  \Delta_{Y}\mathcal{C}_{\lambda}(Y)=\left(\rho_{\lambda}+(m-1)n\right)\mathcal{C}_{\lambda}(Y)
+  \Delta_{Y}\mathcal{C}_{\lambda}(Y)=\bigl(\rho_{\lambda}+(m-1)n\bigr)\cdot\mathcal{C}_{\lambda}(Y)
   \qquad (n=\lambda_1+\dots+\lambda_k),
 \]
 where
@@ -356,7 +363,7 @@ defines the zonal polynomials.
 
 \subsection{A short remark on Macdonald, Jack and zonal polynomials}
 
-Special case of Macdonald polynomial gives Jack polynomials $J_{\lambda}^{\left(\alpha\right)}$,
+A special case of Macdonald polynomials gives the Jack polynomials $J_{\lambda}^{\left(\alpha\right)}$,
 which when $\alpha=2$, up constant factors, gives zonal polynomials. 
 
 
@@ -368,14 +375,15 @@ to directly compute $\mathcal{C}_{\lambda}(Y)$. Now, we
 follow the steps by Muirhead \cite{Muirhead} to build up a package for the
 calculation of $\mathcal{C}_{\lambda}(Y)$.
 \begin{defn}
-For $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+For $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)\in\mathcal{P}_{n}$,
 define the \emph{monomial symmetric function} as 
 \begin{equation}
-M_{\lambda}(y_{1},\ldots,y_{m})=\sum_{\genfrac{}{}{0pt}{}{i_{1},\ldots,i_{l}}{\text{distinct terms}}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{l}}^{\lambda_{l}}=y_{1}^{\lambda_{1}}\cdots y_{l}^{\lambda_{l}}+\text{symmetric terms}.\label{eq:MZonal}
+  M_{\lambda}(y_{1},\ldots,y_{m}) =
+  \sum_{\genfrac{}{}{0pt}{}{i_{1},\ldots,i_{k}}{\text{distinct terms}}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{k}}^{\lambda_{k}}=y_{1}^{\lambda_{1}}\cdots y_{k}^{\lambda_{k}}+\text{symmetric terms}.\label{eq:MZonal}
 \end{equation}
 \end{defn}
 \begin{example}
-Let $Y\in SPD(m)$ have eigenvalues $y_{1},\ldots,y_{m}$:
+Let $Y\in\SPD(m)$ have the eigenvalues $y_{1},\ldots,y_{m}$:
 \begin{enumerate}
 \item 
 \[
@@ -401,8 +409,9 @@ are the same while $y_{1}^{2}y_{2}$ and $y_{2}^{2}y_{1}$ are different.
 \begin{rem}
 An explicit expression of $M_{\lambda}(Y)$ is given by
 \cite[eq.~6, p.~11]{Takemura}:
-\begin{equation}
-M_{\left(1^{m_{1}}2^{m_{2}}\cdots\right)}\left(Y\right)=\left(\prod_{i=1}^{h}\frac{1}{m_{i}!}\right)\sum_{i_{1},\ldots,i_{l}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{l}}^{\lambda_{l}}.\label{eq:MZonalComputation}
+\begin{equation}\label{eq:MZonalComputation}
+  M_{\left(1^{m_{1}}2^{m_{2}}\cdots\right)}\left(Y\right)=\left(\prod_{i=1}^{h}\frac{1}{m_{i}!}\right)
+  \sum_{i_{1},\ldots,i_{k}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{k}}^{\lambda_{k}}.
 \end{equation}
 \end{rem}
 \begin{thm}
@@ -468,11 +477,12 @@ constants $c_{\kappa,\lambda}$, in the case $n=\left|\kappa\right|=\left|\lambda
 \end{example}
 \begin{thm}
 The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[eq.~14, p.~234]{Muirhead}
-\begin{equation}
-c_{\kappa,\lambda}=\sum_{\lambda<\mu\leq\kappa}\frac{\left(\lambda_{i}+t\right)-\left(\lambda_{j}-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu},\label{eq:CRec}
+\begin{equation}\label{eq:CRec}
+  c_{\kappa,\lambda} =
+  \sum_{\lambda<\mu\leq\kappa}\frac{\left(\lambda_{i}+t\right)-\left(\lambda_{j}-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu},
 \end{equation}
-where for $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)$,
-the sum is over all $\mu=\left(\lambda_{1},\ldots,\lambda_{i}+t,\ldots,\lambda_{j}-t,\ldots,\lambda_{l}\right)$
+where for $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)$
+the sum is over all $\mu=\left(\lambda_1,\ldots,\lambda_i+t,\ldots,\lambda_j-t,\ldots,\lambda_k\right)$
 for $t=1,\ldots,\lambda_{j}$ such that by rearranging the tuple~$\mu$
 in a descending order, it lies as $\lambda<\mu\leq\kappa$.
 \end{thm}
@@ -481,9 +491,10 @@ Observing \eqref{eq:CRec}, once given initial $c_{\kappa,\kappa}$,
 $\forall\lambda<\kappa$, it could compute $c_{\kappa,\lambda}$.
 Now, observing tables in Example \ref{Tables} and recall \eqref{eq:TrZonal},
 it is easy to see that for each column, the sum is given by a multinomial
-coefficient. More precisely, let $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\right)\in\mathcal{P}_{n}$,
+coefficient. More precisely, let $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)\in\mathcal{P}_{n}$,
 \begin{equation}
-  \sum_{\kappa=\lambda}^{\left(n\right)}c_{\kappa,\lambda}=\binom{n}{\lambda_{1},\ldots,\lambda_{l}}.\label{eq:CInitial}
+  \sum_{\kappa=\lambda}^{\left(n\right)}c_{\kappa,\lambda} =
+  \binom{n}{\lambda_1,\ldots,\lambda_k}.\label{eq:CInitial}
 \end{equation}
 In particular, $c_{\left(n\right),\left(n\right)}=\binom{n}{n}=1$.
 Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $\mathcal{C}_{\lambda}(Y)$. 
@@ -510,6 +521,7 @@ result here and give a simple proof of it.
     \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)\geq p}}\!\!\!\!\!
       c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{=0}
   \end{align*}
+  % TODO: is there a better notation for parts(\lambda) ?
   from which it becomes apparent that all coefficients $c_{\kappa,\lambda}$
   for which $\lambda$ has fewer parts than $p$, parts of $\kappa$, 
   must be zero.
