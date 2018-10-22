@@ -1,12 +1,9 @@
 #First of all, we define some useful functions that help in the computation#
 
-def Calmi(partition):                 #For a paritition with m_1 1's, m_2 2's and etc, return (m_1)!(m_2)!...(m_l)!. This is the reciprocal of the leading coefficient of M-polynomial.#
-    temp=uniq(partition);             #Delete the repeted parts and re-order the distinct parts in ascending order.#
-    count=1;                          #set count=1, i.e., empty product.$
-    for i in temp:                    #let i run all distinct parts.#
-        a=partition.count(i);         #a counts the number of i appearing in the partition.#
-        count=count*factorial(a);     #a contributes a! in the product of "count".#
-    return count;                     #return the product.#
+def Calmi(p):                         #For a paritition with m_1 1's, m_2 2's and etc, return (m_1)!(m_2)!...(m_l)!. This is the reciprocal of the leading coefficient of M-polynomial.#
+    t=Partition(p).to_exp()           #exponential form of the partition {m_1,m_2,...}#
+    re=prod(factorial(i) for i in t)  #re=(m_1)!(m_2)!...(m_l)!#
+    return re;                        #return the product.#
 
 def listexp(list1,list2):                       #Given two lists of same length, say {a_1,a_2,...,a_n} and {b_1,b_2,...,b_n} return (a_1)^(b_1)(a_2)^(b_2)...(a_n)^(b_n)#
     n=len(list1);       
