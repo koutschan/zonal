@@ -56,9 +56,10 @@
   appear in many mathematical contexts, such as multivariate statistics,
   differential geometry, representation theory, and combinatorics.  We present
   two computer algebra packages, in Sage and in Mathematica, for their
-  computation. Based on them, we carry out an experimental mathematics study
-  of some properties of zonal polynomials. Moreover, we derive and prove
-  closed forms for several infinite families of zonal polynomial coefficients.
+  computation. With the help of this software, we carry out an experimental
+  mathematics study of some properties of zonal polynomials. Moreover, we
+  derive and prove closed forms for several infinite families of zonal
+  polynomial coefficients.
 \end{abstract}
 
 \maketitle
@@ -67,16 +68,17 @@
 
 At the beginning of our study, we recall the well-known Gau\ss\ hypergeometric
 function ${}_pF_q$, defined as the infinite series
-\[
+\begin{equation}\label{eq:pFq}
   {}_pF_q\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,z\right) :=
   \sum_{n=0}^{\infty}\frac{\left(a_{1}\right)_{n}\cdots\left(a_{p}\right)_{n}}{\left(b_{1}\right)_{n}\cdots\left(b_{q}\right)_{n}}\cdot\frac{z^{n}}{n!},
-\]
-where for positive integer $m$,  $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the Pochhammer symbol.
-What is less well known is the fact that this hypergeometric function can be
-generalized to matrix argument, as follows.
+\end{equation}
+where for positive integer $m$,
+$\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the
+Pochhammer symbol.  What is less well-known is a remarkable generalization of
+this hypergeometric function to matrix argument, as follows.
 \begin{defn}
 Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
-hypergeometric function with matrix argument is defined as 
+hypergeometric function ${}_pF_q$ with matrix argument is defined as 
 \begin{equation}\label{eq:MatrixpFq}
   {}_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,Y\right) :=
   \sum_{n=0}^{\infty}\sum_{\lambda\in\mathcal{P}_{n}}\frac{\left(a_{1}\right)_{\lambda}\cdots\left(a_{p}\right)_{\lambda}}
@@ -88,35 +90,67 @@ where
 every partition $\lambda\in\mathcal{P}_{n}$ is defined to be a tuple
 $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)$ such that 
 \[
-\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq 1\ \ \ \text{and}\ \ \  \lambda_{1}+\cdots+\lambda_{k}=n;
+  \lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq 1\ \ \ \text{and}\ \ \  \lambda_{1}+\cdots+\lambda_{k}=n;
 \]
 \item the generalized Pochhammer symbol is defined as
 \[
-\left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\lambda_{i}};
+  \left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\!\!\lambda_{i}};
 \]
 \item and finally $\mathcal{C}_{\lambda}(Y)$ denotes the zonal polynomial
-of $Y$, indexed by a partition $\lambda$, which is a symmetric polynomial
-of degree $n$, in the eigenvalues $y_{1},\ldots,y_{m}$ of $Y$,
-satisfying 
-\begin{equation}
-\sum_{\lambda\in\mathcal{P}_{n}}\mathcal{C}_{\lambda}\left(Y\right)=\left(\Tr Y\right)^{n}=\left(y_{1}+\cdots+y_{m}\right)^{n}.\label{eq:TrZonal}
+of~$Y$, indexed by a partition $\lambda$, which is a symmetric polynomial
+of degree~$n$ (see Section~\ref{sec:DEFS}), in the eigenvalues
+$y_{1},\ldots,y_{m}$ of $Y$, satisfying 
+\begin{equation}\label{eq:TrZonal}
+  \sum_{\lambda\in\mathcal{P}_{n}}\mathcal{C}_{\lambda}\left(Y\right)=\left(\Tr Y\right)^{n}=\left(y_{1}+\cdots+y_{m}\right)^{n}.
 \end{equation}
 \end{itemize}
 \end{defn}
-Hashiguchi et.~al~\cite{Hashiguchi} study the case $p=q=1$, using the
-holonomic gradient method~\cite{NakayamaEtAl11}. We see that the key to
-unterstand the hypergeometric function with matrix argument is the zonal
+
+By noting that the zonal polynomial is zero whenever~$k$, the number of parts
+of~$\lambda$, exceeds the dimension of~$Y$, one recognizes that
+\eqref{eq:MatrixpFq} indeed specializes to \eqref{eq:pFq} when $Y$ is a
+$(1\times1)$-matrix, since for each~$n$ only the partition $\lambda=(n)$
+contributes.
+
+The hypergeometric function of a matrix argument is used in multivariate
+statistics, in connection with the Wishart distribution~\cite{Wishart28}; see
+Section~\ref{sec:Wishart} and \cite{GrossRichards87} for an introduction.  For
+example, the extreme eigenvalues of random matrices can be expressed in terms
+of this hypergeometric function~\cite{Johnstone01,ButlerPaige11}.  However,
+the numerical evaluation of ${}_pF_q$ functions of a matrix argument is a
+notorious problem in multivariate distribution theory~\cite{KoevEdelman06}.
+
+Some recent progress on the numerical evaluation is based on the holonomic
+gradient method~\cite{NakayamaEtAl11}. In the case $p=q=1$, it is known that
+the hypergeometric function $_1F_1(a;c;Y)$ satisfies a holonomic system of
+partial differential equations~\cite{Muirhead70} in the variables
+$y_1,\dots,y_m$, whose holonomic rank is~$2^m$.  Hashiguchi
+et.~al~\cite{Hashiguchi} use it to study the cumulative distribution of the
+largest eigenvalue of a Wishart matrix. The problem of specializing this
+high-dimensional holonomic system to singular regions has been addressed
+in~\cite{Noro16}.  As an application, the Wishart distribution arises in the
+performance analysis of wireless communication systems under Rayleigh
+fading~\cite{SiriteanuEtAl15}.
+
+From Definition~\ref{eq:MatrixpFq} we see that the key to unterstand the
+hypergeometric function with matrix argument is the zonal
 polynomial. Interestingly, these polynomials also appear in completely
 different mathematical contexts.  In Section~\ref{sec:DEFS} we give a survey
-of different definitions of zonal polynomials.
-
-TODO: Write summaries for Sections 3, 4, 5, 6
+of different definitions of zonal polynomials. In Section~\ref{sec:calc} we
+recall a recursive method by Muirhead~\cite{Muirhead} to calculate zonal
+polynomials. Note that there is no general direct formula to obtain the
+coefficients of the zonal polynomial.  In the following we will give such
+formulas for some special families of zonal polynomial coefficients: In
+Section~\ref{sec:zeros} we investigate the question under which conditions a
+coefficient becomes zero, and in Section~\ref{sec:families} we derive closed
+forms for the coefficients at the two extremal corners of the coefficient
+matrix. Then we give a complete closed form for zonal polynomials in two
+variables (Section~\ref{sec:2parts}) and some partial results for three and
+four variables (Section~\ref{sec:3+4parts}). Finally, we explain some details
+of our software packages, see Sections~\ref{sec:Package} and~\ref{sec:mma},
+that were written in the frame of the current work.
 
 TODO: cite \cite{Moakher}?
-
-A short manual on a \texttt{Sage} package we implemented
-for calculation of $\mathcal{C}_{\lambda}(Y)$ follows
-in Section~\ref{sec:Package}.
 
 
 \section{\label{sec:DEFS}Definitions of zonal polynomials}
@@ -140,7 +174,7 @@ Denote the space of $m\times m$ symmetric, positive-definite matrices
 as $\SPD(m)$. 
 \end{defn}
 
-\subsection{Definition involving the Wishart distribution}
+\subsection{Definition involving the Wishart distribution}\label{sec:Wishart}
 The following defintion, claims and properties in this subsection can be found, e.g., \cite[pp.~9--22]{Takemura}.
 \begin{defn}
 Define the elementary symmetric polynomial
@@ -326,7 +360,7 @@ Special case of Macdonald polynomial gives Jack polynomials $J_{\lambda}^{\left(
 which when $\alpha=2$, up constant factors, gives zonal polynomials. 
 
 
-\section{Calculation of zonal polynomials}
+\section{Calculation of zonal polynomials}\label{sec:calc}
 
 Although there are more than one ways to define the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
 in practice, none of these definitions gives an algorithm or formula
@@ -373,13 +407,13 @@ M_{\left(1^{m_{1}}2^{m_{2}}\cdots\right)}\left(Y\right)=\left(\prod_{i=1}^{h}\fr
 \end{rem}
 \begin{thm}
 A general result by James \cite{James1} shows that
-\begin{equation}
-C_{\kappa}(Y)=\sum_{\lambda\leq\kappa}c_{\kappa,\lambda}M_{\lambda}(Y),\label{eq:CInTermsOfM}
+\begin{equation}\label{eq:CInTermsOfM}
+  \mathcal{C}_{\kappa}(Y)=\sum_{\lambda\leq\kappa}c_{\kappa,\lambda}M_{\lambda}(Y),
 \end{equation}
  for some constants $c_{\kappa,\lambda}$. (see also \cite[eq.~13, p.~234]{Muirhead}).
 \end{thm}
 Note that $M_\lambda(Y)$ is defined to be zero whenever there are fewer variables
-than parts in the partition~$\lambda$. It follows that $C_{\kappa}(Y)=0$ if the
+than parts in the partition~$\lambda$. It follows that $\mathcal{C}_{\kappa}(Y)=0$ if the
 dimension of~$Y$ is smaller than the number of parts of~$\kappa$.
 \begin{example}
 \label{Tables}The following tables \cite[p.~238]{Muirhead} show
@@ -452,11 +486,11 @@ coefficient. More precisely, let $\lambda=\left(\lambda_{1},\ldots,\lambda_{l}\r
   \sum_{\kappa=\lambda}^{\left(n\right)}c_{\kappa,\lambda}=\binom{n}{\lambda_{1},\ldots,\lambda_{l}}.\label{eq:CInitial}
 \end{equation}
 In particular, $c_{\left(n\right),\left(n\right)}=\binom{n}{n}=1$.
-Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $C_{\lambda}(Y)$. 
+Thus, all constants $c_{\kappa,\lambda}$ are obtained, so is $\mathcal{C}_{\lambda}(Y)$. 
 \end{rem}
 
 
-\section{Characterization of vanishing coefficients}
+\section{Characterization of vanishing coefficients}\label{sec:zeros}
 
 Muirhead~\cite[Lem.~7.2.3]{Muirhead} gives a necessary condition for some
 coefficients $c_{\kappa,\lambda}$ to be zero, but without proof. We recall his
@@ -469,7 +503,7 @@ result here and give a simple proof of it.
 \begin{proof}
   From the definition of zonal polynomials it follows
   \begin{align*}
-    0 = C_{\kappa}(y_1,\dots,y_{p-1}) &=
+    0 = \mathcal{C}_{\kappa}(y_1,\dots,y_{p-1}) &=
     \sum_{\lambda\leq\kappa} c_{\kappa,\lambda} M_{\lambda}(y_1,\dots,y_{p-1}) \\
     &= \!\!\!\!\!\sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)<p}}\!\!\!\!\!
       c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{p-1})}_{\neq0} \quad +
@@ -570,9 +604,10 @@ Proposition~\ref{prop:zero2} and the lexicographical ordering of partitions.
 
 
 \section{Infinite families of coefficients $c_{\kappa,\lambda}$}
+\label{sec:families}
 
 In this section, we study some infinite families among the coefficients
-$c_{\kappa,\lambda}$ of the zonal polynomials~$C_{\kappa}(Y)$. Since we have
+$c_{\kappa,\lambda}$ of the zonal polynomials~$\mathcal{C}_{\kappa}(Y)$. Since we have
 seen that $c_{(n),(n)}=1$ for all~$n$ (that corresponds to the upper left
 corner of the $c_{\kappa,\lambda}$-matrix), one can ask whether the
 ``neighboring'' entries also admit a closed form for general~$n$.
@@ -850,7 +885,7 @@ then perform polynomial interpolation and rational reconstruction.
 \end{table}
 
 
-\section{Partitions with two parts}
+\section{Partitions with two parts}\label{sec:2parts}
 
 Now we concentrate on the coefficients $c_{\kappa,\lambda}$ when both $\kappa$
 and $\lambda$ have at most two parts. Then, on the one hand, the
@@ -1040,9 +1075,9 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
 
 
 
-\section{Partitions with three and four parts}
+\section{Partitions with three and four parts}\label{sec:3+4parts}
 
-We have seen that the coefficients of the zonal polynomial $C_\kappa(Y)$ are
+We have seen that the coefficients of the zonal polynomial $\mathcal{C}_\kappa(Y)$ are
 given by the row indexed by~$\kappa$ in the $c_{\kappa,\lambda}$-matrix. Using
 \eqref{eq:CRec} we can express all coefficients~$c_{\kappa,\lambda}$ in the
 $\kappa$-th row as constant multiples of the diagonal
@@ -1104,7 +1139,7 @@ We have verified Conjecture~\ref{conj:diag3} for all $0\leq b\leq c\leq a\leq
 \end{rem}
 
 
-\section{\label{sec:Package}Sage package for the calculation of zonal polynomials}
+\section{Sage package for the calculation of zonal polynomials}\label{sec:Package}
 
 ~\\
 ~
@@ -1218,6 +1253,9 @@ EXAMPLE. Several computations. Note that when $m<l$, $\mathcal{C}_{\lambda}(\vec
 \includegraphics[scale=0.3]{ScreenShot}
 
 
+\section{Mathematica package for the calculation of zonal polynomials}\label{sec:mma}
+
+TODO
 
 
 \bibliographystyle{plain}
