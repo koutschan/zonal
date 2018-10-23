@@ -10,6 +10,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{xcolor}
+\usepackage{url}
+\usepackage{mma}
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -317,10 +319,12 @@ where the constants $d_\lambda$ are given by
 
   The map $\tau_\nu$ is defined to be an expectation. In order to approximate
   $\tau_\nu(\mathcal{U})(Y)$ numerically, we sample a large number of Wishart
-  matrices~$W$. In Mathematica, the command\\[1ex]
-%
-  \centerline{\texttt{RandomVariate[WishartMatrixDistribution[nu, IdentityMatrix[2]]]}}\vspace{1ex}
-%
+  matrices~$W$. In Mathematica, the command
+  \begin{mma}
+    \In |RandomVariate|[|WishartMatrixDistribution|[3, |IdentityMatrix|[2]]] \\
+    \Out \rule{0pt}{8pt}\{\{3.0965, -0.551265\}, \{-0.551265, 1.59861\}\} \\
+  \end{mma}
+  \noindent
   randomly generates such a $2\times2$ matrix~$W$. For simplicity, we let
   $Y=\diag(y_1,y_2)$. The eigenvalues of $YW$ are in general algebraic
   expressions, but after plugging them into the symmetric polynomials
@@ -828,7 +832,8 @@ precisely, for $n\geq6$ since we consider only partitions
 $(n),\dots,(n-3,1,1,1)$. We remark that all these formulas have been
 rigorously proven by applying \eqref{eq:CRec} and~\eqref{eq:CInitial} for
 symbolic~$n$, as it was done in the proof of Theorem~\ref{thm:fam1}. This
-symbolic proof strategy is implemented in our Mathematica package.
+symbolic proof strategy is implemented in our Mathematica package as the
+function \textbf{ZonalCoefficientN}.
 \begin{example}
 For example, for $n=23$ we obtain the coefficient $c_{(21,2),(21,1,1)}$ by
 looking at the entry in Table~\ref{tab:cn1} in row $(n-2,2)$ and column
@@ -897,7 +902,7 @@ and~\eqref{eq:CInitial}. Instead, we compute the first few values of these
 sequences, say up to $n=30$, and then guess a closed form expression. The
 first few results are displayed in Table~\ref{tab:cn2}.
 
-More precisely, we first applied the \texttt{Guess} package~\cite{Guess} to
+More precisely, we first applied the \texttt{Guess.m} package~\cite{Guess} to
 find a plausible candidate for a linear recurrence with polynomial
 coefficients (in all considered instances this recurrence was of first order,
 which easily allowed for a closed form solution). Then, after observing that
@@ -1380,7 +1385,67 @@ In addition, one can also expand  $Z_{\lambda}(Y)$ in explicit expression, by th
 
 \section{Mathematica package for the calculation of zonal polynomials}\label{sec:mma}
 
-TODO
+We briefly describe our implementation of zonal polynomials in Mathematica.
+Our software package \texttt{ZonalPolynomials.m} is freely available at
+\url{www.koutschan.de/data/zonal/}.  On the same website, we provide a
+demo notebook with further examples of its usage. The main functions of the
+package are the following:
+\medskip
+
+\noindent\textbf{ZonalPolynomial}$[\lambda]$
+gives the zonal polynomial indexed by the partition~$\lambda$,
+in terms of the monomial symmetric functions~$M_\lambda$.
+\begin{mma}
+  \In |ZonalPolynomial|[\{3, 2\}] \\
+  \Out \frac{48}{7}\,|M|[3, 2] + \frac{176}{21}\,|M|[2, 2, 1] +
+    \frac{32}{7}\,|M|[3, 1, 1] + \frac{64}{7}\,|M|[2, 1, 1, 1] +
+    \frac{80}{7}\,|M|[1, 1, 1, 1, 1] \\
+\end{mma}
+\medskip
+
+\noindent\textbf{ZonalPolynomial}$[\lambda, \{y_1,\dots,y_m\}]$
+gives the zonal polynomial indexed by the partition~$\lambda$,
+as a symmetric polynomial in the variables $y_1,\dots,y_m$.
+\begin{mma}
+  \In |ZonalPolynomial|[\{2,1\}, \{a,b,c\}] \\
+  \Out \frac{12}{5}\,\bigl(a^2 b+a^2 c+a b^2+a c^2+b^2 c+b c^2\bigr)+\frac{18}{5} a b c \\
+\end{mma}
+\medskip
+
+\noindent\textbf{ZonalCoefficient}$[\kappa, \lambda]$
+computes the zonal polynomial coefficient~$c_{\kappa,\lambda}$ recursively
+by using \eqref{eq:CRec} and \eqref{eq:CInitial}.
+\begin{mma}
+  \In |ZonalCoefficient|[\{8, 6, 6, 3\}, \{7, 7, 5, 3, 1\}] // |Timing| \\
+  \Out \left\{4.60311, \frac{33426505728}{5} \right\} \\
+\end{mma}
+\medskip
+
+\noindent\textbf{ZonalCoefficientTable}$[n]$
+generates a table with all zonal polynomials coefficients~$c_{\kappa,\lambda}$,
+where $\kappa$ and $\lambda$ are partitions of~$n$.
+\begin{mma}
+  \In |ZonalCoefficientTable|[4] // |TableForm| \\
+  \Out \\
+\end{mma}
+$\begin{array}{ccccc}
+    1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35} \\[1ex]
+    0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7} \\[1ex]
+    0 & 0 & \frac{16}{5} & \frac{32}{15} & \frac{16}{5} \\[1ex]
+    0 & 0 & 0 & \frac{16}{3} & \frac{64}{5} \\[1ex]
+    0 & 0 & 0 & 0 & \frac{16}{5}
+ \end{array}$
+\medskip
+
+\noindent\textbf{ZonalCoefficientN}$[\kappa, \lambda]$
+gives a symbolic expression (a rational function in~$n$) for the
+zonal coefficient $c_{\kappa,\lambda}$ in the upper left corner.
+The partitions $\kappa$ and $\lambda$ must be of the form $(n-i,\pi)$,
+where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
+\begin{mma}
+  \In |ZonalCoefficientN|[\{n-3,2,1\},\{n-4,2,2\}] \\
+  \Out \frac{4 (n-3) (n-1) n (2 n^2-18 n+39)}{5 (2 n-11) (2 n-7)} \\
+\end{mma}
 
 
 \bibliographystyle{plain}

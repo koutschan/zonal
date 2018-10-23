@@ -111,7 +111,7 @@ LaplaceBeltrami[y_List] :=
   ];
 
 (* Gives a symbolic expression (rational function in n) for the *)
-(* for the zonal coefficient c_{kappa,lambda} in the upper left corner. *)
+(* zonal coefficient c_{kappa,lambda} in the upper left corner. *)
 (* The partitions kappa and lambda must be of the form {n-i, pi}, *)
 (* where pi is a partition of i and where n is symbolic. Example: *)
 (* ZonalCoefficientN[{n-3,2,1},{n-4,2,2}] gives *)
