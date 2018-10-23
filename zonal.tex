@@ -263,7 +263,7 @@ Now, we can define zonal polynomials.
 \begin{defn}
 The zonal polynomial $\mathcal{Y}_{\lambda}$, for a partition $\lambda=\left(\lambda_1,\lambda_2,\ldots,\lambda_k\right)\in\mathcal{P}_{n}$,
 is defined by a vector form
-\[
+\begin{equation}\label{eq:ZonalY}
 \mathcal{Y}=\left(\begin{matrix}\mathcal{Y}_{\left(n\right)}\\
 \mathcal{Y}_{\left(n-1,1\right)}\\
 \vdots\\
@@ -273,7 +273,7 @@ is defined by a vector form
 \vdots\\
 \mathcal{U}_{\left(1,\ldots,1\right)}
 \end{matrix}\right),
-\]
+\end{equation}
 and $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$,
 where the constants $d_\lambda$ are given by
 \[
@@ -281,6 +281,78 @@ where the constants $d_\lambda$ are given by
   \cdot\frac{2^{n}n!}{\left(2n\right)!}.
 \]
 \end{defn}
+
+\begin{example}
+  For $n=4$, $\nu=3$, and $m=2$ we compare an exact computation with a
+  Monte-Carlo experiment.  Since $m=2$ we only need to consider partitions
+  of $n=4$ with at most $2$ parts and get $\mathcal{U}=\bigl((y_1+y_2)^4,
+  y_1y_2(y_1+y_2)^2, y_1^2y_2^2\bigr)$. 
+
+  The map $\tau_\nu$ is defined to be an expectation. In order to approximate
+  $\tau_\nu(\mathcal{U})(Y)$ numerically, we sample a large number of Wishart
+  matrices~$W$. In Mathematica, the command\\[1ex]
+%
+  \centerline{\texttt{RandomVariate[WishartMatrixDistribution[nu, IdentityMatrix[2]]]}}\vspace{1ex}
+%
+  randomly generates such a $2\times2$ matrix~$W$. For simplicity, we let
+  $Y=\diag(y_1,y_2)$. The eigenvalues of $YW$ are in general algebraic
+  expressions, but after plugging them into the symmetric polynomials
+  of~$\mathcal{U}$ and simplifying, one is back to polynomials. For these
+  simplifications it is advisable to employ exact arithmetic instead of
+  floating point numbers, and therefore we convert $W$ to have exact rational
+  entries at the very beginning. Averaging over $N=10^6$ samples yields the
+  following approximation $\sum_{i=1}^N \mathcal{U}(YW_i)/N$ for the vector
+  $\tau_\nu(\mathcal{U})(Y)$:
+  \[
+    \begin{pmatrix}
+      945.715\,y_1^4 + 1261.66\,y_1^3y_2 + 1347.86\,y_1^2y_2^2 + 1258.51\,y_1y_2^3 + 947.094\,y_2^4 \\
+      210.465\,y_1^3y_2 + 299.699\,y_1^2y_2^2 + 209.768\,y_1y_2^3 \\
+      119.769\,y_1^2 y_2^2
+    \end{pmatrix}.
+  \]
+
+  Now we want to compare this approximate result with the exact one.  For this
+  purpose, we proceed ``backwards'', i.e., we start with the zonal polynomials
+  $\mathcal{C}_\lambda(Y)$ (their coefficients are given in
+  Example~\ref{Tables}).  After dividing them with the constants~$d_\lambda$,
+  we can use~\eqref{eq:ZonalY},
+  \[
+    \Xi \cdot \begin{pmatrix} (y_1+y_2)^4 \\ y_1y_2(y_1+y_2)^2 \\ y_1^2y_2^2 \end{pmatrix} =
+    \begin{pmatrix}
+      4233600 \cdot \left(y_1^4+y_2^4 + \frac{4}{7}(y_1^3y_2+y_1y_2^3) + \frac{18}{35}y_1^2y_2^2 \right) \\
+      211680 \cdot \left(\frac{24}{7}(y_1^3y_2+y_1y_2^3) + \frac{16}{7}y_1^2y_2^2\right) \\
+      967680 \cdot y_1^2 y_2^2
+    \end{pmatrix}
+  \]
+  to determine the matrix~$\Xi$. As a result, one obtains
+  \[
+    \Xi = 120960 \cdot
+    \begin{pmatrix}
+      35 & -120 & 48 \\
+      0 & 6 & -8 \\
+      0 & 0 & 8
+    \end{pmatrix}
+    \quad\text{and}\quad
+    T_\nu = \Xi^{-1}\Lambda_{\nu}\Xi =
+    \begin{pmatrix}
+       945 & -2520 & 720 \\
+       0 & 210 & -120 \\
+       0 & 0 & 120
+    \end{pmatrix},
+  \]
+  where $\Lambda_{\nu}=\diag(945,210,120)$. Applying this transition matrix
+  to the $\mathcal{U}$-basis, one finally gets
+  \[
+    T_\nu \, \mathcal{U} =
+    \begin{pmatrix}
+      945\,y_1^4 + 1260\,y_1^3y_2 + 1350\,y_1^2y_2^2 + 1260\,y_1y_2^3 + 945\,y_2^4 \\
+      210\,y_1^3y_2 + 300\,y_1^2y_2^2 + 210\,y_1y_2^3 \\
+      120\,y_1^2y_2^2
+    \end{pmatrix}
+  \]
+  and sees that the previous Monte-Carlo simulation delivered quite
+  accurate results.
+\end{example}
 
 
 \subsection{Definition in differential geometry}
@@ -429,8 +501,8 @@ A general result by James \cite{James1} shows that
   $\mathcal{C}_{\kappa}(Y)=0$ if the dimension of~$Y$ is smaller than the
   number of parts of~$\kappa$.
 \end{rem}
-\begin{example}
-\label{Tables}The following tables \cite[p.~238]{Muirhead} show
+\begin{example}\label{Tables}
+The following tables \cite[p.~238]{Muirhead} show
 constants $c_{\kappa,\lambda}$, in the case $n=\left|\kappa\right|=\left|\lambda\right|=2,\ldots5$. 
 \begin{itemize}
 \item $n=2$
