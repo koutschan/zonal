@@ -46,7 +46,7 @@ Module[{mus, sum},
   sum = Total[With[{mu = #[[1, 1]]},
     If[PartitionGreaterEqual[kap, mu], Total[Last /@ #] * ZonalCoefficient[kap, mu], 0]]& /@
     SplitBy[SortBy[mus, First], First]];
-  Return[If[sum != 0, sum / (Rho[kap] - Rho[lam]), 0]];
+  Return[If[sum =!= 0, sum / (Rho[kap] - Rho[lam]), 0]];
 ];
 
 (* Generates a table with all zonal polynomials coefficients c_{kappa,lambda}, *)

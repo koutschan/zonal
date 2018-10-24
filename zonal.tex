@@ -80,7 +80,7 @@ Altenberger Stra\ss e 69, A-4040 Linz, Austria
 % 65C60   Numerical Analysis	Computational problems in statistics
 
 \keywords{zonal polynomial, symmetric function, integer partition, Laplace-Beltrami operator,
-  Wishart matrix, hypergeometric function of a matrix argument} % TODO more
+  Wishart matrix, hypergeometric function of a matrix argument}
 
 
 \begin{abstract}
@@ -107,7 +107,7 @@ function ${}_pF_q$, defined as the infinite series
 where for positive integer $m$,
 $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the
 Pochhammer symbol.  What is less well-known is a remarkable generalization of
-this hypergeometric function to matrix argument, as follows.
+this hypergeometric function to matrix arguments, as follows.
 \begin{defn}
 Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
 hypergeometric function ${}_pF_q$ with matrix argument is defined as 
@@ -272,7 +272,7 @@ must be a linear combination of $\mathcal{U}$,
 denoted by $\tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}$. 
 Properties of the transition matrix $T_{\nu}$ guarantee a diagonalization as $T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi$, where 
 \begin{itemize}
-\item $\Lambda_{\nu}=\diag\left(2^{n}\left(\nu/2\right)_{\!\lambda}\right)$ for for $\lambda\in\mathcal{P}_n$ is the diagonalization of $T_\nu$; 
+\item $\Lambda_{\nu}=\diag\left(2^{n}\left(\nu/2\right)_{\lambda}\right)$ for for $\lambda\in\mathcal{P}_n$ is the diagonalization of $T_\nu$; 
 \item and $\Xi$ is a nonsingular upper triangular matrix , which is uniquely
 determined up to a (possibly different) multiplicative constant for
 each row.
@@ -612,7 +612,6 @@ result here and give a simple proof of it.
     \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)\geq k}}\!\!\!\!\!
       c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{=0}.
   \end{align*}
-  % TODO: is there a better notation for parts(\lambda) ?
   Now, it is apparent that all coefficients $c_{\kappa,\lambda}$
   for which $\lambda$ has fewer parts than~$k$ must be zero.
 \end{proof}
@@ -622,16 +621,15 @@ $c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
 i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
 example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
 same length.
-\begin{prop}\label{prop:zero2}
+\begin{thm}\label{thm:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa$ and $\lambda$ be two partitions of~$n$
-  with $\kappa\geq\lambda$ in lexicographic order. If there exists
-  $p\in\mathbb{N}$ such that
+  with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
+  if and only if there exists $p\in\mathbb{N}$ such that
   \begin{equation}\label{eq:prop}
     \sum_{i=1}^p (\kappa_i - \lambda_i) < 0
   \end{equation}
-  (where the partitions are filled with zeros as necessary), then
-  $c_{\kappa,\lambda}=0$.
-\end{prop}
+  (where the partitions are filled with zeros as necessary).
+\end{thm}
 \begin{proof}
   We first want to show that, under the assumption~\eqref{eq:prop},
   $\sum_{i=1}^p(\kappa_i-\mu_i)<0$ holds for all $\mu$ of the form
@@ -666,11 +664,11 @@ same length.
   obvious. For the second and fourth case, it is true because
   $\lambda_r+t\geq\lambda_p$ and $\lambda_{p+1}\geq\lambda_s-t$, respectively.
 
-  Note that the $\mu$'s in~\eqref{eq:CRec} all satisfy the criterion \eqref{eq:prop}.
-  Hence, if $\kappa$ and $\lambda$ satisfy~\eqref{eq:prop}, then
-  $c_{\kappa,\lambda}$ is a linear combination of $c_{\kappa,\mu}$'s with the
-  same property. In order to conclude the proof by induction, we have to
-  investigate the two possible base cases:
+  We have just shown that if $\kappa$ and $\lambda$ satisfy~\eqref{eq:prop},
+  then all the $\mu$'s in~\eqref{eq:CRec} also satisfy~\eqref{eq:prop}, in
+  other words, $c_{\kappa,\lambda}$ is a linear combination of
+  $c_{\kappa,\mu}$'s with the same property. In order to conclude the proof by
+  induction, we have to investigate the two possible base cases:
   \begin{enumerate}
   \item We arrive at a $c_{\kappa,\lambda}$ for which $\lambda$ has fewer
     parts than~$\kappa$ (note that the operation
@@ -680,24 +678,30 @@ same length.
     between $\lambda$ and $\kappa$ exists.  Also in this case we get
     $c_{\kappa,\lambda}=0$ since the sum in~\eqref{eq:CRec} is empty.
   \end{enumerate}
+
+  Now we show the converse: if $\kappa,\lambda$ do not satisfy
+  \eqref{eq:prop}, then by \eqref{eq:CRec}, $c_{\kappa,\lambda}$ is a linear
+  combination (with nonnegative coefficients) of $c$'s that do not satisfy
+  \eqref{eq:prop} either.  Note that $\rho_\kappa<\rho_\lambda$ only occurs if
+  \eqref{eq:prop} holds. It is not difficult to see that $\lambda$ can be
+  converted into~$\kappa$ by a finite sequence of moves
+  $(\dots,\lambda_r+1,\lambda_{r+1}-1,\dots)$, where $r$ is the smallest index
+  such that $\sum_{i=1}^r (\kappa_i - \lambda_i) > 0$, and all partitions in
+  this sequence do not satisfy~\eqref{eq:prop}. The recursion ends when there
+  is no such~$r$, i.e., when $\lambda=\kappa$, and one sees that the
+  contribution of $c_{\kappa,\kappa}\neq0$ makes $c_{\kappa,\lambda}$ positive.
 \end{proof}
 
 \begin{example}
   For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
-  partial sum of their differences, i.e. $j=2$, is negative:
+  partial sum of their differences, i.e. $p=2$, is negative:
   $(8-7)+(2-4)=-1$, and hence $c_{\kappa,\lambda}$ must be zero.
 \end{example}
 
-\begin{conj}\label{conj:}
-  The converse of Proposition~\eqref{prop:zero2} holds, i.e.,
-  $c_{\kappa,\lambda}=0$ only if \eqref{eq:prop} holds. In other words, the
-  condition~\eqref{eq:prop} is not only necessary but also sufficient.
-\end{conj}
-
-We have verified Conjecture~\ref{conj:} for all $n$ up to $n=34$.  A graphical
-presentation of the positions where $c_{\kappa,\lambda}=0$ is shown in
-Figure~\ref{fig:zeros}. We recognize a fractal-like structure which is due to
-Proposition~\ref{prop:zero2} and the lexicographical ordering of partitions.
+A graphical presentation of the positions where $c_{\kappa,\lambda}=0$ is
+shown in Figure~\ref{fig:zeros}. We recognize a fractal-like structure which
+is due to Theorem~\ref{thm:zero2} and the lexicographical ordering of
+partitions.
 
 \begin{figure}
   \begin{center}
@@ -730,14 +734,13 @@ Let $\left(n-m,m\right)\in\mathcal{P}_n$, then
   %\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{m!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)}
   \binom{n}{m}\cdot\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}.
 \end{equation}
-%where for an odd positive integer $a$, $a!!:=a\left(a-2\right)\left(a-4\right)\cdots1$. 
 \end{thm}
 \begin{proof}
 Obviously, $\rho_{\left(n\right)}=n\left(n-1\right)$ and $\rho_{\left(n-m,m\right)}=\left(n-m\right)\left(n-m-1\right)+m\left(m-2\right)$,
 so that 
-\[%begin{equation}
-  \rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}=m\left(2n-2m+1\right). \label{eq:coeff1to2}
-\]%end{equation}
+\[
+  \rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}=m\left(2n-2m+1\right).
+\]
 By \eqref{eq:CRec},
 \begin{align*}
   c_{\left(n\right),\left(n-m,m\right)}
@@ -745,7 +748,7 @@ By \eqref{eq:CRec},
     {\rho_{\left(n\right)}-\rho_{\left(n-m,m\right)}}\cdot c_{\left(n\right),\mu} \\
   &= \frac{1}{m\left(2n-2m+1\right)}\sum_{t=1}^{m}\left(n-2m+2t\right)c_{\left(n\right),\mu}.
 \end{align*}
-Now, we proceed by induction on~$m$. When $m=1$, $t=1$ in the sum above is equivalen to $\mu=(n)$, so that
+Now, we proceed by induction on~$m$. When $m=1$, $t=1$ in the sum above is equivalent to $\mu=(n)$, so that
 \begin{equation}\label{eq:cnton1}
   c_{\left(n\right),\left(n-1,1\right)}=\frac{1}{2n-1}\cdot\left(n-2+2\right)\cdot1=\frac{n}{2n-1}=\binom{n}{1}\frac{\frac{1}{2}}{n-\frac{1}{2}}.
 \end{equation}
@@ -758,6 +761,7 @@ Now, assume \eqref{eq:1to2} holds for $m$. Considering the case $m+1$, we have
  =& \frac{c_{\left(n\right),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\Bigl(\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\Bigr) \\
  =& \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
  = \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
+ \qedhere
 \end{align*}
 \end{proof}
 
@@ -815,8 +819,8 @@ precisely, for $n\geq6$ since we consider only partitions
 $(n),\dots,(n-3,1,1,1)$. We remark that all these formulas have been
 rigorously proven by applying \eqref{eq:CRec} and~\eqref{eq:CInitial} for
 symbolic~$n$, as it was done in the proof of Theorem~\ref{thm:fam1}. This
-symbolic proof strategy is implemented in our Mathematica package as the
-function \textbf{ZonalCoefficientN}.
+symbolic proof strategy is implemented in our Mathematica package as
+\textbf{ZonalCoefficientN} (see Section~\ref{sec:mma}).
 \begin{table}[h]
 \parbox{0.8\textwidth}{
 $
@@ -946,17 +950,17 @@ $
     & \frac{2^{n-1} (n-2) (n-1)}{3 (n+1)}
     % & \frac{2^{n-1} (n-3) (n-2)^2}{3 (n+1)}
     % & \frac{2^{n-2} (n-3) (n-2)^2 (n-1)}{3 (n+1)}
-    \\[1ex]
-    (2,1^{n-2})
-    % & 0 & 0
-    & 0 & 0 & 0
-    % & \frac{2^{n-1} n}{n+2}
-    % & \frac{2^{n-1} (n-1) n^2}{(n+1) (n+2)}
-    \\[1ex]
-    (1^n)
-    % & 0 & 0
-    & 0 & 0 & 0
-    % & 0 & \frac{2^n}{n+1}
+    %% \\[1ex]
+    %% (2,1^{n-2})
+    %% % & 0 & 0
+    %% & 0 & 0 & 0
+    %% % & \frac{2^{n-1} n}{n+2}
+    %% % & \frac{2^{n-1} (n-1) n^2}{(n+1) (n+2)}
+    %% \\[1ex]
+    %% (1^n)
+    %% % & 0 & 0
+    %% & 0 & 0 & 0
+    %% % & 0 & \frac{2^n}{n+1}
   \end{array}
 $ \\[1ex]
 $
@@ -1015,10 +1019,6 @@ present a closed form of the coefficients $c_{\kappa,\lambda}$ under these
 assumptions. We start our investigation by specializing
  \eqref{eq:CRec} and \eqref{eq:CInitial} to partitions with two
 parts. First of all, it is easy to compute that 
-%\begin{align*}
-%  \rho_{\kappa} &= a(a-1) + (a-b)(a-b-2), \\
-%  \rho_{\lambda} &= (a-d)(a-d-1) + (a-b+d)(a-b+d-2),
-%\end{align*}
 so that
 \[
   \rho_{\kappa}-\rho_{\lambda} = d\cdot(2b-2d+1).
@@ -1034,11 +1034,10 @@ $\lambda$ has only two parts,
 
 \begin{example}\label{ex:twoparts}
 We begin with some concrete examples.  For $d=1,2,3$, we obtain
-\[
-  c_{\left(a,a-b\right),\left(a-1,a-b+1\right)} = \frac{b}{2b-1}\,c_{\left(a,a-b\right),\left(a,a-b\right)}, 
-\]
-
+\allowdisplaybreaks
 \begin{align*}
+  c_{\left(a,a-b\right),\left(a-1,a-b+1\right)} &=
+    \frac{b}{2b-1}\,c_{\left(a,a-b\right),\left(a,a-b\right)}, \\
   c_{\left(a,a-b\right),\left(a-2,a-b+2\right)} &=
     \frac{1}{4b-6}\Bigl((b-2)\,c_{(a,a-b),(a-1,a-b-1)}+b\,c_{(a,a-b),(a,a-b)}\Bigr) \\
   &= \frac{c_{\left(a,a-b\right),\left(a,a-b\right)}}{4b-6}\left(\frac{\left(b-2\right)b}{2b-1}+b\right) \\
@@ -1213,7 +1212,7 @@ special cases that $\kappa$ has three resp.\ four parts.
 %  \end{align*}
   with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$, and
   $\delta_3=\kappa_3-\kappa_4=a-c$ being the differences between consecutive
-  parts of~$\kappa$ (, noting that $\kappa_4=0$).
+  parts of~$\kappa$ (with the convention $\kappa_4=0$).
 \end{conj}
 
 \begin{conj}\label{conj:diag4}
@@ -1366,6 +1365,13 @@ Conjecture \ref{conj:diag3} with $c_{(4,2,1)(4,2,1)}=
 \end{center}
 \end{rem}
 
+% Lin's experiments and timings:
+% Using our algorithm for C_{[2,2,1]}([a,b,c]) and SymmetricFunctions for Z[2,2,1]:
+%   The latter takes almost 100 times of the former (3.49ms VS 291ms).
+% While for partition [5,3,2], our algorithm gives the result in 25.9 ms,
+%   while for the Z[5,3,2], I waited for about 10 mins, but nothing comes out.
+% [4,2,1]: Our algorithm uses 6.3ms while Z[4,2,1] uses 1.05s
+
 
 \section{Mathematica package for the calculation of zonal polynomials}\label{sec:mma}
 
@@ -1409,17 +1415,22 @@ by using \eqref{eq:CRec} and \eqref{eq:CInitial}.
 generates a table with all zonal polynomials coefficients~$c_{\kappa,\lambda}$,
 where $\kappa$ and $\lambda$ are partitions of~$n$.
 \begin{mma}
-  \In |ZonalCoefficientTable|[4] // |TableForm| \\
-  \Out \\
+  \In |ZonalCoefficientTable|[4] \\ % // |TableForm| \\
+  \Out \Bigl\{\Bigl\{1,\frac{4}{7},\frac{18}{35},\frac{12}{35},\frac{8}{35}\Bigr\},
+    \Bigl\{0,\frac{24}{7},\frac{16}{7},\frac{88}{21},\frac{32}{7}\Bigr\},
+    \Bigl\{0,0,\frac{16}{5},\frac{32}{15},\frac{16}{5}\Bigr\},
+    \Bigl\{0,0,0,\frac{16}{3},\frac{64}{5}\Bigr\},
+    \Bigl\{0,0,0,0,\frac{16}{5}\Bigr\}\Bigr\} \kern-8pt \\
+%  \Out \\
 \end{mma}
-$\begin{array}{ccccc}
-    1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35} \\[1ex]
-    0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7} \\[1ex]
-    0 & 0 & \frac{16}{5} & \frac{32}{15} & \frac{16}{5} \\[1ex]
-    0 & 0 & 0 & \frac{16}{3} & \frac{64}{5} \\[1ex]
-    0 & 0 & 0 & 0 & \frac{16}{5}
- \end{array}$
-\medskip
+%% $\begin{array}{ccccc}
+%%     1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35} \\[1ex]
+%%     0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7} \\[1ex]
+%%     0 & 0 & \frac{16}{5} & \frac{32}{15} & \frac{16}{5} \\[1ex]
+%%     0 & 0 & 0 & \frac{16}{3} & \frac{64}{5} \\[1ex]
+%%     0 & 0 & 0 & 0 & \frac{16}{5}
+%%  \end{array}$
+\bigskip
 
 \noindent\textbf{ZonalCoefficientN}$[\kappa, \lambda]$
 gives a symbolic expression (a rational function in~$n$) for the
