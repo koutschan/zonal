@@ -218,14 +218,14 @@ Define the elementary symmetric polynomial
 \[
   u_{r}(x_{1},\ldots,x_{m}):=\underset{i_{1}<\cdots<i_{r}}{\sum}x_{i_{1}}\cdots x_{i_{r}}.
 \]
-Then, we have a basis for $V_n$: For $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)\in\mathcal{P}_{n}$, define the polynomials
+Then, we have a basis for $V_n$: for $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)\in\mathcal{P}_{n}$, define the polynomials
 \[
   \mathcal{U}_{\lambda} :=
   u_{1}^{\lambda_{1}-\lambda_{2}}u_{2}^{\lambda_{2}-\lambda_{3}}\cdots u_{k-1}^{\lambda_{k-1}-\lambda_{k}}u_{k}^{\lambda_{k}}.
 \]
 \end{defn}
-\begin{rem}
-Obviously, 
+\noindent
+Obviously,
 $\deg\mathcal{U}_{\lambda} =
   \left(\lambda_{1}-\lambda_{2}\right)+2\left(\lambda_{2}-\lambda_{3}\right)+\cdots+k\lambda_{k} =
   \lambda_{1}+\cdots+\lambda_{k}=n$.
@@ -239,10 +239,8 @@ for $\kappa=\left(\kappa_1,\ldots,\kappa_j\right),\lambda=\left(\lambda_1,\ldots
 Then, we can write the basis formed by~$\mathcal{U}_{\lambda}$
 as a column vector:
 $
-\mathcal{U}:=\left(\mathcal{U}_{\left(n\right)},\mathcal{U}_{\left(n-1,1\right)},\ldots,\mathcal{U}_{\left(1,\ldots,1\right)}\right)^{T}.
+\mathcal{U}:=\left(\mathcal{U}_{\left(n\right)},\mathcal{U}_{\left(n-1,1\right)},\ldots,\mathcal{U}_{\left(1,\ldots,1\right)}\right)^{T}\!\!.
 $
-\end{rem}
-\noindent
 This subsection presents a definition of $\mathcal{C}_{\lambda}(Y)$
 related to the Wishart distribution, defined as follows.
 \begin{defn}
@@ -607,24 +605,17 @@ result here and give a simple proof of it.
   has more parts than~$\lambda$, then $c_{\kappa,\lambda}=0$.
 \end{lemma}
 \begin{proof}
-Given a partition $\lambda$, denote $len(\lambda)$ be its number of parts. Assume that $len(\kappa)=k$. Then, the
+  Given a partition $\lambda$, denote by $\operatorname{len}(\lambda)$ its
+  number of parts. Assume that $\operatorname{len}(\kappa)=k$. Then, the
   definition of zonal polynomials \eqref{eq:CInTermsOfM} and
   Remark~\ref{rem:polyzero}, we see that
  \[ 
  0 = \mathcal{C}_{\kappa}(y_1,\dots,y_{k-1})= 
-  \!\!\!\!\!\sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{len(\lambda)<k}}\!\!\!\!\!
+  \!\!\!\!\!\sum_{\textstyle\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{len}(\lambda)<k}}\!\!\!\!\!
       c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{\neq0} \quad +
-   \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{len(\lambda)\geq k}}\!\!\!\!\!
+   \sum_{\textstyle\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{len}(\lambda)\geq k}}\!\!\!\!\!
     c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{=0}.
  \] 
-%  \begin{align*}
-%    0 = \mathcal{C}_{\kappa}(y_1,\dots,y_{k-1}) &=
-%    \sum_{\lambda\leq\kappa} c_{\kappa,\lambda} M_{\lambda}(y_1,\dots,y_{k-1}) \\
-%    &= \!\!\!\!\!\sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)<k}}\!\!\!\!\!
-%      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{\neq0} \quad +
-%    \sum_{\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{parts}(\lambda)\geq k}}\!\!\!\!\!
-%      c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{=0}.
-%  \end{align*}
   Now, it is apparent that all coefficients $c_{\kappa,\lambda}$
   for which $\lambda$ has fewer parts than~$k$ must be zero.
 \end{proof}
@@ -1150,17 +1141,18 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   Taking into account the recursive definition of the coefficients
   $c_{\kappa,\lambda}$, the (inductive) proof is completed by
   verifying~\eqref{eq:sumid2}.
-
   For this purpose, we denote by $f(a,b,d)$ the expression inside the
   sum~\eqref{eq:sumid2} and construct two WZ pairs, i.e., two functions
-   \begin{align*}
+  \begin{align*}
     g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
-    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
+    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}},
   \end{align*}
-   \begin{align*}
+  % TODO: check whether there is really a page break here.
+  \begin{align*}
     g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d) \\
     &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
   \end{align*}
+%  \allowdisplaybreaks
 %  \begin{align*}
 %    g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
 %    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
