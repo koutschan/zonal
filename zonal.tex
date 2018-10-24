@@ -161,17 +161,19 @@ largest eigenvalue of a Wishart matrix. The problem of specializing this
 high-dimensional holonomic system to singular regions has been addressed
 in~\cite{Noro16}.  As an application, the Wishart distribution arises in the
 performance analysis of wireless communication systems under Rayleigh
-fading~\cite{SiriteanuEtAl15}.
-
-From Definition~\ref{eq:MatrixpFq} we see that the key to understand the
-hypergeometric function with matrix argument is the zonal
-polynomial~\cite[\S\,35.4]{DLMF}. For evaluating the hypergeometric
+fading~\cite{SiriteanuEtAl15}. For evaluating the hypergeometric
 function of a matrix argument using the holonomic gradient method,
 one needs to know the first few zonal polynomials in order to get
-accurate initial conditions. A comprehensive introduction to zonal
-polynomials was given by Takemura~\cite{Takemura}. Interestingly, these
-polynomials also appear in completely
-different mathematical contexts.  In Section~\ref{sec:DEFS} we give a survey
+accurate initial conditions.
+
+A comprehensive introduction to zonal polynomials~\cite[\S\,35.4]{DLMF} was
+given by Takemura~\cite{Takemura}. Interestingly, these polynomials also
+appear in completely different mathematical contexts. No direct formula for
+their calculation is known, but only partial
+results~\cite{Muirhead,KushnerMeisner}. There exist software packages in
+Maple~\cite{Stembridge95} and Sage to compute with them.
+
+In Section~\ref{sec:DEFS} we give a survey
 of different definitions of zonal polynomials. In Section~\ref{sec:calc} we
 recall a recursive method by Muirhead~\cite{Muirhead} to calculate zonal
 polynomials. Note that there is no general direct formula to obtain the
@@ -371,7 +373,7 @@ and define $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$ by som
 
 \subsection{Definition in differential geometry}
 
-Good references for the material in this subsection are~\cite{James1,Moakher}.
+Good references for the material in this subsection are~\cite{Helgason,James1,Moakher}.
 We first recall the Laplace-Beltrami operator on Riemannian manifolds.
 \begin{defn}
 On a Riemannian manifold $\left(M,g\right)$, the Laplace-Beltrami
