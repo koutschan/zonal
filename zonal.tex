@@ -1003,16 +1003,18 @@ $ \\[1ex]
 \section{Partitions with two parts}\label{sec:2parts}
 
 Now we concentrate on the coefficients $c_{\kappa,\lambda}$ when both $\kappa$
-and $\lambda$ have at most two parts. Then, on the one hand, the
-partitions~$\mu$ that appear in the recursive formula~\eqref{eq:CRec} have
-also at most two parts, by the way how they are constructed from~$\lambda$. On
-the other hand, when we use \eqref{eq:CInitial} to compute
+and $\lambda$ have at most two parts. Takemura~\cite[\S~4.4]{Takemura}
+gives formulas for these coefficients in terms of elementary symmetric
+functions, while we focus on monomial symmetric functions.
+
+When applying the recursive formula~\eqref{eq:CRec} one sees that the
+partitions~$\mu$ cannot have more parts than~$\lambda$, by the way how they
+are constructed. Similarly, when we use \eqref{eq:CInitial} to compute
 $c_{\lambda,\lambda}$, only those coefficients $c_{\kappa,\lambda}$ contribute
 for which $\kappa$ has at most two parts; this is a direct consequence of
 Lemma~\ref{lem:zero1}.  We conclude that, for the computation of
 $c_{\kappa,\lambda}$, we do not need any $c_{\kappa',\lambda'}$ with $\kappa'$
-or $\lambda'$ having more than two parts.
-Throughout this section we write
+or $\lambda'$ having more than two parts.  Throughout this section we write
 \[
   \kappa=(a,a-b) \quad\text{and}\quad \lambda=(a-d,a-b+d)
 \]
@@ -1143,22 +1145,13 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   verifying~\eqref{eq:sumid2}.
   For this purpose, we denote by $f(a,b,d)$ the expression inside the
   sum~\eqref{eq:sumid2} and construct two WZ pairs, i.e., two functions
+%  \allowdisplaybreaks
   \begin{align*}
     g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
-    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}},
-  \end{align*}
-  % TODO: check whether there is really a page break here.
-  \begin{align*}
+    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
     g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d) \\
     &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
   \end{align*}
-%  \allowdisplaybreaks
-%  \begin{align*}
-%    g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
-%    &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
-%    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d) \\
-%    &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
-%  \end{align*}
   such that the following identities hold (they can be verified by routine
   calculations):
   \begin{align}
@@ -1454,6 +1447,12 @@ where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
   \In |ZonalCoefficientN|[\{n-3,2,1\},\{n-4,2,2\}] \\
   \Out \frac{4 (n-3) (n-1) n (2 n^2-18 n+39)}{5 (2 n-11) (2 n-7)} \\
 \end{mma}
+\bigskip
+
+\paragraph*{Acknowledgment}
+We are grateful to Akimichi Takemura for helpful comments and to Yi Zhang for
+stimulating discussions.
+
 
 
 \bibliographystyle{plain}
