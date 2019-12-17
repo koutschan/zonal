@@ -87,8 +87,8 @@ Altenberger Stra\ss e 69, A-4040 Linz, Austria
   We investigate the zonal polynomials, a family of symmetric polynomials that
   appear in many mathematical contexts, such as multivariate statistics,
   differential geometry, representation theory, and combinatorics.  We present
-  two computer algebra packages, in Sage and in Mathematica, for their
-  computation. With the help of this software, we carry out an experimental
+  two computer algebra packages, in SageMath and in Mathematica, for their
+  computation. With the help of computer software, we carry out an experimental
   mathematics study of some properties of zonal polynomials. Moreover, we
   derive and prove closed forms for several infinite families of zonal
   polynomial coefficients.
@@ -171,7 +171,7 @@ given by Takemura~\cite{Takemura}. Interestingly, these polynomials also
 appear in completely different mathematical contexts. No direct formula for
 their calculation is known, but only partial
 results~\cite{KushnerMeisner, Muirhead}. There exist software packages in
-Maple~\cite{Stembridge95} and Sage to compute with them.
+Maple~\cite{Stembridge95} and SageMath to compute with them.
 
 In Section~\ref{sec:DEFS} we give a survey
 of different definitions of zonal polynomials. In Section~\ref{sec:calc} we
@@ -179,8 +179,8 @@ recall a recursive method by Muirhead~\cite{Muirhead} to calculate zonal
 polynomials. Note that there is no general direct formula to obtain the
 coefficients of the zonal polynomial.  In the following we will give such
 formulas for some special families of zonal polynomial coefficients: In
-Section~\ref{sec:zeros} we investigate the question under which conditions a
-coefficient becomes zero, and in Section~\ref{sec:families} we derive closed
+Section~\ref{sec:zeros} we obtain some conditions for the
+coefficient to vanish, and in Section~\ref{sec:families} we derive closed
 forms for the coefficients at the two extremal corners of the coefficient
 matrix. Then we give a complete closed form for zonal polynomials in two
 variables (Section~\ref{sec:2parts}) and some partial results for three and
@@ -272,7 +272,7 @@ must be a linear combination of $\mathcal{U}$,
 denoted by $\tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}$. 
 Properties of the transition matrix $T_{\nu}$ guarantee a diagonalization as $T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi$, where 
 \begin{itemize}
-\item $\Lambda_{\nu}=\diag\left(2^{n}\left(\nu/2\right)_{\lambda}\right)$ for for $\lambda\in\mathcal{P}_n$ is the diagonalization of $T_\nu$; 
+\item $\Lambda_{\nu}=\diag\left(2^{n}\left(\nu/2\right)_{\lambda}\right)$ for $\lambda\in\mathcal{P}_n$ is the diagonalization of $T_\nu$; 
 \item and $\Xi$ is a nonsingular upper triangular matrix , which is uniquely
 determined up to a (possibly different) multiplicative constant for
 each row.
@@ -1261,7 +1261,7 @@ Conjecture \ref{conj:diag4}, we have Conjecture \ref{conj:diag3}.
 \end{rem}
 
 
-\section{Sage package for the calculation of zonal polynomials}\label{sec:Package}
+\section{SageMath package for the calculation of zonal polynomials}\label{sec:Package}
 
 We briefly present the main functionality of this package and give a few examples. This package \texttt{Zonal.sage} is freely available at
 \url{https://jiulin90.github.io/package.html}.  On the same website, we provide a
@@ -1347,7 +1347,7 @@ computes the coefficient~$c_{\kappa,\lambda}$ for partitions $\kappa\geq\lambda$
 \end{minipage}}
 
 \begin{rem}
-The Sage software has built-in functions for Jack symmetric
+The SageMath software has built-in functions for Jack symmetric
 functions\footnote{http://doc.sagemath.org/html/en/reference/combinat/sage/combinat/sf/jack.html},
 where the zonal polynomials
 $\mathcal{Z}_{\lambda}(Y):=\mathcal{C}_\lambda(Y)/c_{\lambda,\lambda}$ are also
@@ -1418,7 +1418,7 @@ by using \eqref{eq:CRec} and \eqref{eq:CInitial}.
 \medskip
 
 \noindent\textbf{ZonalCoefficientTable}$[n]$
-generates a table with all zonal polynomials coefficients~$c_{\kappa,\lambda}$,
+generates a table with all zonal polynomial coefficients~$c_{\kappa,\lambda}$,
 where $\kappa$ and $\lambda$ are partitions of~$n$.
 \begin{mma}
   \In |ZonalCoefficientTable|[4] \\ % // |TableForm| \\
@@ -1452,6 +1452,8 @@ where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
 \paragraph*{Acknowledgment}
 We are grateful to Akimichi Takemura for helpful comments and to Yi Zhang for
 stimulating discussions.
+
+The first author also would like to thank Prof.~Raymond Kan, who, after the submission of the original draft, contributed to the SageMath program and now becomes a co-contributor. 
 
 
 

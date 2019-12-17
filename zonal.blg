@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: zonal.aux
+The style file: plain.bst
+Database file #1: zonal.bib
+Warning--to sort, need author or key in DLMF
+You've used 21 entries,
+            2118 wiz_defined-function locations,
+            660 strings with 8106 characters,
+and the built_in function-call counts, 6505 in all, are:
+= -- 675
+> -- 239
+< -- 4
++ -- 103
+- -- 76
+* -- 455
+:= -- 1093
+add.period$ -- 67
+call.type$ -- 21
+change.case$ -- 98
+chr.to.int$ -- 0
+cite$ -- 22
+duplicate$ -- 239
+empty$ -- 536
+format.name$ -- 76
+if$ -- 1341
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 21
+newline$ -- 110
+num.names$ -- 40
+pop$ -- 81
+preamble$ -- 1
+purify$ -- 80
+quote$ -- 0
+skip$ -- 154
+stack$ -- 0
+substring$ -- 502
+swap$ -- 32
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 78
+warning$ -- 1
+while$ -- 71
+width$ -- 23
+write$ -- 241
+(There was 1 warning)
