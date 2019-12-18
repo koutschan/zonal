@@ -1,0 +1,41 @@
+===== review 1 ========
+3: (strong accept)
+This paper establishes several new results about the coefficients of zonal
+polynomials, which arise in a number of areas. The Introduction is engaging
+and does an excellent job of motivating the study of zonal polynomials and
+their computation. Example 2.6 is well-timed, since it makes the discussion of
+zonal polynomials and their appearance in the Wishart distribution
+concrete. The results appear to be correct (and indeed are implemented in
+accompanying SageMath and Mathematica packages).
+
+I only have a few minor corrections:
+
+1.
+Introduction, last paragraph:
+The description "In Section 4 we investigate the question under which
+conditions a coefficient becomes zero" might be too modest, since in addition
+to investigating this question you're able to answer it.
+
+2.
+Page 3, first bulleted item:
+There is a duplicate "for".
+
+3.
+Page 15, line -4:
+Presumably "polynomials" should be singular in "all zonal polynomials coefficients".
+
+4.
+In the demo file ZonalPolynomialsDemo.nb, examples in the later sections do
+not work as expected due to the symbols ZonalC and Vars, which seem to not be
+defined by the package.
+
+===== review 2 ========
+2: (accept)
+I have suggested the acceptance of this paper because the quality of the work,
+as well as its usefulness.
+
+The paper is well organized, clear, and concise. The main analytical results
+are clearly stated and the software is well exemplified.
+
+The calculation of zonal polynomials will certainly be more tractable with the
+help of results and software introduced in this paper.
