@@ -883,6 +883,22 @@ $(n-2,1,1)$:
 \]
 \end{example}
 
+We also have a conjecture on  the limit of the coefficients of the form $c_{(n),(n-n',\lambda')}$.
+
+\begin{conj}
+Let $n'<n$ and $\lambda'=(p_1,\ldots,p_l)\in\mathcal{P}_{n'}$. Then, 
+\[
+\lim_{n\to\infty} c_{(n),(n-n',\lambda') }=\prod_{i=1}^{l} \frac{(p_i)_{p_i}}{p_i! 2^{2p_i-1}}
+\]
+\end{conj}
+
+\begin{example}
+Let $n'=3$ and $\lambda'=(2,1)$. By Table \ref{tab:cn2} and the conjecture above
+\[
+\lim_{n\rightarrow\infty}c_{(n),(n-3,2,1)}=\lim_{n\rightarrow\infty}\frac{3(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)}=\frac{3}{16}=\left(\frac{(2)_2}{2!2^{2\cdot 2-1}}\right)\cdot\left(\frac{(1)_1}{1!2^{2\cdot 1-1}}\right).
+\]
+\end{example}
+
 The next families we study are located in the ``lower right corner'' of
 $c_{\kappa,\lambda}$-matrix. In this case both $\kappa$ and $\lambda$ are of
 the form $(2^m,1^{n-2m})$, i.e., a sequence of $m$ times the part~$2$ and
