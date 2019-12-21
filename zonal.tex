@@ -107,10 +107,10 @@ function ${}_pF_q$, defined as the infinite series
 where for positive integer $m$,
 $\left(a\right)_{m}:=a\left(a+1\right)\cdots\left(a+m-1\right)$ is the
 Pochhammer symbol.  What is less well-known is a remarkable generalization of
-this hypergeometric function with matrix arguments, as follows.
+this hypergeometric function of a matrix argument, as follows.
 \begin{defn}
 Given an $m\times m$ symmetric, positive-definite matrix $Y$, the
-hypergeometric function ${}_pF_q$ with matrix argument is defined as 
+hypergeometric function ${}_pF_q$ of matrix argument $Y$ is defined as 
 \begin{equation}\label{eq:MatrixpFq}
   {}_{p}F_{q}\left(\genfrac{}{}{0pt}{}{a_{1},\ldots,a_{p}}{b_{1},\ldots,b_{q}}\,\bigg|\,Y\right) :=
   \sum_{n=0}^{\infty}\sum_{\lambda\in\mathcal{P}_{n}}\frac{\left(a_{1}\right)_{\lambda}\cdots\left(a_{p}\right)_{\lambda}}
@@ -123,7 +123,7 @@ every partition $\lambda\in\mathcal{P}_{n}$ is defined to be a tuple
 $\lambda=\left(\lambda_{1},\ldots,\lambda_{k}\right)$ such that 
 $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq 1$ and 
 $ \lambda_{1}+\cdots+\lambda_{k}=n$;
-\item the generalized Pochhammer symbol is defined as
+\item $(a)_{\lambda}$ is the generalized Pochhammer symbol, defined as
 \[
   \left(a\right)_{\lambda}=\left(a\right)_{\left(\lambda_{1},\dots,\lambda_{k}\right)}:=\prod_{i=1}^{k}\left(a-\frac{i-1}{2}\right)_{\!\!\lambda_{i}};
 \]
@@ -156,7 +156,7 @@ gradient method~\cite{NakayamaEtAl11}. In the case $p=q=1$, it is known that
 the hypergeometric function $_1F_1(a;c;Y)$ satisfies a holonomic system of
 partial differential equations~\cite{Muirhead70} in the variables
 $y_1,\dots,y_m$, whose holonomic rank is~$2^m$.  Hashiguchi
-et.~al~\cite{Hashiguchi} use it to study the cumulative distribution of the
+et al.~\cite{Hashiguchi} use it to study the cumulative distribution of the
 largest eigenvalue of a Wishart matrix. The problem of specializing this
 high-dimensional holonomic system to singular regions has been addressed
 in~\cite{Noro16}.  As an application, the Wishart distribution arises in the
@@ -427,9 +427,9 @@ where
 \subsection{Definition through representation theory}
 
 Consider the general linear group $G=\mathrm{GL}(m)$ on
-$V_{n}$. Define a representation as follows. For $g\in\mathrm{GL}(m)$, $Y\in V_n$, $\varphi\in\mathrm{GL}(V_n)$, 
+$V_{n}$. Define a representation as follows. For $g\in\mathrm{GL}(m)$, $Y\in V_n$, and $\varphi\in\mathrm{GL}(V_n)$, 
 \[
-\left(g\circ\varphi\right)(Y)=\varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right).
+\left(g\circ\varphi\right)(Y):=\varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right).
 \]
 %\begin{eqnarray*}
 %g\in\mathrm{GL}(m):V_{n} & \rightarrow & V_{n}\\
@@ -455,7 +455,8 @@ Note that \eqref{eq:projection} confirms \eqref{eq:TrZonal}.
 \subsection{A short remark on Macdonald, Jack and zonal polynomials}
 
 A special case of the Macdonald polynomials gives the Jack polynomials $J_{\lambda}^{\left(\alpha\right)}$,
-which when $\alpha=2$, gives the zonal polynomials $\mathcal{Z}_\lambda(Y)$. $\mathcal{Z}_\lambda(Y)$ differs from $\mathcal{C}_\lambda(Y)$ only by a constant factor. Please see Section \ref{sec:Package}, for one specific example. 
+which when $\alpha=2$, gives the zonal polynomials $\mathcal{Z}_\lambda(Y)$. $\mathcal{Z}_\lambda(Y)$ differs from $\mathcal{C}_\lambda(Y)$ only by a constant factor. 
+%Please see Section \ref{sec:Package}, for one specific example. 
 
 
 \section{Calculation of zonal polynomials}\label{sec:calc}
@@ -463,7 +464,7 @@ which when $\alpha=2$, gives the zonal polynomials $\mathcal{Z}_\lambda(Y)$. $\m
 Although there are several ways to define the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
 in practice, none of these definitions gives an algorithm or formula
 to directly compute $\mathcal{C}_{\lambda}(Y)$. Now, we
-follow the steps by Muirhead \cite{Muirhead} to build up a package for the
+follow the steps by Muirhead \cite{Muirhead} to build up packages for the
 calculation of $\mathcal{C}_{\lambda}(Y)$.
 \begin{defn}
 For $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)\in\mathcal{P}_{n}$,
@@ -601,7 +602,7 @@ Muirhead~\cite[Lem.~7.2.3]{Muirhead} gives a necessary condition for some
 coefficients $c_{\kappa,\lambda}$ to be zero, but without a proof. We recall his
 result here and give a simple proof of it.
 \begin{lemma}\label{lem:zero1}
-  Let $n\in\mathbb{N}$ and $\kappa,\lambda$ be partitions of~$n$. If $\kappa$
+  Let $n\in\mathbb{N}$ and $\kappa,\lambda\in\mathcal{P}_n$. If $\kappa$
   has more parts than~$\lambda$, then $c_{\kappa,\lambda}=0$.
 \end{lemma}
 \begin{proof}
@@ -623,7 +624,7 @@ result here and give a simple proof of it.
 While Lemma~\ref{lem:zero1} only gives a necessary condition under which
 $c_{\kappa,\lambda}$ is zero, we would like to obtain a full characterization,
 i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
-example, we have $c_{(8,2,2),(7,4,1)} = 0$ although both partitions have the
+example, we have $c_{(8,2,2),(7,4,1)} = 0$, although both partitions have the
 same length.
 \begin{thm}\label{thm:zero2}
   Let $n\in\mathbb{N}$ and let $\kappa,\ \lambda\in\mathcal{P}_n$  with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
@@ -877,7 +878,7 @@ For example, for $n=23$ we obtain the coefficient $c_{(21,2),(21,1,1)}$ by
 looking at the entry in Table~\ref{tab:cn1} in row $(n-2,2)$ and column
 $(n-2,1,1)$:
 \[
-  c_{(21,2),(21,1,1)} = \frac{4 (n-3) (n-2) (n-1) n}{3 (2 n-5) (2 n-3)} \Big|_{n\to23}
+  c_{(21,2),(21,1,1)} = \frac{4 (n-3) (n-2) (n-1) n}{3 (2 n-5) (2 n-3)} \Bigg|_{n=23}
   = \frac{4 \cdot 20 \cdot 21 \cdot 22 \cdot 23}{3 \cdot 41 \cdot 43}
   = \frac{283360}{1763}.
 \]
@@ -886,9 +887,9 @@ $(n-2,1,1)$:
 We also have a conjecture on  the limit of the coefficients of the form $c_{(n),(n-n',\lambda')}$.
 
 \begin{conj}
-Let $n'<n$ and $\lambda'=(p_1,\ldots,p_l)\in\mathcal{P}_{n'}$. Then, 
+Let $n'<n$ and $\lambda'=(p_1,\ldots,p_\ell)\in\mathcal{P}_{n'}$. Then, 
 \[
-\lim_{n\to\infty} c_{(n),(n-n',\lambda') }=\prod_{i=1}^{l} \frac{(p_i)_{p_i}}{p_i! 2^{2p_i-1}}
+\lim_{n\to\infty} c_{(n),(n-n',\lambda') }=\prod_{i=1}^{\ell} \frac{(p_i)_{p_i}}{p_i! 2^{2p_i-1}}
 \]
 \end{conj}
 
