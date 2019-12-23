@@ -1,6 +1,16 @@
 #First of all, we define some useful functions that help in the computation#
 
-def Calmi(p):                         #For a paritition with m_1 1's, m_2 2's and etc, return (m_1)!(m_2)!...(m_l)!. This is the reciprocal of the leading coefficient of M-polynomial.#
+def Calmi(p):                         
+    """
+    For a paritition p with m_1 1's, m_2 2's and etc, return (m_1)!(m_2)!...(m_l)!. 
+    This is the reciprocal of the leading coefficient of M-polynomial in (3.2)
+    
+    For example, 
+    """
+##
+#Calmi is short for "Calculating 
+
+
     t=Partition(p).to_exp()           #exponential form of the partition {m_1,m_2,...}#
     re=prod(factorial(i) for i in t)  #re=(m_1)!(m_2)!...(m_l)!#
     return re;                        #return the product.#
@@ -112,6 +122,16 @@ def COE(k):                            #Given partition k, return c_{k,k}#
                     re[i,j]=sum(table[t][0]*re[y,temp[t]] for t in range(x))/rho;             #(3.4)#
     return re[-1,-1];
 
+def Coef(k):                                                             #Given partition k, return c_{k,k}#
+    p=len(k);                                                            #length of the partition#
+    n=sum(k);                                                            #k is a partition of n#
+    chi=product(2*k[i]-2*k[j]-i+j for i in range(p-1) for j in range(i+1,p))/product(factorial(2*k[i]+p-(i+1)) for i in range(p));  #(3.7)#
+    temp=k+[0];                                                          #Add a zero in the end, in order to make the following formula valid#
+    re=2^(2*n)*factorial(n)*chi*product(product(rising_factorial((l+1)/2-i/2+temp[i]-temp[l],temp[l]-temp[l+1]) for i in range(l+1)) for l in range(p));
+    return re;
+
+
+
 def Lcoeffi(k,l):                      #Given partitions l<k, return all nonzero c_{mu,l} with k>=mu>=l#
     n=sum(k);                          #k is a partition of n# 
     whole=Partitions(n).list();        #Whole list of partitions of n#
@@ -125,7 +145,7 @@ def Lcoeffi(k,l):                      #Given partitions l<k, return all nonzero
     partiallist=partiallist+[list(whole[p1+count])];
     m=len(partiallist);                #length of this partial list#
     re=[1/2 for x in range(m)];        #list of c_{k,\mu} for all \mu between k and l, which will be returned#
-    re[0]=COE(k);                      #c_{k,k}#
+    re[0]=Coef(k);                     #c_{k,k}#
     for x in range(1,m):               #Same idea as the COE function above#
         mu=partiallist[x];
         rho=RHO(k)-RHO(mu);
@@ -153,7 +173,7 @@ def FLcoeffi(k):                       #Full List of coefficients c_{k,l} for al
     partiallist=whole[p:]              #list of partitions from k to l#
     m=len(partiallist);                #length of this partial list#
     re=[1/2 for x in range(m)];        #list of c_{k,\mu} for all \mu between k and l, which will be returned#
-    re[0]=COE(k);                      #c_{k,k}#
+    re[0]=Coef(k);                     #c_{k,k}#
     for x in range(1,m):               #Same idea as the COE function above#
         mu=partiallist[x];
         rho=RHO(k)-RHO(mu);
@@ -179,3 +199,289 @@ def CZonal(k,v):                                                          #Given
     Mtable=[MZonal(list(t),v) for t in partiallist];                      #list of all corresponding M_{l}(v)#
     re=sum(coefftable[t]*Mtable[t] for t in range(len(partiallist)));     #(3.3)#
     return re;
+
+
+def CZonaltoM(k):
+    A=Partitions(k).list();
+    n=len(A);
+    M=Matrix(QQ,n);
+    for i in range(n):
+        M[i,i:]=Matrix(Lcoeffi(A[i],A[-1]));
+    return M;
+
+
+# The rest is written by Prof. Raymond Kan #
+# A function to find out if partition kappa dominates or equal to partition lam
+def dominate(kappa,lam):
+     if len(kappa)>len(lam):
+         return False
+     else:
+         s1=0;
+         s2=0;
+         for i in range(len(kappa)):
+             s1=s1+kappa[i];
+             s2=s2+lam[i];
+             if s1<s2:
+                 return False
+         return True
+
+# A function to find out if mu and lam has at most two distinct elements
+def checkmu(lam,mu):
+    m1=len(lam);
+    m2=len(mu);
+    if (m2<m1-1)|(m2>m1):
+        return False
+    i1=0;
+    i2=0;
+    c=0;
+    while (i2<m2)&(i1<m1):
+        if lam[i1]==mu[i2]:
+            i1=i1+1;
+            i2=i2+1;
+        elif lam[i1]<mu[i2]:
+            i2=i2+1;
+        else:
+            i1=i1+1;
+            c=c+1;
+    c=c+m1-i1;
+    return c<=2
+
+# A function to compute the transition matrix from Jack polynomials to 
+# monomials of degree k.  It takes two optional arguments:
+# alpha: default is 2 
+# normalization: 'J','C','P', or 'Q', default is 'J'
+def JacktoM(k,*arg):
+    if len(arg)==0:
+        alpha=2;
+        norm='J';
+    else:
+       alpha=arg[0];
+       if len(arg)==1:
+           norm='J';
+       else:
+           norm=arg[1];
+    ai = 2/alpha;
+    A=Partitions(k).list();
+    n=len(A);
+    if (norm=='C')|(norm=='Q'):
+        ck=[prod(flatten(A[i].upper_hook_lengths(alpha))) for i in range(n)];
+# M is a transition matrix from J-normalization of Jack polynomials to monomials.
+# It has the attractive property that all elements of this transition matrix are integers.
+    M=identity_matrix(ZZ,n);
+    for i in range(n):
+        M[i,i]=A[i].hook_product(alpha);    # Use internal function to compute the diagonal elements of M
+        A[i]=list(A[i]);
+    kappa_l=[len(A[i]) for i in range(n)];
+    rho=[sum(A[i][j]*(A[i][j]-1-ai*j) for j in range(kappa_l[i])) for i in range(n)];     
+    M[:,-1]=factorial(k);               # last column of M is k!
+# Create a matrix with coefficients a_lam(mu)
+    n1= round(n*n^(2/5)+6);
+    a=zero_vector(n1);
+    alist=zero_vector(n1);
+    count=zero_vector(n-1);
+    for jj in range(1,n-1):
+        count[jj]=count[jj-1];  
+        lam=A[jj];
+        m2=kappa_l[jj];
+        lam_c = Partition(lam).to_exp();
+        for kk in range(jj):
+            mu=A[kk];
+            if checkmu(lam,mu):
+                s=m2-1;
+                if kappa_l[kk]==m2:
+                    while lam[s]==mu[s]:
+                        s=s-1;
+                    t=mu[s];
+                else:
+                    t=0;
+                while lam[s]==mu[s-1]:
+                   s=s-1;
+                t=lam[s]-t;
+                r=s-1;
+                while (mu[r]!=lam[r]+t)&((lam[r]==mu[r])|(lam[r-1]!=mu[r])):
+                    r=r-1;
+                if lam[r]==lam[s]:
+                    w=lam.count(lam[r]);
+                    w=w*(w-1)/2;
+                else:
+                    w=lam.count(lam[r])*lam.count(lam[s]);
+# Store all the nonzero entries a_lam(mu)
+                a[count[jj]]=(lam[r]-lam[s]+2*t)*w
+                alist[count[jj]]=kk;
+                count[jj]=count[jj]+1;  
+# Compute the coefficients of M using recursion. 
+    for ii in range(n-1):
+        kappa=A[ii];
+        for jj in range(ii+1,n-1):
+            lam=A[jj];
+            if dominate(kappa,lam):
+                M[ii,jj]=sum(a[kk]*M[ii,alist[kk]] for kk in range(count[jj-1],count[jj]) if alist[kk]>=ii)*ai/(rho[ii]-rho[jj]); 
+    if norm!='J':    
+        M=M.base_extend(QQ);
+        if norm=='P':
+            for ii in range(n):
+                M[ii,ii:]=M[ii,ii:]/M[ii,ii];
+        elif norm=='Q':
+            for ii in range(n):
+                M[ii,ii:]=1/ck[ii]*M[ii,ii:];
+        else:
+            c0=alpha**k*factorial(k);
+            for ii in range(n):
+                M[ii,ii:]=c0/M[ii,ii]/ck[ii]*M[ii,ii:];
+    return M
+
+# Compute the transitition matrix from Jack polynomials to power-sum symmetric polynomials
+def JacktoP(k,*arg):
+    if len(arg)==0:
+        alpha=2;
+        norm='J';
+    else:
+       alpha=arg[0];
+       if len(arg)==1:
+           norm='J';
+       else:
+           norm=arg[1];
+    m=SymmetricFunctions(QQ).m();
+    p=SymmetricFunctions(QQ).p();
+    A=JacktoM(k,alpha,norm)*m.transition_matrix(p,k);
+    return A
+
+# Compute the transitition matrix from power-sum symmetric polynomials to Jack polynomials.
+# Note that we do not use the inverse of JacktoP(k,alpha,norm) to obtain this.
+def PtoJack(k,*arg):
+    if len(arg)==0:
+        alpha=2;
+        norm='J';
+    else:
+       alpha=arg[0];
+       if len(arg)==1:
+           norm='J';
+       else:
+           norm=arg[1];
+    B=JacktoP(k,alpha,'J').transpose();
+    n=B.nrows();
+    for i in range(n):
+        B[i,:]=B[i,:]/B[i,0];
+    if norm!='C':
+        B=alpha**k*factorial(k)*B;
+        p=Partitions(k).list();
+        if norm=='P':
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/prod(flatten(p[ii].upper_hook_lengths(alpha)));
+        elif norm=='J':
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/prod(flatten(p[ii].upper_hook_lengths(alpha)))/p[ii].hook_product(alpha);
+        else:
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/p[ii].hook_product(alpha);
+    return B
+
+# Compute the transition matrix from monomial symmetric polynomials to Jack polynomials
+def MtoJack(k,*arg):
+    if len(arg)==0:
+        alpha=2;
+        norm='J';
+    else:
+       alpha=arg[0];
+       if len(arg)==1:
+           norm='J';
+       else:
+           norm=arg[1];
+    m=SymmetricFunctions(QQ).m();
+    p=SymmetricFunctions(QQ).p();
+    C=m.transition_matrix(p,k);
+    B=(JacktoM(k,alpha,'J')*C).transpose();
+    n=B.nrows();
+    for i in range(n):
+        B[i,:]=B[i,:]/B[i,0];
+    if norm!='C':
+        B=alpha**k*factorial(k)*B;
+        p=Partitions(k).list();
+        if norm=='P':
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/prod(flatten(p[ii].upper_hook_lengths(alpha)));
+        elif norm=='J':
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/prod(flatten(p[ii].upper_hook_lengths(alpha)))/p[ii].hook_product(alpha);
+        else:
+            for ii in range(n):
+                B[:,ii]=B[:,ii]/p[ii].hook_product(alpha);
+    return C*B
+
+# A function to compute the transition matrix from zonal polynomials to 
+# monomials of degree k.  It takes an optional argument:
+# normalization: 'J','C','P', or 'Q', default is 'J'
+def ZonaltoM(k,*arg):
+    if len(arg)==0:
+        norm='J';
+    else:
+        norm=arg[0];     
+    A=Partitions(k).list();
+    n=len(A);
+    if (norm=='C')|(norm=='Q'):
+        ck=[prod(flatten(A[i].upper_hook_lengths(2))) for i in range(n)]; 
+# M is a transition matrix from J-normalization of zonal polynomials to monomials.
+# It has the attractive property that all elements of this transition matrix are integers.
+    M=identity_matrix(ZZ,n);
+    for i in range(n):
+        M[i,i]=A[i].hook_product(2);    # Use internal function to compute the diagonal elements of M
+        A[i]=list(A[i]);
+    kappa_l=[len(A[i]) for i in range(n)];
+    rho=[sum(A[i][j]*(A[i][j]-j-1) for j in range(kappa_l[i])) for i in range(n)];     
+    M[:,-1]=factorial(k);              # last column of M is k!
+# Create a matrix with coefficients a_lam(mu)
+    n1= round(n*n^(2/5)+6); 
+    a=zero_vector(n1);
+    alist=zero_vector(n1);
+    count=zero_vector(n-1);
+    for jj in range(1,n-1):
+        count[jj]=count[jj-1]; 
+        lam=A[jj];
+        m2=kappa_l[jj];
+        lam_c=Partition(lam).to_exp();
+        for kk in range(jj):
+            mu=A[kk];
+            if checkmu(lam,mu):
+                s=m2-1;
+                if kappa_l[kk]==m2:
+                    while lam[s]==mu[s]:
+                        s=s-1;
+                    t=mu[s];
+                else:
+                    t=0;
+                while lam[s]==mu[s-1]:
+                   s=s-1;
+                t=lam[s]-t;
+                r=s-1;
+                while (mu[r]!=lam[r]+t)&((lam[r]==mu[r])|(lam[r-1]!=mu[r])):
+                    r=r-1;
+                if lam[r]==lam[s]:
+                    w=lam_c[lam[r]-1];
+                    w=w*(w-1)/2;
+                else:
+                    w=lam_c[lam[r]-1]*lam_c[lam[s]-1];
+# Store all the nonzero entries a_lam(mu)
+                a[count[jj]]=(lam[r]-lam[s]+2*t)*w;
+                alist[count[jj]]=kk;
+                count[jj]=count[jj]+1; 
+# Compute the coefficients of M using recursion. 
+    for ii in range(n-1):
+        kappa=A[ii];
+        for jj in range(ii+1,n-1):
+            lam=A[jj];
+            if dominate(kappa,lam):
+                M[ii,jj]=sum(a[kk]*M[ii,alist[kk]] for kk in range(count[jj-1],count[jj]) if alist[kk]>=ii)/(rho[ii]-rho[jj]);
+    if norm!='J':    
+        M=M.base_extend(QQ);
+        if norm=='P':
+            for ii in range(n):
+                M[ii,ii:]=M[ii,ii:]/M[ii,ii];
+        elif norm=='Q':
+            for ii in range(n):
+                M[ii,ii:]=M[ii,ii:]/ck[ii];
+        else:
+            c0=2**k*factorial(k);
+            for ii in range(n):
+                M[ii,ii:]=c0/M[ii,ii]/ck[ii]*M[ii,ii:]; 
+    return M
+
