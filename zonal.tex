@@ -129,7 +129,7 @@ $ \lambda_{1}+\cdots+\lambda_{k}=n$;
 \]
 \item and finally~$\mathcal{C}_{\lambda}(Y)$ denotes the zonal polynomial
 of~$Y$, indexed by a partition~$\lambda$, which is a symmetric homogeneous polynomial
-of degree~$n$ (see Section~\ref{sec:DEFS}), in the eigenvalues
+of degree~$n$ (see Section~\ref{sec:DEFS}) in the eigenvalues
 $y_{1},\ldots,y_{m}$ of~$Y$, satisfying 
 \begin{equation}\label{eq:TrZonal}
   \sum_{\lambda\in\mathcal{P}_{n}}\mathcal{C}_{\lambda}(Y)=(\Tr Y)^{n}=(y_{1}+\cdots+y_{m})^{n}.
@@ -211,7 +211,7 @@ by $\SPD(m)$.
 \end{defn}
 
 \subsection{Definition involving the Wishart distribution}\label{sec:Wishart}
-The following definitions, other claims, and properties in this section
+The following definitions, claims, and properties in this section
 can be found in \cite[pp.~9--22]{Takemura}.
 \begin{defn}
 Define the elementary symmetric polynomial
@@ -267,7 +267,7 @@ for $Y\in \SPD(m)$, by
   (\tau_{\nu}(\mathcal{U}_{\lambda}))(Y) :=
   \mathbb{E}_{W}[\mathcal{U}_{\lambda}(YW)]\text{ for }W\sim W(I_m,\nu).
 \]
-As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{(n)}),\tau_{\nu}(\mathcal{U}_{n-1,1)}),\ldots,\tau_{\nu}(\mathcal{U}_{(1,\ldots,1)})\right)^{T}$
+As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{(n)}),\tau_{\nu}(\mathcal{U}_{(n-1,1)}),\ldots,\tau_{\nu}(\mathcal{U}_{(1,\ldots,1)})\right)^{T}$
 must be a linear combination of $\mathcal{U}$,
 denoted by $\tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}$. 
 Properties of the transition matrix $T_{\nu}$ guarantee a diagonalization as $T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi$, where 
@@ -377,7 +377,7 @@ We first recall the Laplace-Beltrami operator on Riemannian manifolds.
 On a Riemannian manifold $(M,g)$, the Laplace-Beltrami
 operator on smooth functions $f\in C^{\infty}(M)$ is given by 
 \[
-\Delta f:=(\mathrm{div}\circ\mathrm{grad})f=\sum_{i=1}^{n}\frac{1}{\sqrt{G}}\partial_{k}\left(g^{ik}\sqrt{G}\partial_{i}f\right),
+\Delta f:=(\mathrm{div}\circ\mathrm{grad})f=\sum_{i,k=1}^{n}\frac{1}{\sqrt{G}}\partial_{k}\left(g^{ik}\sqrt{G}\partial_{i}f\right),
 \]
 where $n=\dim M$, $(g_{ij})_{n\times n}$ is the metric
 matrix, and $G:=\det(g_{ij})$. 
@@ -392,13 +392,11 @@ Namely, the Laplace-Beltrami operator is the generalization of the Laplace
 operator on $\mathbb{R}^{n}$. 
 \end{rem}
 \begin{prop}
-For $X\in \SPD(m)$, James \cite[eq.~3.12]{James1} derived
-that the Laplace-Beltrami operator is given by
+Given $X\!\!=\!\!HY\!H^T\!\!\!\in\!\!\SPD(m)$, for some orthogonal matrix $H\!\!\!\in\!\!O(n)$, and $Y\!\!=\!\diag(y_{1},\ldots,y_{n})$ being the diagonalization of $X$, James \cite[eq.~3.12]{James1} derived the Laplace-Beltrami operator as
 
 \begin{equation}
-\Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\cdot\frac{\partial}{\partial y_{i}}\right), \label{eq:LaplaceBeltrami}
+\Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\cdot\frac{\partial}{\partial y_{i}}\right). \label{eq:LaplaceBeltrami}
 \end{equation}
-where $X=HY\!H^{T}$ for some orthogonal matrix $H\!\!\in\! O(n)$, and $Y\!\!=\!\diag(y_{1},\ldots,y_{n})$ is the diagonalization of $X$. 
 \end{prop}
 \begin{rem}
 The second term on the right-hand side of \eqref{eq:LaplaceBeltrami} is, up to the constant $(m-3)/2$,
@@ -413,10 +411,9 @@ are the eigenfunctions of the operator $\Delta_{Y}$, defined by
 \[
   \Delta_{Y}:=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\cdot\frac{\partial}{\partial y_{i}}\right).
 \]
-In particular, we have
+In particular,  for $\lambda=(\lambda_1,\ldots,\lambda_k)\in\mathcal{P}_n$, we have
 \[
-  \Delta_{Y}\mathcal{C}_{\lambda}(Y)=\bigl(\rho_{\lambda}+(m-1)n\bigr)\cdot\mathcal{C}_{\lambda}(Y)
-  \qquad (n=\lambda_1+\dots+\lambda_k),
+  \Delta_{Y}\mathcal{C}_{\lambda}(Y)=\bigl(\rho_{\lambda}+(m-1)n\bigr)\cdot\mathcal{C}_{\lambda}(Y),
 \]
 where
 \begin{equation}\label{eq:RHO}
@@ -502,13 +499,13 @@ define the \emph{monomial symmetric function} as
 An explicit expression of $M_{\lambda}(Y)$ is given by
 \cite[eq.~6]{Takemura}:
 \begin{equation}\label{eq:MZonalComputation}
-  M_{(1^{m_{1}}2^{m_{2}}\cdots)}(Y)=\left(\prod_{i=1}^{n}\frac{1}{m_{i}!}\right)
+  M_{(1^{m_{1}}2^{m_{2}}\cdots)}(Y)=\left(\prod_{j=1}^{n}\frac{1}{m_{j}!}\right)
   \sum_{i_{1},\ldots,i_{k}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{k}}^{\lambda_{k}},
 \end{equation}
 where $\lambda=(\lambda_1,\ldots,\lambda_k)=(1^{m_1},2^{m_2},\ldots,n^{m_n})\in\mathcal{P}_n$ contains $m_1$ $1$'s, $m_2$ $2$'s, etc. 
 \end{rem}
 \begin{thm}
-We have,  for some constants $c_{\kappa,\lambda}$, that (see e.g., \cite[eq.~13]{Muirhead})
+We have,  for some constants $c_{\kappa,\lambda}$, that (see, e.g., \cite[eq.~13]{Muirhead})
 \begin{equation}\label{eq:CInTermsOfM}
   \mathcal{C}_{\kappa}(Y)=\sum_{\lambda\leq\kappa}c_{\kappa,\lambda}\,M_{\lambda}(Y).
 \end{equation}
@@ -636,7 +633,7 @@ i.e., a necessary and sufficient condition for $c_{\kappa,\lambda}=0$. For
 example, we have $c_{(8,2,2),(7,4,1)} = 0$, although both partitions have the
 same length.
 \begin{thm}\label{thm:zero2}
-  Let $n\in\mathbb{N}$ and let $\kappa,\ \lambda\in\mathcal{P}_n$  with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
+  Let $n\in\mathbb{N}$ and let $\kappa, \lambda\in\mathcal{P}_n$  with $\kappa\geq\lambda$ in lexicographic order. Then $c_{\kappa,\lambda}=0$
   if and only if there exists $p\in\mathbb{N}$ such that,  (where the partitions are filled with zeros as necessary,)
   \begin{equation}\label{eq:prop}
     \sum_{i=1}^p (\kappa_i - \lambda_i) < 0.
@@ -702,7 +699,7 @@ same length.
 
 \begin{example}
   For $\kappa=(8,2,2)$ and $\lambda=(7,4,1)$ we verify that the second
-  partial sum of their differences, i.e. $p=2$, is negative:
+  partial sum of their differences, i.e., $p=2$ is negative:
   $(8-7)+(2-4)=-1$, and hence $c_{\kappa,\lambda}$ must be zero.
 \end{example}
 
@@ -825,8 +822,8 @@ order): %$(n)$, $(n-1,1)$, $(n-2,2)$, $(n-2,1,1)$, $(n-3,3)$, etc.
 In Table~\ref{tab:cn1} we give closed forms for the coefficients
 $c_{\kappa,\lambda}$ when $\kappa$ and $\lambda$ are taken from these
 lexicographically largest partitions, i.e., when both $\kappa$ and $\lambda$
-are of the form $(n-m,\pi)$, where $\pi$ is a partition of~$m\in\mathbb{N}$,
-but where $n$ is symbolic.  Pictorially speaking, this table represents the
+are of the form $(n-m,\pi)$, where $\pi\in\mathcal{P}_m$ 
+but $n$ is symbolic.  Pictorially speaking, this table represents the
 upper left submatrix of the $c_{\kappa,\lambda}$-matrix for large~$n$; more
 precisely, for $n\geq6$ since we consider only partitions
 $(n),\dots,(n-3,1,1,1)$. We remark that all these formulas have been
@@ -903,7 +900,7 @@ Let $n'<n$ and $\lambda'=(p_1,\ldots,p_\ell)\in\mathcal{P}_{n'}$. Then,
 \end{conj}
 
 \begin{example}
-Let $n'=3$ and $\lambda'=(2,1)$. By Table \ref{tab:cn2} and the conjecture above
+Let $n'=3$ and $\lambda'=(2,1)$. By Table \ref{tab:cn1} and the conjecture above
 \[
 \lim_{n\rightarrow\infty}c_{(n),(n-3,2,1)}=\lim_{n\rightarrow\infty}\frac{3(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)}=\frac{3}{16}=\frac{(2)_2}{2!2^{2\cdot 2-1}}\cdot\frac{(1)_1}{1!2^{2\cdot 1-1}}.
 \]
@@ -1064,21 +1061,23 @@ $\lambda$ has only two parts,
 \end{align}
 
 \begin{example}\label{ex:twoparts}
-We begin with some concrete examples.  For $d=1,2,3$, we obtain
+We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{eq:rec2} yields
 \allowdisplaybreaks
 \begin{align*}
   c_{(a,a-b),(a-1,a-b+1)} &=
     \frac{b}{2b-1}\,c_{(a,a-b),(a,a-b)}, \\
   c_{(a,a-b),(a-2,a-b+2)} &=
-    \frac{1}{4b-6}\Bigl((b-2)\,c_{(a,a-b),(a-1,a-b-1)}+b\,c_{(a,a-b),(a,a-b)}\Bigr) \\
-  &= \frac{c_{(a,a-b),(a,a-b)}}{4b-6}\left(\frac{(b-2)b}{2b-1}+b\right) \\
-  &= \frac{3b(b-1)}{2(2b-1)(2b-3)}\,c_{(a,a-b),(a,a-b)}, \\
+%    \frac{1}{4b-6}\Bigl((b-2)\,c_{(a,a-b),(a-1,a-b-1)}+b\,c_{(a,a-b),(a,a-b)}\Bigr) \\
+%  &= \frac{c_{(a,a-b),(a,a-b)}}{4b-6}\left(\frac{(b-2)b}{2b-1}+b\right) \\
+%  &= 
+\frac{3b(b-1)}{2(2b-1)(2b-3)}\,c_{(a,a-b),(a,a-b)}, \\
   c_{(a,a-b),(a-3,a-b+3)} &=
-    \frac{1}{3(2b-5)}\Bigl((b-4)c_{(a,a-b),(a-2,a-b+2)} \\
-    &\qquad +(b-2)c_{(a,a-b),(a-1,a-b+1)}+b\, c_{(a,a-b),(a,a-b)}\Bigr)\\
-  &= \frac{c_{(a,a-b),(a,a-b)}}{3(2b-5)}
-    \left((b-4)\frac{3b(b-1)}{2(2b-1)(2b-3)}+\frac{3b(b-1)}{2b-1}\right)\\
-  &= \frac{5b(b-1)(b-2)}{2(2b-1)(2b-3)(2b-5)}\,c_{(a,a-b),(a,a-b)}.
+%    \frac{1}{3(2b-5)}\Bigl((b-4)c_{(a,a-b),(a-2,a-b+2)} \\
+%    &\qquad +(b-2)c_{(a,a-b),(a-1,a-b+1)}+b\, c_{(a,a-b),(a,a-b)}\Bigr)\\
+%  &= \frac{c_{(a,a-b),(a,a-b)}}{3(2b-5)}
+%    \left((b-4)\frac{3b(b-1)}{2(2b-1)(2b-3)}+\frac{3b(b-1)}{2b-1}\right)\\
+%  &= 
+\frac{5b(b-1)(b-2)}{2(2b-1)(2b-3)(2b-5)}\,c_{(a,a-b),(a,a-b)}.
 \end{align*}
 %% \item For $\lambda=\left(a-4,a-b+4\right)$, 
 %% \begin{align*}
@@ -1174,8 +1173,7 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   \begin{align*}
     g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
     &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
-    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d) \\
-    &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
+    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d)= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
   \end{align*}
   such that the following identities hold (they can be verified by routine
   calculations):
@@ -1185,9 +1183,9 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   \end{align}
   Now we sum \eqref{eq:WZ1} for $d=0,\dots,a-b$ and obtain
   \[
-    \sum_{d=0}^{a-b}\bigl(f(a+1,b,d)-f(a,b,d)\bigr) = g_1(a-b+1) - g_1(a,0)
+    \sum_{d=0}^{a-b}\bigl(f(a+1,b,d)-f(a,b,d)\bigr) = g_1(a-b+1) - g_1(a,0),
   \]
-  or, equivalently:
+  or equivalently,
   \[
     \sum_{d=0}^{a-b+1}f(a+1,b,d) - \sum_{d=0}^{a-b}f(a,b,d) = g_1(a-b+1) - g_1(a,0) + f(a+1,b,a-b+1).
   \]
@@ -1195,7 +1193,7 @@ We begin with some concrete examples.  For $d=1,2,3$, we obtain
   thereby showing that the sum $\sum_{d=0}^{a-b}f(a,b,d)$ is independent
   of~$a$. Summing over \eqref{eq:WZ2}, followed by a similar calculation,
   shows that the sum does not depend on~$b$ either. Therefore, the sum
-  in~\eqref{eq:sumid2} is constant, and by setting $a=b=0$ one immediately
+  in~\eqref{eq:sumid2} is constant, and by setting $a=b=0$, one immediately
   sees that this constant is~$1$.
 \end{proof}
 
@@ -1233,7 +1231,7 @@ special cases that $\kappa$ has three resp.\ four parts.
   of $n=3a-b-c$ into at most three parts. Then the diagonal coefficient
  \[ 
  c_{\kappa,\kappa}=\frac{(c+1)!}{(a+1)!} \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \,
-     \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \, \bigl(\delta_2+\frac32\bigr)_{\!\delta_3}} 
+     \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \, \bigl(\delta_2+\frac32\bigr)_{\!\delta_3}}, 
  \] 
 %  \begin{align*}
 %    c_{\kappa,\kappa} &= \frac{(c+1)! \, (3a-b-c)!}
@@ -1253,7 +1251,7 @@ special cases that $\kappa$ has three resp.\ four parts.
  \[ 
 c_{\kappa,\kappa}=\frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
     \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \, \delta_4! \,
-      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}}  
+      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}},  
 \]  
 %  \begin{align*}
 %    c_{\kappa,\kappa} &= \frac{(c+1)! \, (d-b+1)! \, (4a-b-c-d)!}
