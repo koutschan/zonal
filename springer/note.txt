@@ -1,0 +1,12 @@
+1. I have downloaded the “Springer's Macro Latex Template” at 
+https://www.springer.com/gp/livingreviews/latex-templates, 
+as required in “Text Formatting”.
+
+2. Both telephone numbers and the ORCID numbers are added. I copied from your personal website, please double check it.
+
+3. \usepackage{amsmath} added for the \genfrac, used in pFq.
+
+4. \usepackage{amsthm} is commented. It seems that there is a conflict between it and the templete's default setting. 
+
+5. \qedhere is not available in Springer, therefore deleted. 
+It seems that the default setting of Springer does not show the qed box. 
