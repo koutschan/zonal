@@ -10,3 +10,10 @@ as required in “Text Formatting”.
 
 5. \qedhere is not available in Springer, therefore deleted. 
 It seems that the default setting of Springer does not show the qed box. 
+
+6. There is a strange requirement: 
+Acknowledgments
+Acknowledgments of people, grants, funds, etc. should be placed in a separate section on the title
+page. The names of funding organizations should be written in full.
+
+Therefore, I followed by putting acknowledgement at the very beginning. 
