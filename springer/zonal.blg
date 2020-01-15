@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: zonal.aux
+White space in argument---line 5 of file zonal.aux
+ : \citation{ButlerPaige11,
+ :                          Johnstone01}
+I'm skipping whatever remains of this command
+White space in argument---line 18 of file zonal.aux
+ : \citation{KushnerMeisner,
+ :                           Muirhead}
+I'm skipping whatever remains of this command
+The style file: spmpsci.bst
+Database file #1: zonal.bib
+Warning--to sort, need author or key in DLMF
+You've used 20 entries,
+            2945 wiz_defined-function locations,
+            760 strings with 8687 characters,
+and the built_in function-call counts, 8923 in all, are:
+= -- 739
+> -- 224
+< -- 4
++ -- 100
+- -- 74
+* -- 538
+:= -- 1184
+add.period$ -- 32
+call.type$ -- 20
+change.case$ -- 99
+chr.to.int$ -- 0
+cite$ -- 21
+duplicate$ -- 817
+empty$ -- 860
+format.name$ -- 82
+if$ -- 1892
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 193
+newline$ -- 98
+num.names$ -- 38
+pop$ -- 301
+preamble$ -- 1
+purify$ -- 77
+quote$ -- 0
+skip$ -- 184
+stack$ -- 0
+substring$ -- 478
+swap$ -- 452
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 74
+warning$ -- 1
+while$ -- 67
+width$ -- 22
+write$ -- 227
+(There were 2 error messages)
