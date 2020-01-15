@@ -714,9 +714,10 @@ We have
 \end{thm}
 \begin{proof}
 Using \eqref{eq:cnton1} and  \eqref{eq:CInitial} with $\lambda=(n-1,1)$, we have
-\[
-  c_{(n-1,1),(n-1,1)}=\binom{n}{n-1,1}-c_{(n),(n-1,1)}=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
-\]
+\begin{align*}
+ c_{(n-1,1),(n-1,1)}&=\binom{n}{n-1,1}-c_{(n),(n-1,1)}\\
+&=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
+\end{align*}
 By applying \eqref{eq:CRec}, we obtain
 \begin{align*}
   c_{(n-1,1),(n-2,2)}
@@ -915,7 +916,7 @@ parts. First of all, it is easy to compute that
 Then, the recurrence~\eqref{eq:CRec} can be written as, by noting that
 $\lambda$ has only two parts,
 \begin{align}\label{eq:rec2}
-  c_{\kappa,\lambda} &= c_{(a,a-b),(a-d,a-b+d)} =
+  c_{\kappa,\lambda} = c_{(a,a-b),(a-d,a-b+d)} &=
   \sum_{\lambda<\mu\leq\kappa}\frac{(a-d+t)-(a-b+d-t)}{\rho_{\kappa}-\rho_{\lambda}} c_{\kappa,\mu} \\
   &= \sum_{t=1}^d\frac{b-2d+2t}{d\,(2b-2d+1)}c_{(a,a-b),(a-d+t,a-b+d-t)} \notag \\ 
   & = \sum_{j=0}^{d-1} \frac{b-2j}{d\,(2b-2d+1)}c_{(a,a-b),(a-j,a-b+j)}. \notag
@@ -1088,11 +1089,11 @@ special cases that $\kappa$ has three resp.\ four parts.
   Let $\kappa=(a,a-b,a-c,a-d)$ with integers $0\leq b\leq c\leq d\leq a$ be a
   partition of $n=4a-b-c-d$ into at most four parts. Then the diagonal
   coefficient $c_{\kappa,\kappa}$ is given by
- \[ 
-c_{\kappa,\kappa}=\frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
+\[
+\frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
     \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \, \delta_4! \,
       \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}},  
-\]  
+\]
   with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$,
   $\delta_3=\kappa_3-\kappa_4=d-c$, and $\delta_4=\kappa_4-\kappa_5=a-d$ being
   the differences between consecutive parts of~$\kappa$.
@@ -1248,8 +1249,6 @@ where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
   \In |ZonalCoefficientN|[\{n-3,2,1\},\{n-4,2,2\}] \\
   \Out \frac{4 (n-3) (n-1) n (2 n^2-18 n+39)}{5 (2 n-11) (2 n-7)} \\
 \end{mma}
-
-
 
 \bibliographystyle{spmpsci}      % mathematics and physical sciences
 \bibliography{zonal}
