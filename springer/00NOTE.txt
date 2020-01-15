@@ -17,3 +17,6 @@ Acknowledgments of people, grants, funds, etc. should be placed in a separate se
 page. The names of funding organizations should be written in full.
 
 Therefore, I followed by putting acknowledgement at the very beginning. 
+
+7. Due to the narrow width, I have to adjust several formulas (e.g., the one in the proof of Lemma 1, P. 9). 
+Please also adjust one output on Page 20. 
