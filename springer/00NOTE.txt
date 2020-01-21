@@ -1,3 +1,10 @@
+21-01-2020
+I have to modify the zonal.aux file, since some error of "white space" occured and I have to delete the two spaces, to make 
+reference and citation correct.
+
+
+
+------------------------------------------------------------------------------------
 1. I have downloaded the “Springer's Macro Latex Template” at 
 https://www.springer.com/gp/livingreviews/latex-templates, 
 as required in “Text Formatting”.
