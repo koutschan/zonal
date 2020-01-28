@@ -520,11 +520,14 @@ $\rho_\kappa$ that is defined in~\eqref{eq:RHO}.
 \end{thm}
 
 \begin{rem}
-One may have noticed that it is possible that $\kappa>\lambda$ and $\rho_\kappa=\rho_\lambda$. The first example is when $n=6$, $\kappa=(4,1,1)$, and $\lambda=(3,3)$, in which 
+As mentioned in Remark 1 on page 73 of  \cite{Takemura}, recurrence \eqref{eq:CRec} is not complete until $\rho_\kappa-\rho_\lambda\neq 0$. However, this is not true. The first example is when $n=6$, $\kappa=(4,1,1)$, and $\lambda=(3,3)$, in which 
 \[
 \rho_\kappa=4\cdot(4-1)+1\cdot(1-2)+1\cdot(1-3)=9=3\cdot(3-1)+3\cdot(3-2)=\rho_\lambda.
 \]
-Now, not only does the denominator in \eqref{eq:CRec} vanish, but also the summation is empty. In that case, we let $c_{\kappa,\lambda}=0$, which is also compatible with the build-in package in SageMath. See the example at the end of Section \ref{sec:Package}. In addition, throughout this paper, when applying \eqref{eq:CRec}, we assume $\rho_\kappa\neq\rho_\lambda$.
+Observation shows that, not only does the denominator in \eqref{eq:CRec} vanish, but also the summation is empty. 
+It seems that James \cite{James1} has claimed that for all ``relevant'' pairs $(\kappa,\lambda)$, $c_{\kappa,\lambda}>0$. Due to the no nnegative numerator of the summation in \eqref{eq:CRec}, it indicates that if $\rho_\kappa\leq\rho_\lambda$,  $c_{\kappa,\lambda}=0$. 
+
+See the example at the end of Section \ref{sec:Package} of the case $n=6$, $\kappa=(4,1,1)$, and $\lambda=(3,3)$, which is also compatible with the build-in package in SageMath.
 \end{rem}
 
 Once the initial value $c_{\kappa,\kappa}$ is given,
@@ -628,7 +631,24 @@ same length.
   \eqref{eq:prop}, then by \eqref{eq:CRec}, $c_{\kappa,\lambda}$ is a linear
   combination (with nonnegative coefficients) of $c$'s that do not satisfy
   \eqref{eq:prop} either.  Note that $\rho_\kappa<\rho_\lambda$ only occurs if
-  \eqref{eq:prop} holds. It is not difficult to see that $\lambda$ can be
+  \eqref{eq:prop} holds, which can be proven as follows. Let $\kappa=(\kappa_{1},\ldots,\kappa_{m})$ and $\lambda=(\lambda_{1},\ldots,\lambda_{m})$, with possible zero components as necessary. For any constant $c$, 
+\begin{align*}
+\rho_{\kappa}-\rho_{\lambda} & =\sum_{i=1}^{m}\left(\kappa_{i}(\kappa_{i}-i)-\lambda_{i}(\lambda_{i}-i)\right)\\
+ & =\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i)\\
+ & =\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i+c)-c\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})\\
+ & = \sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i+c),
+\end{align*}
+due to that 
+\[
+\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})=\sum_{i=1}^{m}\kappa_{i}-\sum_{i=1}^{k}\lambda_{i}=n-n=0.
+\]
+Let $c=m+1$ and define $a_i=\kappa_{i}+\lambda_{i}+(m+1-i)$ for $i=1,2,\ldots,m$, which are positive and strictly decreasing. If $\rho_\kappa<\rho_\lambda$ but \eqref{eq:prop}  fails, i.e., for any $p\in\mathbb{N}$, $\sum_{i=1}^p(\kappa_i-\lambda_i)\geq 0$, we see the contradiction as follows.
+\begin{align*}
+\rho_{\kappa}-\rho_{\lambda}=&\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})a_{i}\\
+=&a_{m}\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})+(a_{m-1}-a_{m})\sum_{i=1}^{m-1}(\kappa_{i}-\lambda_{i})+\cdots\\
+  & +(a_{1}-a_{2})(\kappa_{1}-\lambda_{1})\geq 0.
+\end{align*}
+Thus, we only focus on the case that $\rho_\kappa>\rho_\lambda$. It is not difficult to see that $\lambda$ can be
   converted into~$\kappa$ by a finite sequence of moves
   $(\dots,\lambda_r+1,\lambda_{r+1}-1,\dots)$, where $r$ is the smallest index
   such that $\sum_{i=1}^r (\kappa_i - \lambda_i) > 0$, and all partitions in
@@ -707,7 +727,7 @@ Now, assume \eqref{eq:1to2} holds for $m$. Considering the case $m+1$, we have
 \label{thm:fam1}
 We have
 \begin{alignat*}{2}
-  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &\qquad& (n\geq2); \\
+  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &\qquad& (n\geq2);\\
   c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, && (n\geq4); \\
   c_{(n-2,2),(n-2,2)} &= \frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}, &&(n\geq4).
 \end{alignat*}
