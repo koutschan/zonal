@@ -1,3 +1,8 @@
+28-01-2020
+It seems that the two problems when \rho_\kappa-\rho_\lambda=0 and your "Todo" quote are solved. 
+I will send you an email to explain. 
+
+
 21-01-2020
 I have to modify the zonal.aux file, since some error of "white space" occured and I have to delete the two spaces, to make 
 reference and citation correct.
