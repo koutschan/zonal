@@ -54,30 +54,25 @@
 
 \author{Lin Jiu}
 \address{%
-Department of Mathematics and Statistics,
-Dalhousie University,
-6316 Coburg Road, Halifax, Nova Scotia, Canada B3H 4R2 
+Department of Mathematics and Statistics,Dalhousie University, 
+6316 Coburg Road, Halifax, Nova Scotia, Canada B3H 4R2 \\
+Lin.Jiu@dal.ca
 }
-\email{Lin.Jiu@dal.ca}
+\author{Christoph Koutschan}
+\address{%
+Johann Radon Institute for Computational and Applied Mathematics (RICAM),
+Altenberger Stra\ss e 69, A-4040 Linz, Austria \\
+christoph.koutschan@ricam.oeaw.ac.at
+}
+
 \thanks{%
 LJ was supported by the Austrian Science Fund (FWF): P29467-N32.\\
 CK was supported by the Austrian Science Fund (FWF): P29467-N32 and F5011-N15.
 }
 
-\author{Christoph Koutschan}
-\address{%
-Johann Radon Institute for Computational and Applied Mathematics (RICAM),
-Austrian Academy of Sciences,
-Altenberger Stra\ss e 69, A-4040 Linz, Austria
-}
-\email{christoph.koutschan@ricam.oeaw.ac.at}
+
 
 \subjclass{Primary 05E05; Secondary 33C20 33C70 15B52 65C60}
-% 05E05   Combinatorics 	Symmetric functions and generalizations
-% 33C20   Special Functions	Generalized hypergeometric series, ${}_pF_q$
-% 33C70   Special Functions	Other hypergeometric functions and integrals in several variables
-% 15B52   LinAlg/Matrix Theory	Random matrices
-% 65C60   Numerical Analysis	Computational problems in statistics
 
 \keywords{zonal polynomial, symmetric function, integer partition, Laplace-Beltrami operator,
   Wishart matrix, hypergeometric function of a matrix argument}
@@ -96,8 +91,9 @@ Altenberger Stra\ss e 69, A-4040 Linz, Austria
 
 \maketitle
 
-\section{Introduction}
 
+
+\section{Introduction}
 At the beginning of our study, we recall the generalized hypergeometric
 function ${}_pF_q$, defined as the infinite series
 \begin{equation}\label{eq:pFq}
@@ -147,7 +143,7 @@ The hypergeometric function of a matrix argument is used in multivariate
 statistics, in connection with the Wishart distribution~\cite{Wishart28}; see
 Section~\ref{sec:Wishart} and \cite{GrossRichards87} for an introduction.  For
 example, the extreme eigenvalues of random matrices can be expressed in terms
-of this hypergeometric function~\cite{ButlerPaige11, Johnstone01}.  However,
+of this hypergeometric function~\cite{ButlerPaige11,Johnstone01}.  However,
 the numerical evaluation of ${}_pF_q$ functions of a matrix argument is a
 notorious problem in multivariate distribution theory~\cite{KoevEdelman06}.
 
@@ -170,7 +166,7 @@ A comprehensive introduction to zonal polynomials~\cite[\S\,35.4]{DLMF} was
 given by Takemura~\cite{Takemura}. Interestingly, these polynomials also
 appear in completely different mathematical contexts. No direct formula for
 their calculation is known, but only partial
-results~\cite{KushnerMeisner, Muirhead}. There exist software packages in
+results~\cite{KushnerMeisner,Muirhead}. There exist software packages in
 Maple~\cite{Stembridge95} and SageMath\footnote{http://doc.sagemath.org/html/en/reference/combinat/sage/combinat/sf/jack.html} to compute with them.
 
 In Section~\ref{sec:DEFS} we give a survey
@@ -187,7 +183,6 @@ variables (Section~\ref{sec:2parts}) and some partial results for three and
 four variables (Section~\ref{sec:3+4parts}). Finally, we explain some details
 of our software packages, see Sections~\ref{sec:Package} and~\ref{sec:mma},
 that were written in the frame of the current work.
-
 
 \section{\label{sec:DEFS}Definitions of zonal polynomials}
 
@@ -239,14 +234,14 @@ for $\kappa=\left(\kappa_1,\ldots,\kappa_j\right),\lambda=\left(\lambda_1,\ldots
 Then, we can write the basis formed by~$\mathcal{U}_{\lambda}$
 as a column vector:
 $
-\mathcal{U}:=\left(\mathcal{U}_{(n)},\mathcal{U}_{(n-1,1)},\ldots,\mathcal{U}_{(1,\ldots,1)}\right)^{T}\!\!\!.
+\mathcal{U}:=\bigl(\mathcal{U}_{(n)},\allowbreak \mathcal{U}_{(n-1,1)},\ldots,\mathcal{U}_{(1,\ldots,1)}\bigr){}^{T}.
 $
 This subsection presents a definition of $\mathcal{C}_{\lambda}(Y)$
 related to the Wishart distribution, defined as follows.
 \begin{defn}
 Let $X_{\nu\times m}$ be a matrix such that each row is independently drawn
-from an $m$-variate normal distribution of mean $0$ and covariance
-matrix $V$, namely, 
+from an $m$-variate normal distribution of mean $0$ and with covariance
+matrix~$V$, namely, 
 \[
   (x_{i}^{1},\ldots,x_{i}^{m})\sim\mathcal{N}_{m}(0,V)
   \qquad (1\leq i\leq\nu).
@@ -267,7 +262,7 @@ for $Y\in \SPD(m)$, by
   (\tau_{\nu}(\mathcal{U}_{\lambda}))(Y) :=
   \mathbb{E}_{W}[\mathcal{U}_{\lambda}(YW)]\text{ for }W\sim W(I_m,\nu).
 \]
-As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{(n)}),\tau_{\nu}(\mathcal{U}_{(n-1,1)}),\ldots,\tau_{\nu}(\mathcal{U}_{(1,\ldots,1)})\right)^{T}$
+As $\mathcal{U}$ forms a basis of $V_{n}$, $\tau_{\nu}(\mathcal{U}):=\left(\tau_{\nu}(\mathcal{U}_{(n)}),\tau_{\nu}(\mathcal{U}_{(n-1,1)}),\ldots,\tau_{\nu}(\mathcal{U}_{(1,\ldots,1)})\right){}^{\!T}$
 must be a linear combination of $\mathcal{U}$,
 denoted by $\tau_{\nu}(\mathcal{U})=T_{\nu}\mathcal{U}$. 
 Properties of the transition matrix $T_{\nu}$ guarantee a diagonalization as $T_{\nu}=\Xi^{-1}\Lambda_{\nu}\Xi$, where 
@@ -281,12 +276,13 @@ Now, we can define the zonal polynomials.
 \begin{defn}
 For $\lambda=(\lambda_1,\ldots,\lambda_k)\in\mathcal{P}_{n}$, the zonal polynomial $\mathcal{Y}_{\lambda}$
 is defined by a vector form
-\begin{equation}\label{eq:ZonalY}
+\begin{align}
 \mathcal{Y}=\left(\mathcal{Y}_{(n)}, \mathcal{Y}_{(n-1,1)}, \ldots, 
 \mathcal{Y}_{(1,\ldots,1)}\right)^T
-=\Xi\,\mathcal{U}=\Xi\left(\mathcal{U}_{(n)}, \mathcal{U}_{(n-1,1)}, \ldots, \mathcal{U}_{(1,\ldots,1)}
-\right)^T\!\!,
-\end{equation}
+  &= \Xi\,\mathcal{U} \notag \\ 
+  &= \Xi\left(\mathcal{U}_{(n)}, \mathcal{U}_{(n-1,1)}, \ldots, \mathcal{U}_{(1,\ldots,1)}
+\right)^T\!\!, \label{eq:ZonalY}
+\end{align}
 and define $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$ by the constants $d_\lambda$, given by
 \[
   d_{\lambda}=\frac{\underset{i<j}{\prod}(2\lambda_{i}-2\lambda_{j}-i+j)}{\overset{k}{\underset{i=1}{\prod}}(2\lambda_{i}+k-i)!}
@@ -297,7 +293,7 @@ and define $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$ by the
 \begin{example}
   For $n=4$, $\nu=3$, and $m=2$, we compare an exact computation with a
   Monte-Carlo experiment.  Since $m=2$, we only need to consider partitions
-  of $n=4$ with at most $2$ parts and get $\mathcal{U}=\left((y_1+y_2)^4,
+  of~$4$ with at most $2$ parts and get $\mathcal{U}=\left((y_1+y_2)^4,
   y_1y_2(y_1+y_2)^2, y_1^2y_2^2\right)$. 
 
   The map $\tau_\nu$ is defined to be an expectation. In order to approximate
@@ -308,7 +304,7 @@ and define $\mathcal{C}_{\lambda}(Y)=d_{\lambda}\mathcal{Y}_{\lambda}(Y)$ by the
     \Out \rule{0pt}{8pt}\{\{3.0965, -0.551265\}, \{-0.551265, 1.59861\}\} \\
   \end{mma}
   \noindent
-  randomly generates such a $2\times2$ matrix~$W$. For simplicity, we let
+  randomly generates such a $2\times2$ matrix~$W$. For simplicity, let
   $Y=\diag(y_1,y_2)$. The eigenvalues of $YW$ are in general algebraic
   expressions, but after plugging them into the symmetric polynomials
   of~$\mathcal{U}$ and simplifying, one gets polynomials back. For these
@@ -392,7 +388,9 @@ Namely, the Laplace-Beltrami operator is the generalization of the Laplace
 operator on $\mathbb{R}^{n}$. 
 \end{rem}
 \begin{prop}
-Given $X\!\!=\!\!HY\!H^T\!\!\!\in\!\!\SPD(m)$, for some orthogonal matrix $H\!\!\!\in\!\!O(n)$, and $Y\!\!=\!\diag(y_{1},\ldots,y_{n})$ being the diagonalization of $X$, James \cite[eq.~3.12]{James1} derived the Laplace-Beltrami operator as
+Given $X=HY\!H^T\!\in\SPD(m)$, for some orthogonal matrix $H\in O(n)$,
+and $Y=\diag(y_{1},\ldots,y_{n})$ being the diagonalization of $X$, James
+\cite[eq.~3.12]{James1} derived the Laplace-Beltrami operator as
 
 \begin{equation}
 \Delta=\sum_{i=1}^{m}\left(y_{i}^{2}\frac{\partial^{2}}{\partial y_{i}^{2}}-\frac{m-3}{2}y_{i}\frac{\partial}{\partial y_{i}}+\sum_{j=1,j\neq i}^{m}\frac{y_{i}^{2}}{y_{i}-y_{j}}\cdot\frac{\partial}{\partial y_{i}}\right). \label{eq:LaplaceBeltrami}
@@ -426,12 +424,8 @@ where
 Consider the general linear group $G=\mathrm{GL}(m)$ on
 $V_{n}$. Define a representation as follows. For $g\in\mathrm{GL}(m)$, $Y\in V_n$, and $\varphi\in\mathrm{GL}(V_n)$, 
 \[
-\left(g\circ\varphi\right)(Y):=\varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right).
+\left(g\circ\varphi\right)(Y):=\varphi{\left(g^{-1}Y(g^{-1})^{T}\right)}.
 \]
-%\begin{eqnarray*}
-%g\in\mathrm{GL}(m):V_{n} & \rightarrow & V_{n}\\
-%\varphi\left(Y\right) & \mapsto & \varphi\left(g^{-1}Y\left(g^{-1}\right)^{T}\right)
-%\end{eqnarray*}
 As a representation, the linear space can be decomposed into invariant
 subspaces \cite[p.~611]{Representation}
 \[
@@ -453,16 +447,14 @@ Note that \eqref{eq:projection} confirms \eqref{eq:TrZonal}.
 
 A special case of the Macdonald polynomials gives the Jack polynomials $J_{\lambda}^{(\alpha)}$,
 which when $\alpha=2$, gives the zonal polynomials $\mathcal{Z}_\lambda(Y)$. $\mathcal{Z}_\lambda(Y)$ differs from $\mathcal{C}_\lambda(Y)$ only by a constant factor. 
-%Please see Section \ref{sec:Package}, for one specific example. 
-
 
 \section{Calculation of zonal polynomials}\label{sec:calc}
 
 Although there are several ways to define the zonal polynomial $\mathcal{C}_{\lambda}(Y)$,
 in practice, none of these definitions gives an algorithm or formula
-to directly compute $\mathcal{C}_{\lambda}(Y)$. Now, we
+to directly compute~$\mathcal{C}_{\lambda}(Y)$. Now, we
 follow the steps by Muirhead \cite{Muirhead} to build up packages for the
-calculation of $\mathcal{C}_{\lambda}(Y)$.
+calculation of~$\mathcal{C}_{\lambda}(Y)$.
 \begin{defn}
 For $\lambda=(\lambda_1,\ldots,\lambda_k)\in\mathcal{P}_{n}$,
 define the \emph{monomial symmetric function} as 
@@ -471,30 +463,6 @@ define the \emph{monomial symmetric function} as
   \sum_{\genfrac{}{}{0pt}{}{i_{1},\ldots,i_{k}}{\text{distinct terms}}}y_{i_{1}}^{\lambda_{1}}\cdots y_{i_{k}}^{\lambda_{k}}=y_{1}^{\lambda_{1}}\cdots y_{k}^{\lambda_{k}}+\text{symmetric terms}.\label{eq:MZonal}
 \end{equation}
 \end{defn}
-%\begin{example}
-%Let $Y\in\SPD(m)$ have the eigenvalues $y_{1},\ldots,y_{m}$:
-%\begin{enumerate}
-%\item 
-%\[
-%M_{\left(1\right)}(Y)=y_{1}+\cdots+y_{m};
-%\]
-%\item 
-%\[
-%M_{\left(2\right)}(Y)=y_{1}^{2}+\cdots+y_{m}^{2};
-%\]
-%\item \label{enu:ILessThanJ}
-%\[
-%M_{\left(1,1\right)}(Y)=\underset{i<j}{\sum}y_{i}y_{j};
-%\]
-%\item \label{enu:IANDJ}
-%\[
-%M_{\left(2,1\right)}(Y)=\underset{i,j}{\sum}y_{i}^{2}y_{j}.
-%\]
-%\end{enumerate}
-%Here we see the last two functions have the same length of partitions
-%but different sum ranges, due to the fact that $y_{1}y_{2}$ and $y_{2}y_{1}$
-%are the same while $y_{1}^{2}y_{2}$ and $y_{2}^{2}y_{1}$ are different. 
-%\end{example}
 \begin{rem}
 An explicit expression of $M_{\lambda}(Y)$ is given by
 \cite[eq.~6]{Takemura}:
@@ -519,30 +487,9 @@ We have,  for some constants $c_{\kappa,\lambda}$, that (see, e.g., \cite[eq.~13
 \begin{example}\label{Tables}
 The following table, from \cite[p.~238]{Muirhead}, shows
 the coefficients $c_{\kappa,\lambda}$, in the case $n=4$.
-%\begin{itemize}
-%\item $n=2$
-%\[
-%\def\arraystretch{1.3}
-%\begin{array}{c|cc}
-%\kappa\backslash\lambda & \left(2\right) & \left(1,1\right)\\ \hline
-%\left(2\right) & 1 & \frac{2}{3}\\
-%\left(1,1\right) & 0 & \frac{4}{3}
-%\end{array}
-%\]
-%\item $n=3$
-%% \[
-%% \def\arraystretch{1.3}
-%% \begin{array}{c|ccc}
-%% \kappa\backslash\lambda & \left(3\right) & \left(2,1\right) & \left(1,1,1\right)\\ \hline
-%% \left(3\right) & 1 & \frac{3}{5} & \frac{2}{5}\\
-%% \left(2,1\right) & 0 & \frac{12}{5} & \frac{18}{5}\\
-%% \left(1,1,1\right) & 0 & 0 & 2
-%% \end{array}
-%% \]
-%\item $n=4$
 \[
 \def\arraystretch{1.3}
-\begin{array}{c|ccccc}
+\begin{array}{c@{\;\;}|@{\;\;}c@{\quad}c@{\quad}c@{\quad}c@{\quad}c}
 \kappa\backslash\lambda & \left(4\right) & \left(3,1\right) & \left(2,2\right) & \left(2,1,1\right) & \left(1,1,1,1\right)\\ \hline
 \left(4\right) & 1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35}\\
 \left(3,1\right) & 0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7}\\
@@ -551,21 +498,6 @@ the coefficients $c_{\kappa,\lambda}$, in the case $n=4$.
 \left(1,1,1,1\right) & 0 & 0 & 0 & 0 & \frac{16}{5}
 \end{array}
 \]
-%\item $n=5$
-%\[
-%\def\arraystretch{1.3}
-%\begin{array}{c|ccccccc}
-%\kappa\backslash\lambda & \left(5\right) & \left(4,1\right) & \left(3,2\right) & \left(3,1,1\right) & \left(2,2,1\right) & \left(2,1,1,1\right) & \left(1,1,1,1,1\right)\\ \hline
-%\left(5\right) & 1 & \frac{5}{9} & \frac{10}{21} & \frac{20}{63} & \frac{2}{7} & \frac{4}{21} & \frac{8}{63}\\
-%\left(4,1\right) & 0 & \frac{40}{9} & \frac{8}{3} & \frac{46}{9} & 4 & \frac{14}{3} & \frac{40}{9}\\
-%\left(3,2\right) & 0 & 0 & \frac{48}{7} & \frac{32}{7} & \frac{176}{21} & \frac{64}{7} & \frac{80}{7}\\
-%\left(3,1,1\right) & 0 & 0 & 0 & 10 & \frac{20}{3} & \frac{130}{7} & \frac{200}{7}\\
-%\left(2,2,1\right) & 0 & 0 & 0 & 0 & \frac{32}{3} & 16 & 32\\
-%\left(2,1,1,1\right) & 0 & 0 & 0 & 0 & 0 & \frac{80}{7} & \frac{800}{21}\\
-%\left(1,1,1,1,1\right) & 0 & 0 & 0 & 0 & 0 & 0 & \frac{16}{3}
-%\end{array}
-%\]
-%\end{itemize}
 \end{example}
 \begin{thm}
 The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[eq.~14]{Muirhead}
@@ -573,19 +505,22 @@ The constant $c_{\kappa,\lambda}$ satisfies the recurrence \cite[eq.~14]{Muirhea
   c_{\kappa,\lambda} =
   \sum_{\lambda<\mu\leq\kappa}\frac{\left(\lambda_{r}+t\right)-\left(\lambda_{s}-t\right)}{\rho_{\kappa}-\rho_{\lambda}}c_{\kappa,\mu},
 \end{equation}
-where the sum is over all $ \mu=\left(\lambda_1,\ldots,\lambda_{r-1},\lambda_r+t,\lambda_{r+1},\ldots,
-  \lambda_{s-1},\lambda_s-t,\lambda_{s+1},\ldots,\lambda_k\right)$, for $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)$
+where the sum is over all $ \mu=(\lambda_1,\ldots,\lambda_{r-1},\lambda_r+t,\lambda_{r+1},\ldots,
+  \lambda_{s-1},\lambda_s-t,\lambda_{s+1}, \allowbreak \ldots,\lambda_k)$, for $\lambda=\left(\lambda_1,\ldots,\lambda_k\right)$
 and $t=1,\ldots,\lambda_s$ such that by rearranging the tuple~$\mu$
 in a descending order, it lies as $\lambda<\mu\leq\kappa$. Recall the quantity
 $\rho_\kappa$ that is defined in~\eqref{eq:RHO}.
 \end{thm}
 
 \begin{rem}
-One may have noticed that it is possible that $\kappa>\lambda$ and $\rho_\kappa=\rho_\lambda$. The first example is when $n=6$, $\kappa=(4,1,1)$, and $\lambda=(3,3)$, in which 
+As mentioned in Remark 1 on page 73 of  \cite{Takemura}, recurrence \eqref{eq:CRec} fails when $\rho_\kappa-\rho_\lambda=0$, which first occurs when $\kappa=(4,1,1)$ and $\lambda=(3,3)$: 
 \[
 \rho_\kappa=4\cdot(4-1)+1\cdot(1-2)+1\cdot(1-3)=9=3\cdot(3-1)+3\cdot(3-2)=\rho_\lambda.
 \]
-Now, not only does the denominator in \eqref{eq:CRec} vanish, but also the summation is empty. In that case, we let $c_{\kappa,\lambda}=0$, which is also compatible with the build-in package in SageMath. See the example at the end of Section \ref{sec:Package}. In addition, throughout this paper, when applying \eqref{eq:CRec}, we assume $\rho_\kappa\neq\rho_\lambda$.
+In this case, not only does the denominator in \eqref{eq:CRec} vanish, but also the summation is empty. 
+It seems that James \cite{James1} has claimed that for all ``relevant'' pairs $(\kappa,\lambda)$, $c_{\kappa,\lambda}>0$. Due to the nonnegative numerator of the summation in \eqref{eq:CRec}, it suggests that if $\rho_\kappa\leq\rho_\lambda$,  $c_{\kappa,\lambda}=0$. 
+
+See the example at the end of Section \ref{sec:Package} of the case $\kappa=(4,1,1)$ and $\lambda=(3,3)$, which is also compatible with the built-in package in SageMath.
 \end{rem}
 
 Once the initial value $c_{\kappa,\kappa}$ is given,
@@ -616,15 +551,16 @@ result here and give a simple proof of it.
   number of parts. Assume that $\operatorname{len}(\kappa)=k$. Then, the
   definition of zonal polynomials \eqref{eq:CInTermsOfM} and
   Remark~\ref{rem:polyzero}, we see that
- \[ 
- 0 = \mathcal{C}_{\kappa}(y_1,\dots,y_{k-1})= 
+\begin{align*}
+ 0 &= \mathcal{C}_{\kappa}(y_1,\dots,y_{k-1})\\
+    &= 
   \!\!\!\!\!\sum_{\textstyle\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{len}(\lambda)<k}}\!\!\!\!\!
       c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{\neq0} \quad +
    \sum_{\textstyle\genfrac{}{}{0pt}{}{\lambda\leq\kappa}{\operatorname{len}(\lambda)\geq k}}\!\!\!\!\!
     c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{=0}.
- \] 
+\end{align*}
   Now, it is apparent that all coefficients $c_{\kappa,\lambda}$
-  for which $\lambda$ has fewer parts than~$k$ must be zero.
+  for which $\lambda$ has fewer parts than~$k$ must be zero.\qed
 \end{proof}
 
 While Lemma~\ref{lem:zero1} only gives a necessary condition under which
@@ -651,7 +587,7 @@ same length.
   \[
     (\lambda_1,\dots,\lambda_{k-1},\lambda_r+t,\lambda_k,\dots,
     \lambda_{r-1},\lambda_{r+1},\dots,\lambda_{s-1},\lambda_{s+1},\dots,
-    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots).
+    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots\!).
   \]
   Then we have
   \[
@@ -688,13 +624,30 @@ same length.
   \eqref{eq:prop}, then by \eqref{eq:CRec}, $c_{\kappa,\lambda}$ is a linear
   combination (with nonnegative coefficients) of $c$'s that do not satisfy
   \eqref{eq:prop} either.  Note that $\rho_\kappa<\rho_\lambda$ only occurs if
-  \eqref{eq:prop} holds. It is not difficult to see that $\lambda$ can be
+  \eqref{eq:prop} holds, which can be proven as follows. Let $\kappa=(\kappa_{1},\ldots,\kappa_{m})$ and $\lambda=(\lambda_{1},\ldots,\lambda_{m})$, with possible zero components as necessary. For any constant $c$, 
+\begin{align*}
+\rho_{\kappa}-\rho_{\lambda} & =\sum_{i=1}^{m}\left(\kappa_{i}(\kappa_{i}-i)-\lambda_{i}(\lambda_{i}-i)\right)\\
+ & =\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i)\\
+ & =\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i+c)-c\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})\\
+ & = \sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})(\kappa_{i}+\lambda_{i}-i+c),
+\end{align*}
+due to that 
+\[
+\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})=\sum_{i=1}^{m}\kappa_{i}-\sum_{i=1}^{k}\lambda_{i}=n-n=0.
+\]
+Let $c=m+1$ and define $a_i=\kappa_{i}+\lambda_{i}+(m+1-i)$ for $i=1,2,\ldots,m$, which are positive and strictly decreasing. If $\rho_\kappa<\rho_\lambda$ but \eqref{eq:prop}  fails, i.e., for any $p\in\mathbb{N}$, $\sum_{i=1}^p(\kappa_i-\lambda_i)\geq 0$, we see the contradiction as follows.
+\begin{align*}
+\rho_{\kappa}-\rho_{\lambda} &= \sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})a_{i}\\
+  &= a_{m}\sum_{i=1}^{m}(\kappa_{i}-\lambda_{i})+(a_{m-1}-a_{m})\sum_{i=1}^{m-1}(\kappa_{i}-\lambda_{i})+\cdots\\
+  &\qquad +(a_{1}-a_{2})(\kappa_{1}-\lambda_{1})\geq 0.
+\end{align*}
+Thus, we only focus on the case that $\rho_\kappa>\rho_\lambda$. It is not difficult to see that $\lambda$ can be
   converted into~$\kappa$ by a finite sequence of moves
   $(\dots,\lambda_r+1,\lambda_{r+1}-1,\dots)$, where $r$ is the smallest index
   such that $\sum_{i=1}^r (\kappa_i - \lambda_i) > 0$, and all partitions in
   this sequence do not satisfy~\eqref{eq:prop}. The recursion ends when there
   is no such~$r$, i.e., when $\lambda=\kappa$, and one sees that the
-  contribution of $c_{\kappa,\kappa}\neq0$ makes $c_{\kappa,\lambda}$ positive.
+  contribution of $c_{\kappa,\kappa}\neq0$ makes $c_{\kappa,\lambda}$ positive.\qed
 \end{proof}
 
 \begin{example}
@@ -710,7 +663,7 @@ partitions.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{zeros.pdf}
+    \includegraphics[width=0.61\textwidth]{zeros.pdf}
   \end{center}
   \caption{Location of zeros in the $c_{\kappa,\lambda}$-matrix for $n=16$:
   each nonzero coefficient is represented by a white square, each zero
@@ -736,14 +689,11 @@ $\kappa=(n)$ and $\lambda\leq\kappa$ has two parts.
 Let $(n-m,m)\in\mathcal{P}_n$, then
 \begin{equation}\label{eq:1to2}
   c_{(n),(n-m,m)} =
-  %\frac{\left(2m-1\right)!!n\left(n-1\right)\cdots\left(n-m+1\right)}{m!\left(2n-1\right)\left(2n-3\right)\cdots\left(2n-\left(2m-1\right)\right)}
   \binom{n}{m}\cdot\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}.
 \end{equation}
 \end{thm}
 \begin{proof}
 Obviously, 
-%$\rho_{(n)}=n\left(n-1\right)$ and $\rho_{\left(n-m,m\right)}=\left(n-m\right)\left(n-m-1\right)+m\left(m-2\right)$,
-%so that 
 $ \rho_{(n)}-\rho_{(n-m,m)}=m(2n-2m+1)$. By \eqref{eq:CRec},
 \begin{align*}
   c_{(n),(n-m,m)}
@@ -757,39 +707,33 @@ Now, we proceed by induction on~$m$. When $m=1$, the only term in the sum is $t=
 \end{equation}
 Now, assume \eqref{eq:1to2} holds for $m$. Considering the case $m+1$, we have
 \begin{align*}
- & c_{(n),(n-m-1,m+1)}  \\
- =& \frac{1}{(m+1)(2(n-m)-1)}\sum_{t=1}^{m+1}(n-2m-2+2t)c_{(n),\mu}\\
-= & \frac{1}{(m+1)2(n-m)-1)}\biggl((n-2m)c_{(n),(n-m,m)}+\sum_{t=1}^{m}(n-2m+2t)c_{(n),\mu}\biggr)\\
-=& \frac{c_{(n),(n-m,m)}}{(m+1)(2(n-m)-1)}\Bigl((n-2m)+m(2(n-m)+1)\Bigr) \\
-=& \frac{(n-m)(2m+1)}{(m+1)(2(n-m)-1)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
- = \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.  \qedhere
+  & c_{(n),(n-m-1,m+1)} = \\
+  &= \frac{1}{(m+1)(2(n-m)-1)}\sum_{t=1}^{m+1}(n-2m-2+2t)c_{(n),\mu} \\
+  &= \frac{1}{(m+1)2(n-m)-1)}\biggl((n-2m)c_{(n),(n-m,m)}+\sum_{t=1}^{m}(n-2m+2t)c_{(n),\mu}\biggr) \\
+  &= \frac{c_{(n),(n-m,m)}}{(m+1)(2(n-m)-1)}\Bigl((n-2m)+m(2(n-m)+1)\Bigr) \\
+  &= \frac{(n-m)(2m+1)}{(m+1)(2(n-m)-1)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}\allowdisplaybreaks \\
+  &= \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
 \end{align*}
-%\begin{align*}
-% & c_{(n),\left(n-m-1,m+1\right)}  \\
-% =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\sum_{t=1}^{m+1}\left(n-2m-2+2t\right)c_{(n),\mu}\\
-%= & \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{(n),\left(n-m,m\right)}+\sum_{t=2}^{m+1}\left(n-2m-2+2t\right)c_{(n),\mu}\biggr)\\
-% =& \frac{1}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\biggl(\left(n-2m\right)c_{(n),\left(n-m,m\right)}+\sum_{t=1}^{m}\left(n-2m+2t\right)c_{(n),\mu}\biggr)\\
-% =& \frac{c_{(n),\left(n-m,m\right)}}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\Bigl(\left(n-2m\right)+m\left(2\left(n-m\right)+1\right)\Bigr) \\
-% =& \frac{\left(n-m\right)\left(2m+1\right)}{\left(m+1\right)\left(2\left(n-m\right)-1\right)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}
-% = \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
-% \qedhere
-%\end{align*}
+\vspace{-40pt}
+
+\null\qed
 \end{proof}
 
 \begin{thm}
 \label{thm:fam1}
 We have
 \begin{alignat*}{2}
-  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &\qquad& (n\geq2); \\
+  c_{(n-1,1),(n-1,1)} &= \frac{2n(n-1)}{2n-1}, &\qquad& (n\geq2);\\
   c_{(n-1,1),(n-2,2)} &= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}, && (n\geq4); \\
   c_{(n-2,2),(n-2,2)} &= \frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}, &&(n\geq4).
 \end{alignat*}
 \end{thm}
 \begin{proof}
 Using \eqref{eq:cnton1} and  \eqref{eq:CInitial} with $\lambda=(n-1,1)$, we have
-\[
-  c_{(n-1,1),(n-1,1)}=\binom{n}{n-1,1}-c_{(n),(n-1,1)}=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
-\]
+\begin{align*}
+ c_{(n-1,1),(n-1,1)}&=\binom{n}{n-1,1}-c_{(n),(n-1,1)}\\
+&=n-\frac{n}{2n-1}=\frac{2n^{2}-2n}{2n-1}=\frac{2n\left(n-1\right)}{2n-1}.
+\end{align*}
 By applying \eqref{eq:CRec}, we obtain
 \begin{align*}
   c_{(n-1,1),(n-2,2)}
@@ -797,16 +741,13 @@ By applying \eqref{eq:CRec}, we obtain
   &= \frac{(n-2+1)-(2-1)}{2n-5}\cdot\frac{2n(n-1)}{2n-1}= \frac{2n(n-1)(n-2)}{(2n-1)(2n-5)}.
 \end{align*}
 Finally, using~\eqref{eq:CInitial} and \eqref{eq:1to2}with $\lambda=(n-2,2)$, we get the last coefficient:
-\[
- c_{(n-2,2),(n-2,2)}=\binom{n}{n-2,2}-c_{(n),(n-2,2)}-c_{(n-1,1),(n-2,2)}=\frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}. \qedhere
-\]
-%\begin{align*}
-%  c_{(n-2,2),(n-2,2)}
-%  &= \binom{n}{n-2,2}-c_{(n),(n-2,2)}-c_{(n-1,1),(n-2,2)}\\
-%  &= \frac{n\left(n-1\right)}{2}-\frac{3n\left(n-1\right)}{2\left(2n-1\right)\left(2n-3\right)}-\frac{2n\left(n-1\right)\left(n-2\right)}{\left(2n-1\right)\left(2n-5\right)}\\
-%  &= \frac{2n\left(n-1\right)\left(n-2\right)\left(n-3\right)}{\left(2n-3\right)\left(2n-5\right)}.
-%
-%\end{align*}
+\begin{align*}
+ c_{(n-2,2),(n-2,2)}&=\binom{n}{n-2,2}-c_{(n),(n-2,2)}-c_{(n-1,1),(n-2,2)}\\
+&=\frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}.
+\end{align*}
+\vspace{-40pt}
+
+\null\qed
 \end{proof}
 
 It is clear that we could proceed in this manner and compute more coefficients
@@ -815,7 +756,7 @@ Since the corresponding calculations get too tedious to be done by hand, we
 employ computer algebra to determine the rational function expressions for a
 few more coefficients.  Note that, when $n$ is sufficiently large, the
 lexicographically largest elements of $\mathcal{P}_n$ are (in descending
-order): %$(n)$, $(n-1,1)$, $(n-2,2)$, $(n-2,1,1)$, $(n-3,3)$, etc.
+order): 
 \[
   (n), \; (n-1,1), \; (n-2,2), \; (n-2,1,1), \; (n-3,3), \; (n-3,2,1), \; \text{etc.}
 \]
@@ -832,22 +773,20 @@ symbolic~$n$, as it was done in the proof of Theorem~\ref{thm:fam1}. This
 symbolic proof strategy is implemented in our Mathematica package as
 \textbf{ZonalCoefficientN} (see Section~\ref{sec:mma}).
 \begin{table}
-\parbox{0.8\textwidth}{
+\begin{center}
+\parbox{0.85\textwidth}{
 $
-% \def\arraystretch{1.3}
- \begin{array}{c|cccc}
+ \begin{array}{c@{\;\;}|@{\;\;}c@{\quad}c@{\quad}c@{\quad}c}
    \kappa\backslash\lambda & (n) & (n-1,1) & (n-2,2) & (n-2,1,1)\\
    \hline \rule{0pt}{14pt}
    (n) & 1 & \frac{n}{2n-1} & \frac{3(n-1)n}{2(2n-3)(2n-1)} & \frac{(n-1)n}{(2n-3)(2n-1)}\\[1ex]
    (n-1,1) & 0 & \frac{2(n-1)n}{2n-1} & \frac{2(n-2)(n-1)n}{(2n-5)(2n-1)} & \frac{2n(2n^{2}-6n+3)}{(2n-5)(2n-1)}\\[1ex]
    (n-2,2) & 0 & 0 & \frac{2(n-3)(n-2)(n-1)n}{(2n-5)(2n-3)} & \frac{4(n-3)(n-2)(n-1)n}{3(2n-5)(2n-3)}\\[1ex]
-   (n-2,1,1) & 0 & 0 & 0 & \frac{2}{3}(n-2)n\\[1ex]
-   %(n-3,3) & 0 & 0 & 0 & 0
+   (n-2,1,1) & 0 & 0 & 0 & \frac{2}{3}(n-2)n
  \end{array}
 $ \\[1ex]
 $
-% \def\arraystretch{1.3}
- \begin{array}{c|cc}
+ \begin{array}{c@{\;\;}|@{\;\;}c@{\quad}c}
    \kappa\backslash\lambda & (n-3,3) & (n-3,2,1)\\
    \hline \rule{0pt}{14pt}
    (n) & \frac{5(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)} & \frac{3(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)}\\[1ex]
@@ -855,25 +794,11 @@ $
    (n-2,2) & \frac{2(n-4)(n-3)(n-2)(n-1)n}{(2n-9)(2n-5)(2n-3)} & \frac{2(n-3)(n-1)n(5n^{2}-30n+36)}{3(2n-9)(2n-5)(2n-3)}\\[1ex]
    (n-2,1,1) & 0 & \frac{2(n-3)(n-2)n}{3(2n-7)}\\[1ex]
    (n-3,3) & \frac{4(n-5)(n-4)(n-3)(n-2)(n-1)n}{3(2n-9)(2n-7)(2n-5)} & \frac{4(n-5)(n-4)(n-3)(n-2)(n-1)n}{5(2n-9)(2n-7)(2n-5)}\\[1ex]
-   (n-3,2,1) & 0 & \frac{4(n-4)(n-3)(n-1)n}{5(2n-7)}\\[1ex]
-   %(n-3,1,1,1) & 0 & 0
+   (n-3,2,1) & 0 & \frac{4(n-4)(n-3)(n-1)n}{5(2n-7)}
  \end{array}
-$ \\[1ex]
+$
 }
-%% \[
-%%  \def\arraystretch{1.3}
-%% \begin{array}{c|c}
-%% \kappa\backslash\lambda & (n-3,1,1,1)\\
-%% \hline (n) & \frac{(n-2)(n-1)n}{(2n-5)(2n-3)(2n-1)}\\[1ex]
-%% (n-1,1) & \frac{6(n-2)n(n^{2}-4n+2)}{(2n-7)(2n-5)(2n-1)}\\[1ex]
-%% (n-2,2) & \frac{4(n-3)(n-1)n(n^{2}-6n+7)}{(2n-9)(2n-5)(2n-3)}\\[1ex]
-%% (n-2,1,1) & \frac{2(n-2)n(2n^{2}-9n+8)}{(2n-7)(2n-3)}\\[1ex]
-%% (n-3,3) & \frac{8(n-5)(n-4)(n-3)(n-2)(n-1)n}{15(2n-9)(2n-7)(2n-5)}\\[1ex]
-%% (n-3,2,1) & \frac{6(n-4)(n-3)(n-1)n}{5(2n-7)}\\[1ex]
-%% (n-3,1,1,1) & \frac{2(n-3)(n-2)(n-1)n}{3(2n-3)}\\[1ex]
-%% (n-4,4) & 0
-%% \end{array}
-%% \]
+\end{center}
 \caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
 largest partitions of~$n$; the lower table continues the upper one
 to the right.}
@@ -890,20 +815,23 @@ $(n-2,1,1)$:
 \]
 \end{example}
 
-We also have a conjecture on  the limit of the coefficients of the form $c_{(n),(n-n',\lambda')}$.
+We formulate a conjecture on the limit, as $n$ goes to infinity,
+of the coefficients of the form $c_{(n),(n-n',\lambda')}$.
 
 \begin{conj}
 Let $n'<n$ and $\lambda'=(p_1,\ldots,p_\ell)\in\mathcal{P}_{n'}$. Then, 
 \[
-\lim_{n\to\infty} c_{(n),(n-n',\lambda') }=\prod_{i=1}^{\ell} \frac{(p_i)_{p_i}}{p_i! 2^{2p_i-1}}
+\lim_{n\to\infty} c_{(n),(n-n',\lambda') }=\prod_{i=1}^{\ell} \frac{(p_i)_{p_i}}{p_i! \, 2^{2p_i-1}}
 \]
 \end{conj}
 
 \begin{example}
 Let $n'=3$ and $\lambda'=(2,1)$. By Table \ref{tab:cn1} and the conjecture above
-\[
-\lim_{n\rightarrow\infty}c_{(n),(n-3,2,1)}=\lim_{n\rightarrow\infty}\frac{3(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)}=\frac{3}{16}=\frac{(2)_2}{2!2^{2\cdot 2-1}}\cdot\frac{(1)_1}{1!2^{2\cdot 1-1}}.
-\]
+\begin{align*}
+  \lim_{n\rightarrow\infty}c_{(n),(n-3,2,1)} &=
+  \lim_{n\rightarrow\infty}\frac{3(n-2)(n-1)n}{2(2n-5)(2n-3)(2n-1)}=\frac{3}{16} \\
+  &= \frac{(2)_2}{2! \, 2^{2\cdot 2-1}}\cdot\frac{(1)_1}{1! \, 2^{2\cdot 1-1}}.
+\end{align*}
 \end{example}
 
 The next families we study are located in the ``lower right corner'' of
@@ -926,72 +854,31 @@ $r(n)$ is some rational function in~$n$, we refined our ansatz to only search
 for expressions of this form: divide the $n$-th sequence entry by $2^n$ and
 then perform polynomial interpolation and rational reconstruction.
 \begin{table}
-\parbox{0.8\textwidth}{
+\begin{center}
+\parbox{0.85\textwidth}{
 $
-%  \def\arraystretch{1.3}
-  \begin{array}{c|ccc}
+  \begin{array}{c@{\;\;}|@{\;\;}c@{\quad}c@{\quad}c}
     \kappa\backslash\lambda
-    % & (2^6,1^{n-12}) & (2^5,1^{n-10})
     & (2^4,1^{n-8}) & (2^3,1^{n-6}) & (2^2,1^{n-4})
-    % & (2,1^{n-2}) & (1^n)
     \\ \hline
-    %% (2^6,1^{n-12})
-    %% & \frac{1}{315} 2^{n-4} (n-10) (n-9) (n-2) (n-1) n
-    %% & \frac{1}{315} 2^{n-4} (n-11) (n-10)^2 (n-2) (n-1) n
-    %% & \frac{1}{315} 2^{n-5} (n-11) (n-10)^2 (n-9) (n-2) (n-1) n
-    %% & \frac{1}{945} 2^{n-5} (n-11) (n-10)^2 (n-9) (n-6) (n-2) (n-1) n
-    %% & \frac{1}{945} 2^{n-7} (n-11) (n-10)^2 (n-9) (n-5) (n-4) (n-2) (n-1) n
-    %% & ?
-    %% & ?
-    %% \\[1ex]
-    %% (2^5,1^{n-10})
-    %% & 0
-    %% & \frac{1}{45} 2^{n-4} (n-8) (n-7) (n-1) n
-    %% & \frac{1}{45} 2^{n-4} (n-9) (n-8)^2 (n-1) n
-    %% & \frac{1}{45} 2^{n-5} (n-9) (n-8)^2 (n-7) (n-1) n
-    %% & \frac{1}{135} 2^{n-5} (n-9) (n-8)^2 (n-7) (n-4) (n-1) n
-    %% & \frac{1}{135} 2^{n-7} (n-9) (n-8)^2 (n-7) (n-3) (n-2) (n-1) n
-    %% & \frac{1}{675} 2^{n-7} (n-9) (n-8)^2 (n-7) (n-2) (n-1)^2 n^2
-    %% \\[1ex]
     \rule{0pt}{14pt}
     (2^4,1^{n-8})
-    % & 0 & 0
     & \frac{2^{n-3} (n-6) (n-5) n}{15}
     & \frac{2^{n-3} (n-7) (n-6)^2 n}{15}
     & \frac{2^{n-4} (n-7) (n-6)^2 (n-5) n}{15}
-    % & \frac{2^{n-4} (n-7) (n-6)^2 (n-5) (n-2) n}{45}
-    % & \frac{2^{n-6} (n-7) (n-6)^2 (n-5) (n-1) n^2}{45}
     \\[1ex]
     (2^3,1^{n-6})
-    % & 0 & 0
     & 0
     & \frac{2^{n-3} (n-4) (n-3)}{3}
     & \frac{2^{n-3} (n-5) (n-4)^2}{3}
-    % & \frac{2^{n-4} (n-5) (n-4)^2 (n-3)}{3}
-    % & \frac{2^{n-4} (n-5) (n-4)^2 (n-3) n}{9}
     \\[1ex]
     (2^2,1^{n-4})
-    % & 0 & 0
     & 0 & 0
     & \frac{2^{n-1} (n-2) (n-1)}{3 (n+1)}
-    % & \frac{2^{n-1} (n-3) (n-2)^2}{3 (n+1)}
-    % & \frac{2^{n-2} (n-3) (n-2)^2 (n-1)}{3 (n+1)}
-    %% \\[1ex]
-    %% (2,1^{n-2})
-    %% % & 0 & 0
-    %% & 0 & 0 & 0
-    %% % & \frac{2^{n-1} n}{n+2}
-    %% % & \frac{2^{n-1} (n-1) n^2}{(n+1) (n+2)}
-    %% \\[1ex]
-    %% (1^n)
-    %% % & 0 & 0
-    %% & 0 & 0 & 0
-    %% % & 0 & \frac{2^n}{n+1}
   \end{array}
 $ \\[1ex]
 $
-%  \def\arraystretch{1.3}
-  \begin{array}{c|cc}
+  \begin{array}{c@{\;\;}|@{\;\;}c@{\quad}c}
     \kappa\backslash\lambda
     & (2,1^{n-2}) & (1^n) \\ \hline
     \rule{0pt}{14pt}
@@ -1014,8 +901,9 @@ $
     (1^n)
     & 0 & \frac{2^n}{n+1}
   \end{array}
-$ \\[1ex]
+$
 }
+\end{center}
 \caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
   smallest partitions of~$n$; the lower table continues the upper one to the
   right.}
@@ -1051,13 +939,13 @@ parts. First of all, it is easy to compute that
 \[
   \rho_{\kappa}-\rho_{\lambda} = d\cdot(2b-2d+1).
 \]
-Then, the recurrence~\eqref{eq:CRec} can be written as, by noting that
+Then, recurrence~\eqref{eq:CRec} can be written as, by noting that
 $\lambda$ has only two parts,
 \begin{align}\label{eq:rec2}
-  c_{\kappa,\lambda} &= c_{(a,a-b),(a-d,a-b+d)} =
-  \sum_{\lambda<\mu\leq\kappa}\frac{(a-d+t)-(a-b+d-t)}{\rho_{\kappa}-\rho_{\lambda}} c_{\kappa,\mu} \\
-  &= \sum_{t=1}^d\frac{b-2d+2t}{d\,(2b-2d+1)}c_{(a,a-b),(a-d+t,a-b+d-t)} 
-  = \sum_{j=0}^{d-1} \frac{b-2j}{d\,(2b-2d+1)}c_{(a,a-b),(a-j,a-b+j)}. \notag
+  c_{\kappa,\lambda} = c_{(a,a-b),(a-d,a-b+d)} &=
+  \sum_{\lambda<\mu\leq\kappa}\frac{(a-d+t)-(a-b+d-t)}{\rho_{\kappa}-\rho_{\lambda}} c_{\kappa,\mu} \notag \\
+  &= \sum_{t=1}^d\frac{b-2d+2t}{d\,(2b-2d+1)}c_{(a,a-b),(a-d+t,a-b+d-t)} \notag \\ 
+  & = \sum_{j=0}^{d-1} \frac{b-2j}{d\,(2b-2d+1)}c_{(a,a-b),(a-j,a-b+j)}. \allowdisplaybreaks
 \end{align}
 
 \begin{example}\label{ex:twoparts}
@@ -1067,25 +955,10 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   c_{(a,a-b),(a-1,a-b+1)} &=
     \frac{b}{2b-1}\,c_{(a,a-b),(a,a-b)}, \\
   c_{(a,a-b),(a-2,a-b+2)} &=
-%    \frac{1}{4b-6}\Bigl((b-2)\,c_{(a,a-b),(a-1,a-b-1)}+b\,c_{(a,a-b),(a,a-b)}\Bigr) \\
-%  &= \frac{c_{(a,a-b),(a,a-b)}}{4b-6}\left(\frac{(b-2)b}{2b-1}+b\right) \\
-%  &= 
 \frac{3b(b-1)}{2(2b-1)(2b-3)}\,c_{(a,a-b),(a,a-b)}, \\
   c_{(a,a-b),(a-3,a-b+3)} &=
-%    \frac{1}{3(2b-5)}\Bigl((b-4)c_{(a,a-b),(a-2,a-b+2)} \\
-%    &\qquad +(b-2)c_{(a,a-b),(a-1,a-b+1)}+b\, c_{(a,a-b),(a,a-b)}\Bigr)\\
-%  &= \frac{c_{(a,a-b),(a,a-b)}}{3(2b-5)}
-%    \left((b-4)\frac{3b(b-1)}{2(2b-1)(2b-3)}+\frac{3b(b-1)}{2b-1}\right)\\
-%  &= 
 \frac{5b(b-1)(b-2)}{2(2b-1)(2b-3)(2b-5)}\,c_{(a,a-b),(a,a-b)}.
 \end{align*}
-%% \item For $\lambda=\left(a-4,a-b+4\right)$, 
-%% \begin{align*}
-%% c_{(a,a-b),\left(a-4,a-b+4\right)} & =\frac{1}{4\left(2b-7\right)}\left[\left(b-6\right)c_{(a,a-b),(a-3,a-b+3)}+c_{(a,a-b),(a-3,a-b+3)}\cdot3\left(2b-5\right)\right]\\
-%%  & =\frac{7\left(b-3\right)}{4\left(2b-7\right)}c_{(a,a-b),(a-3,a-b+3)}\\
-%%  & =\frac{7\cdot5b\left(b-1\right)\left(b-2\right)\left(b-3\right)}{4\cdot2\left(2b-1\right)\left(2b-3\right)\left(2b-5\right)\left(2b-7\right)}c_{(a,a-b),(a,a-b)}\\
-%%  & =\frac{7\cdot5\cdot3b\left(b-1\right)\left(b-2\right)\left(b-3\right)}{4\cdot3\cdot2\left(2b-1\right)\left(2b-3\right)\left(2b-5\right)\left(2b-7\right)}c_{(a,a-b),(a,a-b)}
-%% \end{align*}
 \end{example}
 
 \begin{prop}\label{prop:p2row}
@@ -1122,7 +995,7 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   \[
     g(d) = \binom{b}{d}\cdot\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}},
   \]
-  which matches exactly the left-hand side of~\eqref{eq:sumid}.
+  which matches exactly the left-hand side of~\eqref{eq:sumid}. \qed
 \end{proof}
 
 
@@ -1138,12 +1011,11 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
 \begin{proof}
   We first show that the asserted expression is compatible with the result of
   Proposition~\ref{prop:p2row}: indeed, by computing the quotient
-  
   \begin{align*}
     \frac{c_{(a,a-b),(a-d,a-b+d)}}{c_{(a,a-b),(a,a-b)}} &=
     \frac{(2a-b)! \, \bigl(b+\frac12\bigr) \, \bigl(\frac12\bigr)_{\!d} \cdot
       (a-b)! \, b! \, \bigl(b+\frac12\bigr)_{\!a-b+1}}
-      {d! \, (a-b)! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1} \cdot
+      {d! \, (a-b)! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1} \!\cdot
         (2a-b)! \, \bigl(b+\frac12\bigr)} \\
     &= \frac{b! \, \bigl(\frac12\bigr)_{\!d} \, \bigl(b+\frac12\bigr)_{\!a-b+1}}
       {d! \, (b-d)! \, \bigl(b-d+\frac12\bigr)_{\!a-b+d+1}}
@@ -1169,11 +1041,11 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   verifying~\eqref{eq:sumid2}.
   For this purpose, we denote by $f(a,b,d)$ the expression inside the
   sum~\eqref{eq:sumid2} and construct two WZ pairs, i.e., two functions
-%  \allowdisplaybreaks
   \begin{align*}
     g_1(d) &= \frac{-2d(b+d)}{(a-b-d+1)(2b+4d+1)}\cdot f(a,b,d) \\
     &= -\frac{a! \, (a-b)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d-1)! \, (a-b-d+1)! \, \bigl(b+d+\frac12\bigr)_{\!a-b+1}}, \\
-    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d)= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
+    g_2(d) &= \frac{d(2a+2d+1)}{(a-b)(2b+4d+1)} \cdot f(a,b,d)\\
+  &= \frac{a! \, (a-b-1)! \, \bigl(\frac12\bigr)_{\!d}}{(d-1)! \, (b+d)! \, (a-b-d)! \, \bigl(b+d+\frac12\bigr)_{\!a-b}},
   \end{align*}
   such that the following identities hold (they can be verified by routine
   calculations):
@@ -1194,7 +1066,7 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   of~$a$. Summing over \eqref{eq:WZ2}, followed by a similar calculation,
   shows that the sum does not depend on~$b$ either. Therefore, the sum
   in~\eqref{eq:sumid2} is constant, and by setting $a=b=0$, one immediately
-  sees that this constant is~$1$.
+  sees that this constant is~$1$. \qed
 \end{proof}
 
 \begin{rem}
@@ -1233,12 +1105,6 @@ special cases that $\kappa$ has three resp.\ four parts.
  c_{\kappa,\kappa}=\frac{(c+1)!}{(a+1)!} \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \,
      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \, \bigl(\delta_2+\frac32\bigr)_{\!\delta_3}}, 
  \] 
-%  \begin{align*}
-%    c_{\kappa,\kappa} &= \frac{(c+1)! \, (3a-b-c)!}
-%    {(a+1)! \, b! \, (c-b)! \, (a-c)! \, \bigl(b+\frac32\bigr)_{\!c-b} \, \bigl(c-b+\frac32\bigr)_{\!a-c}} \\
-%    &= \frac{(c+1)!}{(a+1)!} \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \,
-%      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \, \bigl(\delta_2+\frac32\bigr)_{\!\delta_3}}
-%  \end{align*}
   with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$, and
   $\delta_3=\kappa_3-\kappa_4=a-c$ being the differences between consecutive
   parts of~$\kappa$ (with the convention $\kappa_4=0$).
@@ -1248,21 +1114,11 @@ special cases that $\kappa$ has three resp.\ four parts.
   Let $\kappa=(a,a-b,a-c,a-d)$ with integers $0\leq b\leq c\leq d\leq a$ be a
   partition of $n=4a-b-c-d$ into at most four parts. Then the diagonal
   coefficient $c_{\kappa,\kappa}$ is given by
- \[ 
-c_{\kappa,\kappa}=\frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
+\[
+\frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
     \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \, \delta_4! \,
       \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}},  
-\]  
-%  \begin{align*}
-%    c_{\kappa,\kappa} &= \frac{(c+1)! \, (d-b+1)! \, (4a-b-c-d)!}
-%    {(a-b+1)! \, (d+1)! \, b! \, (c-b)! \, (d-c)! \, (a-d)!} \\
-%    &\qquad\times\frac{1}{
-%      \bigl(d+\frac52\bigr)_{\!a-d} \, \bigl(b+\frac32\bigr)_{\!c-b} \, 
-%      \bigl(c-b+\frac32\bigr)_{\!d-c} \, \bigl(d-c+\frac32\bigr)_{\!a-d}} \\
-%    &= \frac{(c+1)! \, (d-b+1)!}{(a-b+1)! \, (d+1)! \,  \bigl(d+\frac52\bigr)_{\!a-d}}
-%    \cdot \frac{n!}{\delta_1! \, \delta_2! \, \delta_3! \, \delta_4! \,
-%      \bigl(\delta_1+\frac32\bigr)_{\!\delta_2} \bigl(\delta_2+\frac32\bigr)_{\!\delta_3} \bigl(\delta_3+\frac32\bigr)_{\!\delta_4}}
-%  \end{align*}
+\]
   with $\delta_1=\kappa_1-\kappa_2=b$, $\delta_2=\kappa_2-\kappa_3=c-b$,
   $\delta_3=\kappa_3-\kappa_4=d-c$, and $\delta_4=\kappa_4-\kappa_5=a-d$ being
   the differences between consecutive parts of~$\kappa$.
@@ -1275,59 +1131,46 @@ We have verified Conjecture~\ref{conj:diag3} for all $0\leq b\leq c\leq a\leq
 \begin{rem}
 Conjecture \ref{conj:diag3} with $c=a$ reduces to  Theorem~\ref{thm:cf2}  with $d=0$. Similarly, by letting $d=a$ in
 Conjecture \ref{conj:diag4}, we have Conjecture \ref{conj:diag3}. 
-%  Note that by specializing the formula in Conjecture~\ref{conj:diag3} to a
-%  partition~$\kappa$ with at most two parts, i.e., by setting $c=a$ and
-%  identifying $(a,a-b,0)$ with $(a,a-b)$, we obtain the formula in
-%  Theorem~\ref{thm:cf2} with $d=0$. Similarly, the formula in
-%  Conjecture~\ref{conj:diag4} specializes to the one in
-%  Conjecture~\ref{conj:diag3} after setting $d=a$.
 \end{rem}
 
 
 \section{SageMath package for the calculation of zonal polynomials}\label{sec:Package}
 
-We briefly present the main functionality of this package and give a few examples. This package \texttt{Zonal.sage} is freely available at
-\url{https://jiulin90.github.io/package.html}.  On the same website, we provide a
+We briefly present the main functionality of the package \texttt{Zonal.sage},
+which is freely available at \url{https://jiulin90.github.io/package.html},
+and give a few examples. On the same website, we provide a
 manual with further examples of its usage.
 
-Let $\kappa, \lambda\in\mathcal{P}_n$ be partitions and $Y=(y_1,\ldots,y_m)$ be the variables.
+Let $\kappa, \lambda\in\mathcal{P}_n$ be partitions and $Y=(a, b, c, \ldots )$ be the variables.
 \vspace{10bp}
 
 \noindent \textbf{CZonal}$(\lambda, Y)$
 computes the zonal polynomial $\mathcal{C}_{\lambda}(Y)$, by \eqref{eq:CInTermsOfM}.
 
-\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
-\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}
 
-\texttt{\textcolor{orange}{sage:}}\texttt{ var(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{a}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{b}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{,}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{c}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
+\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{\textcolor{cyan}{Zonal.sage}}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{)}
+
+\texttt{\textcolor{orange}{sage:}}\texttt{ var(}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{\textcolor{cyan}{a}}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{,}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{\textcolor{cyan}{b}}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{,}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{\textcolor{cyan}{c}}\texttt{\textcolor{cyan}{\textsf{'}}}\texttt{)}
 
 \texttt{(a,b,c)}
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
-%
-%\texttt{32/3{*}a\textasciicircum{}2{*}b\textasciicircum{}2{*}c + 32/3{*}a\textasciicircum{}2{*}b{*}c\textasciicircum{}2
-%+ 32/3{*}a{*}b\textasciicircum{}2{*}c\textasciicircum{}2 }
-
 \texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
 
 \texttt{12/5{*}a\textasciicircum{}2{*}b + 12/5{*}a{*}b\textasciicircum{}2
-+ 12/5{*}a\textasciicircum{}2{*}c + 18/5{*}a{*}b{*}c + 12/5{*}b\textasciicircum{}2{*}c
-+ 12/5{*}a{*}c\textasciicircum{}2 + 12/5{*}b{*}c\textasciicircum{}2 }
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ CZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
-%
-%\texttt{0}%
++ 12/5{*}a\textasciicircum{}2{*}c + 18/5{*}a{*}b{*}c + 12/5{*}b\textasciicircum{}2{*}c}
+
+\texttt{+ 12/5{*}a{*}c\textasciicircum{}2 + 12/5{*}b{*}c\textasciicircum{}2 }
 \end{minipage}}
 
 
 
-\vspace{10bp}
+\vspace{5bp}
 
 \noindent \textbf{MZonal}$(\lambda,Y)$
 computes the monomial symmetric function $M_{\lambda}(Y)$ 
 by \eqref{eq:MZonalComputation}.
 
-\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}
 
 \texttt{\textcolor{orange}{sage:}}\texttt{ MZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
 
@@ -1338,35 +1181,17 @@ by \eqref{eq:MZonalComputation}.
 
 \texttt{a\textasciicircum{}2{*}b + a{*}b\textasciicircum{}2 + a\textasciicircum{}2{*}c
 + b\textasciicircum{}2{*}c + a{*}c\textasciicircum{}2 + b{*}c\textasciicircum{}2}
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ MZonal({[}}\texttt{\textcolor{cyan}{2}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{1}}\texttt{{]},{[}a,b,c{]})}
-%
-%\texttt{0}%
 \end{minipage}}
 
-\vspace{10bp}
+\vspace{5bp}
 
 \noindent \textbf{Coeffi}$(\kappa,\lambda)$
 computes the coefficient~$c_{\kappa,\lambda}$ for partitions $\kappa\geq\lambda$, by (\ref{eq:CRec}) and (\ref{eq:CInitial}). 
 
-\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ load(}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{\textcolor{cyan}{Zonal.sage}}\inputencoding{latin1}{\texttt{\textcolor{cyan}{\textsf{'}}}}\inputencoding{latin9}\texttt{)}
-
+\noindent\fbox{\begin{minipage}[t]{0.98\columnwidth \fboxsep \fboxrule}
 \texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{{]})}
 
 \texttt{82944/1925}
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]})}
-%
-%\texttt{768/11}
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{9}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{9}}\texttt{{]})}
-%
-%\texttt{1}
-%
-%\texttt{\textcolor{orange}{sage:}}\texttt{ Coeffi({[}}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{,}\texttt{\textcolor{cyan}{3}}\texttt{{]},{[}}\texttt{\textcolor{cyan}{5}}\texttt{\textcolor{black}{,}}\texttt{\textcolor{cyan}{4}}\texttt{{]})}
-%
-%\texttt{0}%
 \end{minipage}}
 
 \begin{rem}
@@ -1394,19 +1219,12 @@ Conjecture \ref{conj:diag3} with $c_{(4,1,1)(4,1,1)}=
 \end{center}
 \end{rem}
 
-% Lin's experiments and timings:
-% Using our algorithm for C_{[2,2,1]}([a,b,c]) and SymmetricFunctions for Z[2,2,1]:
-%   The latter takes almost 100 times of the former (3.49ms VS 291ms).
-% While for partition [5,3,2], our algorithm gives the result in 25.9 ms,
-%   while for the Z[5,3,2], I waited for about 10 mins, but nothing comes out.
-% [4,2,1]: Our algorithm uses 6.3ms while Z[4,2,1] uses 1.05s
-
 
 \section{Mathematica package for the calculation of zonal polynomials}\label{sec:mma}
 
 We briefly describe our implementation of zonal polynomials in Mathematica.
-Our software package \texttt{ZonalPolynomials.m} is freely available at
-\url{www.koutschan.de/data/zonal/}.  On the same website, we provide a
+Our software package \texttt{ZonalPolynomials.m} is freely available on
+the website \url{www.koutschan.de/data/zonal/}. There we also provide a
 demo notebook with further examples of its usage. The main functions of the
 package are the following:
 \medskip
@@ -1420,7 +1238,6 @@ in terms of the monomial symmetric functions~$M_\lambda$.
     \frac{32}{7}\,|M|[3, 1, 1] + \frac{64}{7}\,|M|[2, 1, 1, 1] +
     \frac{80}{7}\,|M|[1, 1, 1, 1, 1] \\
 \end{mma}
-\medskip
 
 \noindent\textbf{ZonalPolynomial}$[\lambda, \{y_1,\dots,y_m\}]$
 gives the zonal polynomial indexed by the partition~$\lambda$,
@@ -1429,7 +1246,6 @@ as a symmetric polynomial in the variables $y_1,\dots,y_m$.
   \In |ZonalPolynomial|[\{2,1\}, \{a,b,c\}] \\
   \Out \frac{12}{5}\,\bigl(a^2 b+a^2 c+a b^2+a c^2+b^2 c+b c^2\bigr)+\frac{18}{5} a b c \\
 \end{mma}
-\medskip
 
 \noindent\textbf{ZonalCoefficient}$[\kappa, \lambda]$
 computes the zonal polynomial coefficient~$c_{\kappa,\lambda}$ recursively
@@ -1438,28 +1254,18 @@ by using \eqref{eq:CRec} and \eqref{eq:CInitial}.
   \In |ZonalCoefficient|[\{8, 6, 6, 3\}, \{7, 7, 5, 3, 1\}] // |Timing| \\
   \Out \left\{4.60311, \frac{33426505728}{5} \right\} \\
 \end{mma}
-\medskip
 
 \noindent\textbf{ZonalCoefficientTable}$[n]$
 generates a table with all zonal polynomial coefficients~$c_{\kappa,\lambda}$,
 where $\kappa$ and $\lambda$ are partitions of~$n$.
 \begin{mma}
-  \In |ZonalCoefficientTable|[4] \\ % // |TableForm| \\
-  \Out \Bigl\{\Bigl\{1,\frac{4}{7},\frac{18}{35},\frac{12}{35},\frac{8}{35}\Bigr\},
+  \In |ZonalCoefficientTable|[4] \\
+  \Out \biggl\{\Bigl\{1,\frac{4}{7},\frac{18}{35},\frac{12}{35},\frac{8}{35}\Bigr\},
     \Bigl\{0,\frac{24}{7},\frac{16}{7},\frac{88}{21},\frac{32}{7}\Bigr\},
     \Bigl\{0,0,\frac{16}{5},\frac{32}{15},\frac{16}{5}\Bigr\},
-    \Bigl\{0,0,0,\frac{16}{3},\frac{64}{5}\Bigr\},
-    \Bigl\{0,0,0,0,\frac{16}{5}\Bigr\}\Bigr\} \kern-8pt \\
-%  \Out \\
+    \Bigl\{0,0,0,\frac{16}{3},\frac{64}{5}\Bigr\}, \linebreak
+    \phantom{\biggl\{}\Bigl\{0,0,0,0,\frac{16}{5}\Bigr\}\biggr\} \\
 \end{mma}
-%% $\begin{array}{ccccc}
-%%     1 & \frac{4}{7} & \frac{18}{35} & \frac{12}{35} & \frac{8}{35} \\[1ex]
-%%     0 & \frac{24}{7} & \frac{16}{7} & \frac{88}{21} & \frac{32}{7} \\[1ex]
-%%     0 & 0 & \frac{16}{5} & \frac{32}{15} & \frac{16}{5} \\[1ex]
-%%     0 & 0 & 0 & \frac{16}{3} & \frac{64}{5} \\[1ex]
-%%     0 & 0 & 0 & 0 & \frac{16}{5}
-%%  \end{array}$
-\bigskip
 
 \noindent\textbf{ZonalCoefficientN}$[\kappa, \lambda]$
 gives a symbolic expression (a rational function in~$n$) for the
@@ -1470,15 +1276,14 @@ where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
   \In |ZonalCoefficientN|[\{n-3,2,1\},\{n-4,2,2\}] \\
   \Out \frac{4 (n-3) (n-1) n (2 n^2-18 n+39)}{5 (2 n-11) (2 n-7)} \\
 \end{mma}
-\bigskip
 
 \paragraph*{Acknowledgment}
 We are grateful to Akimichi Takemura for helpful comments and to Yi Zhang for
 stimulating discussions.
-The first author also would like to thank Prof.~Raymond Kan, who, after the
+The first author also would like to thank Raymond Kan, who, after the
 submission of the original draft, contributed to the SageMath program and now
 becomes a co-contributor.
-
+Both authors were supported by the Austrian Science Fund (FWF): P29467-N32, and the second author was also supported by F5011-N15.
 
 
 \bibliographystyle{plain}
