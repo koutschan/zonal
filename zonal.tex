@@ -234,7 +234,7 @@ for $\kappa=\left(\kappa_1,\ldots,\kappa_j\right),\lambda=\left(\lambda_1,\ldots
 Then, we can write the basis formed by~$\mathcal{U}_{\lambda}$
 as a column vector:
 $
-\mathcal{U}:=\bigl(\mathcal{U}_{(n)},\allowbreak \mathcal{U}_{(n-1,1)},\ldots,\mathcal{U}_{(1,\ldots,1)}\bigr){}^{T}.
+\mathcal{U}:=\bigl(\mathcal{U}_{(n)},\allowbreak \mathcal{U}_{(n-1,1)},\ldots,\mathcal{U}_{(1,\ldots,1)}\bigr){}^{T}\!.
 $
 This subsection presents a definition of $\mathcal{C}_{\lambda}(Y)$
 related to the Wishart distribution, defined as follows.
@@ -560,7 +560,7 @@ result here and give a simple proof of it.
     c_{\kappa,\lambda} \underbrace{M_{\lambda}(y_1,\dots,y_{k-1})}_{=0}.
 \end{align*}
   Now, it is apparent that all coefficients $c_{\kappa,\lambda}$
-  for which $\lambda$ has fewer parts than~$k$ must be zero.\qed
+  for which $\lambda$ has fewer parts than~$k$ must be zero.
 \end{proof}
 
 While Lemma~\ref{lem:zero1} only gives a necessary condition under which
@@ -587,7 +587,7 @@ same length.
   \[
     (\lambda_1,\dots,\lambda_{k-1},\lambda_r+t,\lambda_k,\dots,
     \lambda_{r-1},\lambda_{r+1},\dots,\lambda_{s-1},\lambda_{s+1},\dots,
-    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots\!).
+    \lambda_{\ell},\lambda_s-t,\lambda_{\ell+1},\dots).
   \]
   Then we have
   \[
@@ -647,7 +647,7 @@ Thus, we only focus on the case that $\rho_\kappa>\rho_\lambda$. It is not diffi
   such that $\sum_{i=1}^r (\kappa_i - \lambda_i) > 0$, and all partitions in
   this sequence do not satisfy~\eqref{eq:prop}. The recursion ends when there
   is no such~$r$, i.e., when $\lambda=\kappa$, and one sees that the
-  contribution of $c_{\kappa,\kappa}\neq0$ makes $c_{\kappa,\lambda}$ positive.\qed
+  contribution of $c_{\kappa,\kappa}\neq0$ makes $c_{\kappa,\lambda}$ positive.
 \end{proof}
 
 \begin{example}
@@ -663,7 +663,7 @@ partitions.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.61\textwidth]{zeros.pdf}
+    \includegraphics[width=0.56\textwidth]{zeros.pdf}
   \end{center}
   \caption{Location of zeros in the $c_{\kappa,\lambda}$-matrix for $n=16$:
   each nonzero coefficient is represented by a white square, each zero
@@ -712,11 +712,8 @@ Now, assume \eqref{eq:1to2} holds for $m$. Considering the case $m+1$, we have
   &= \frac{1}{(m+1)2(n-m)-1)}\biggl((n-2m)c_{(n),(n-m,m)}+\sum_{t=1}^{m}(n-2m+2t)c_{(n),\mu}\biggr) \\
   &= \frac{c_{(n),(n-m,m)}}{(m+1)(2(n-m)-1)}\Bigl((n-2m)+m(2(n-m)+1)\Bigr) \\
   &= \frac{(n-m)(2m+1)}{(m+1)(2(n-m)-1)}\cdot\binom{n}{m}\frac{\bigl(\frac12\bigr)_m}{\bigl(n-m+\frac12\bigr)_m}\allowdisplaybreaks \\
-  &= \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.
+  &= \binom{n}{m+1}\cdot\frac{\bigl(\frac12\bigr)_{m+1}}{\bigl(n-m-\frac12\bigr)_{m+1}}.\qedhere
 \end{align*}
-\vspace{-40pt}
-
-\null\qed
 \end{proof}
 
 \begin{thm}
@@ -743,11 +740,8 @@ By applying \eqref{eq:CRec}, we obtain
 Finally, using~\eqref{eq:CInitial} and \eqref{eq:1to2}with $\lambda=(n-2,2)$, we get the last coefficient:
 \begin{align*}
  c_{(n-2,2),(n-2,2)}&=\binom{n}{n-2,2}-c_{(n),(n-2,2)}-c_{(n-1,1),(n-2,2)}\\
-&=\frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}.
+&=\frac{2n(n-1)(n-2)(n-3)}{(2n-3)(2n-5)}.\qedhere
 \end{align*}
-\vspace{-40pt}
-
-\null\qed
 \end{proof}
 
 It is clear that we could proceed in this manner and compute more coefficients
@@ -797,7 +791,7 @@ $
    (n-3,2,1) & 0 & \frac{4(n-4)(n-3)(n-1)n}{5(2n-7)}
  \end{array}
 $
-}
+}\\[3ex]
 \end{center}
 \caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
 largest partitions of~$n$; the lower table continues the upper one
@@ -902,13 +896,13 @@ $
     & 0 & \frac{2^n}{n+1}
   \end{array}
 $
-}
+}\\[3ex]
 \end{center}
 \caption{Coefficients $c_{\kappa,\lambda}$ for some of the lexicographically
   smallest partitions of~$n$; the lower table continues the upper one to the
   right.}
 \label{tab:cn2}
-\vspace{-10bp}
+%\vspace{-10bp}
 \end{table}
 
 \section{Partitions with two parts}\label{sec:2parts}
@@ -995,7 +989,7 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   \[
     g(d) = \binom{b}{d}\cdot\frac{\bigl(\frac12\bigr)_{\!d}}{\bigl(b-d+\frac12\bigr)_{\!d}},
   \]
-  which matches exactly the left-hand side of~\eqref{eq:sumid}. \qed
+  which matches exactly the left-hand side of~\eqref{eq:sumid}.
 \end{proof}
 
 
@@ -1066,7 +1060,7 @@ We consider some specific examples.  For $d=1,2,3$, recursively applying \eqref{
   of~$a$. Summing over \eqref{eq:WZ2}, followed by a similar calculation,
   shows that the sum does not depend on~$b$ either. Therefore, the sum
   in~\eqref{eq:sumid2} is constant, and by setting $a=b=0$, one immediately
-  sees that this constant is~$1$. \qed
+  sees that this constant is~$1$.
 \end{proof}
 
 \begin{rem}
@@ -1184,6 +1178,7 @@ by \eqref{eq:MZonalComputation}.
 \end{minipage}}
 
 \vspace{5bp}
+\pagebreak[1]
 
 \noindent \textbf{Coeffi}$(\kappa,\lambda)$
 computes the coefficient~$c_{\kappa,\lambda}$ for partitions $\kappa\geq\lambda$, by (\ref{eq:CRec}) and (\ref{eq:CInitial}). 
