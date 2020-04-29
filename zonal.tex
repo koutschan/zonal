@@ -50,7 +50,10 @@
 
 \begin{document}
 
-\title{Calculation and Properties of Zonal Polynomials}
+\title{Calculation and Properties of Zonal Polynomials%
+  \footnote{This is a post-peer-review, pre-copyedit version of an article published in
+    Mathematics in Computer Science. The final authenticated version is available online
+    at: http://dx.doi.org/10.1007/s11786-020-00458-0}}
 
 \author{Lin Jiu}
 \address{%
@@ -91,7 +94,7 @@ CK was supported by the Austrian Science Fund (FWF): P29467-N32 and F5011-N15.
 
 \maketitle
 
-
+\vspace{-8pt}
 
 \section{Introduction}
 At the beginning of our study, we recall the generalized hypergeometric
@@ -443,9 +446,9 @@ the projection
 Note that \eqref{eq:projection} confirms \eqref{eq:TrZonal}. 
 \end{rem}
 
-\subsection{A short remark on Macdonald, Jack and zonal polynomials}
+\subsection{A short remark on Macdonald, Jack and zonal polynomials}\label{sec:Macdonald}
 
-A special case of the Macdonald polynomials gives the Jack polynomials $J_{\lambda}^{(\alpha)}$,
+A limit case (by taking $t=q^\alpha$ and letting $q\rightarrow 1$) of the Macdonald polynomials gives the Jack polynomials $J_{\lambda}^{(\alpha)}$,
 which when $\alpha=2$, gives the zonal polynomials $\mathcal{Z}_\lambda(Y)$. $\mathcal{Z}_\lambda(Y)$ differs from $\mathcal{C}_\lambda(Y)$ only by a constant factor. 
 
 \section{Calculation of zonal polynomials}\label{sec:calc}
@@ -1273,8 +1276,8 @@ where $\pi$ is a partition of~$i$ and where $n$ is symbolic.
 \end{mma}
 
 \paragraph*{Acknowledgment}
-We are grateful to Akimichi Takemura for helpful comments and to Yi Zhang for
-stimulating discussions.
+We are grateful to Akimichi Takemura for helpful comments,  to Yi Zhang for
+stimulating discussions, and to Tom Koornwinder for his comments on the relation between Macdonald polynomials and Jack polynomials. 
 The first author also would like to thank Raymond Kan, who, after the
 submission of the original draft, contributed to the SageMath program and now
 becomes a co-contributor.
